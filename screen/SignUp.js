@@ -1,0 +1,278 @@
+import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { A } from "@expo/html-elements";
+import { LogoImage } from "../assets/";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Checkbox from "expo-checkbox";
+import { View, Text, Image, ScrollView, Pressable } from "react-native";
+import {
+  NativeBaseProvider,
+  Button,
+  FormControl,
+  Input,
+  Select,
+} from "native-base";
+
+const SignUp = () => {
+  const navigation = useNavigation();
+  const [show, setShow] = useState(false);
+  const [isCondition, SetIsCondition] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [inputData, setInputData] = useState({
+    userName: "",
+    password: "",
+    lastName: "",
+    job: "",
+    jobCategory: "",
+  });
+  const [isDataEmpty, setIsDataEmpty] = useState({
+    userName: false,
+    password: false,
+    lastName: false,
+    job: false,
+    jobCategory: false,
+  });
+
+  const submitData = () => {
+    if (
+      inputData.userName != "" &&
+      inputData.password != "" &&
+      inputData.lastName != "" &&
+      inputData.job != "" &&
+      inputData.jobCategory != "" &&
+      isCondition
+    ) {
+      // api
+      setIsLoading(true);
+      setTimeout(() => {
+        navigation.navigate("Home");
+        setIsLoading(false);
+      }, 9000);
+    } else {
+      if (inputData.userName == "") {
+        setIsDataEmpty((prev) => {
+          return { ...prev, userName: true };
+        });
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, userName: false };
+        });
+      }
+      // if (inputData.password.length < 8) {
+      //   setIsDataEmpty((prev) => {
+      //     return { ...prev, password: true };
+      //   });
+      // } else {
+      //   setIsDataEmpty((prev) => {
+      //     return { ...prev, password: false };
+      //   });
+      // }
+      if (inputData.lastName == "") {
+        setIsDataEmpty((prev) => {
+          return { ...prev, lastName: true };
+        });
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, lastName: false };
+        });
+      }
+      if (inputData.job == "") {
+        setIsDataEmpty((prev) => {
+          return { ...prev, job: true };
+        });
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, job: false };
+        });
+      }
+      if (inputData.jobCategory == "") {
+        setIsDataEmpty((prev) => {
+          return { ...prev, jobCategory: true };
+        });
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, jobCategory: false };
+        });
+      }
+      if (!isCondition) {
+      }
+    }
+  };
+
+  return (
+    <NativeBaseProvider>
+      <ScrollView className="bg-white flex-1">
+        <View className="items-center justify-center pt-7 w-full pb-10">
+          <View className="w-32 h-32 mb-2">
+            <Image source={LogoImage} className="w-full h-full object-cover" />
+          </View>
+          <View className="flex-col items-center justify-center w-full">
+            <Text className="text-[30px] text-[black] mb-1 text-bold">
+              Inscription
+            </Text>
+            <Text>creer votre compte</Text>
+          </View>
+
+          <View className="w-full px-8 items-center justify-center flex-col pt-5 gap-5">
+            <FormControl isInvalid={isDataEmpty.userName}>
+              <Input
+                placeholder="Nom d'utilisateur"
+                type="text"
+                className="text-sm"
+                name="userName"
+                onChangeText={(value) =>
+                  setInputData({ ...inputData, userName: value })
+                }
+              />
+              <FormControl.HelperText>
+                Veuillez renseigner un seul nom
+              </FormControl.HelperText>
+              <FormControl.ErrorMessage>
+                Ce champ ne doit pas etre vide.
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isDataEmpty.lastName}>
+              <Input
+                placeholder="Votre nom"
+                type="text"
+                className="text-sm"
+                onChangeText={(value) =>
+                  setInputData({ ...inputData, lastName: value })
+                }
+              />
+              <FormControl.ErrorMessage>
+                Ce champ ne doit pas etre vide.
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isDataEmpty.password}>
+              <Input
+                placeholder="Mot de passe"
+                type={show ? "text" : "password"}
+                className="text-sm"
+                onChangeText={(value) =>
+                  setInputData({ ...inputData, password: value })
+                }
+                InputRightElement={
+                  <Pressable onPress={() => setShow(!show)}>
+                    <MaterialIcons
+                      name={show ? "visibility" : "visibility-off"}
+                      size={25}
+                      mr="2"
+                      color="black"
+                      style={{ marginRight: 13 }}
+                    />
+                  </Pressable>
+                }
+              />
+              <FormControl.ErrorMessage>
+                Le mot de passe doit contenir au moins 8 caracteres
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isDataEmpty.job}>
+              <Input
+                placeholder="Nom de votre metier"
+                type="text"
+                className="text-sm"
+                onChangeText={(value) =>
+                  setInputData({ ...inputData, job: value })
+                }
+              />
+              <FormControl.ErrorMessage>
+                Ce champ ne doit pas etre vide.
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isDataEmpty.jobCategory}>
+              <Select
+                accessibilityLabel="Selectionner votre categorie"
+                placeholder="Selectionner votre categorie"
+                className="text-sm"
+                _selectedItem={{
+                  bg: "teal.600",
+                }}
+                mt="1"
+                onValueChange={(value) =>
+                  setInputData({ ...inputData, jobCategory: value })
+                }
+              >
+                <Select.Item label="UX Research" value="ux" />
+                <Select.Item label="Web Development" value="web" />
+                <Select.Item label="Cross Platform Development" value="cross" />
+                <Select.Item label="UI Designing" value="ui" />
+                <Select.Item label="Backend Development" value="backend" />
+              </Select>
+              <FormControl.ErrorMessage>
+                Ce champ ne doit pas etre vide.
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl className="w-full px-7">
+              <View className="flex-row text-center items-center justify-start">
+                <Checkbox
+                  value={isCondition}
+                  onValueChange={SetIsCondition}
+                  color="blue"
+                />
+                <Text className="text-center text-sm">
+                  J'accepte les{" "}
+                  <A
+                    href="https://stcode-portfolio.netlify.app"
+                    style={{
+                      color: "blue",
+                      textDecorationLine: "underline",
+                    }}
+                  >
+                    termes et conditions d'utilisation{" "}
+                  </A>
+                  et la{" "}
+                  <A
+                    href="https://stcode-portfolio.netlify.app"
+                    style={{
+                      color: "blue",
+                      textDecorationLine: "underline",
+                    }}
+                  >
+                    politique de confidentialite
+                  </A>
+                </Text>
+              </View>
+            </FormControl>
+
+            <Button
+              style={{
+                backgroundColor: "black",
+                width: "100%",
+                height: 60,
+                borderRadius: 7,
+                fontSize: 25,
+              }}
+              onPress={submitData}
+              size="lg"
+              colorScheme="black"
+              isLoading={isLoading}
+              isLoadingText="Inscription"
+            >
+              S'inscrire
+            </Button>
+            <Text className="items-center justify-center w-full text-center">
+              Vous avez deja un compte ?{"  "}
+              <Text
+                className="text-[15px] text-blue-700"
+                onPress={() => {
+                  navigation.navigate("Signin");
+                }}
+              >
+                Connectez-vous
+              </Text>
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    </NativeBaseProvider>
+  );
+};
+
+export default SignUp;
