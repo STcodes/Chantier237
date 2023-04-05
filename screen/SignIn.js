@@ -6,7 +6,6 @@ import { LogoImage, FacebookLogo } from "../assets/";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import Toast from "react-native-root-toast";
 
 const SignIn = (props) => {
   const navigation = useNavigation();
@@ -24,52 +23,47 @@ const SignIn = (props) => {
   const submitData = () => {
     if (inputData.userName != "" && inputData.password != "") {
       // api
-      const stor = async () => {
-        try {
-          setIsLoading(true);
-          await axios({
-            method: "get",
-            url: "http://localhost/chantier237/API/AUTH/st_signin.php",
-            responseType: "json",
-            headers: { "Access-Control-Allow-Origin": "*" },
-            params: inputData,
-          }).then((response) => {
-            if (response.data.status == "ERROR") {
-              Toast.show(response.data.message, {
-                duration: Toast.durations.SHORT,
-                position: Toast.positions.BOTTOM,
-              });
-            } else {
-              //save the datauser in state and in local
+      setIsLoading(true);
+      axios({
+        method: "POST",
+        url: "http://localhost/chantier237/API/AUTH/st_signin.php",
+        responseType: "json",
+        headers: { "Access-Control-Allow-Origin": "*" },
+        data: inputData,
+      })
+        .then((response) => {
+          if (response.data.status == "ERROR") {
+            //TOAST THE ERROR
+            console.log(response.data.message);
+          } else {
+            //save the datauser in state and in local
 
-              props.setStateUser({
+            props.setStateUser({
+              userId: response.data.data.id,
+              isAbonned: response.data.data.is_abon,
+              dateAbonned: response.data.data.date_abon,
+            });
+
+            AsyncStorage.setItem(
+              "st_chantier237_user",
+              JSON.stringify({
                 userId: response.data.data.id,
                 isAbonned: response.data.data.is_abon,
                 dateAbonned: response.data.data.date_abon,
-              });
+              })
+            );
 
-              AsyncStorage.setItem(
-                "st_chantier237_user",
-                JSON.stringify({
-                  userId: response.data.data.id,
-                  isAbonned: response.data.data.is_abon,
-                  dateAbonned: response.data.data.date_abon,
-                })
-              );
-
-              // let b = storeLocalUserData(props.stateUser);
-              // b.then((result) => console.log(result));
-              navigation.navigate("Home");
-            }
-            setIsLoading(false);
-          });
-        } catch (error) {
+            navigation.navigate("Home");
+          }
+          setIsLoading(false);
+        })
+        .catch((error) => {
           //TOAST THE ERROR
           console.log(error);
+        })
+        .finally(() => {
           setIsLoading(false);
-        }
-      };
-      stor();
+        });
     } else {
       if (inputData.userName == "") {
         setIsDataEmpty((prev) => {
@@ -112,7 +106,7 @@ const SignIn = (props) => {
   useEffect(() => {
     let a = getLocalUserData();
     a.then((result) => {
-      console.log(result);
+      // console.log(result);
       if (result == null || result == undefined) {
         storeLocalUserData(props.stateUser);
         console.log("set new");
@@ -120,6 +114,7 @@ const SignIn = (props) => {
         if (result.userId != "") {
           props.setStateUser(result.stateUser);
           navigation.navigate("Home");
+          console.log("already logged");
         }
       }
     });
@@ -198,9 +193,9 @@ const SignIn = (props) => {
           <Text className="mt-3 mb-3">
             --{"    "} ou connectez vous avec {"    "}--
           </Text>
-          <TouchableOpacity className="flex-row items-center px-5 py-2 bg-white relative rounded-md w-full border-[1px] border-black mb-5 justify-items-stretch">
+          <TouchableOpacity className="flex-row items-center px-5 py-2 bg-white relative rounded-md w-full border-[1px] border-black mb-5 justify-center">
             <Image source={FacebookLogo} className="h-10 w-10" />
-            <Text className="text-lg text-semibold ml-[20%] text-center">
+            <Text className="text-lg text-semibold ml-5 text-center">
               Facebook
             </Text>
           </TouchableOpacity>

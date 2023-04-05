@@ -6,7 +6,7 @@ import SignUp from "./screen/SignUp";
 import Home from "./screen/Home";
 import { TailwindProvider } from "tailwindcss-react-native";
 import { useState } from "react";
-import { RootSiblingParent } from "react-native-root-siblings";
+// import Toast from "react-native-toast-message";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,8 +16,9 @@ export default function App() {
     isAbonned: false,
     dateAbonned: "",
   });
+
   return (
-    <RootSiblingParent>
+    <>
       <TailwindProvider>
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <NavigationContainer>
@@ -62,6 +63,6 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </TailwindProvider>
-    </RootSiblingParent>
+    </>
   );
 }

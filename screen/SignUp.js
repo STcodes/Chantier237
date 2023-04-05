@@ -4,6 +4,8 @@ import { A } from "@expo/html-elements";
 import { LogoImage } from "../assets/";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Checkbox from "expo-checkbox";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Text, Image, ScrollView, Pressable } from "react-native";
 import {
   NativeBaseProvider,
@@ -13,7 +15,7 @@ import {
   Select,
 } from "native-base";
 
-const SignUp = () => {
+const SignUp = (props) => {
   const navigation = useNavigation();
   const [show, setShow] = useState(false);
   const [isCondition, SetIsCondition] = useState(false);
@@ -25,6 +27,7 @@ const SignUp = () => {
     job: "",
     jobCategory: "",
   });
+
   const [isDataEmpty, setIsDataEmpty] = useState({
     userName: false,
     password: false,
@@ -36,7 +39,7 @@ const SignUp = () => {
   const submitData = () => {
     if (
       inputData.userName != "" &&
-      inputData.password != "" &&
+      inputData.password.length >= 8 &&
       inputData.lastName != "" &&
       inputData.job != "" &&
       inputData.jobCategory != "" &&
@@ -44,10 +47,52 @@ const SignUp = () => {
     ) {
       // api
       setIsLoading(true);
-      setTimeout(() => {
-        navigation.navigate("Home");
-        setIsLoading(false);
-      }, 9000);
+
+      axios({
+        method: "POST",
+        url: "http://localhost/chantier237/API/AUTH/st_signup.php",
+        responseType: "json",
+        headers: { "Access-Control-Allow-Origin": "*" },
+        data: {
+          userName: inputData.userName,
+          password: inputData.password,
+          lastName: inputData.lastName,
+          job: inputData.job,
+          jobCategory: inputData.jobCategory,
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.status == "ERROR") {
+            //TOAST THE ERROR
+            console.log(response.data.message);
+          } else {
+            // save the datauser in state and in local
+
+            AsyncStorage.setItem(
+              "st_chantier237_user",
+              JSON.stringify({
+                userId: response.data.data.id,
+                isAbonned: response.data.data.is_abon,
+                dateAbonned: response.data.data.date_abon,
+              })
+            );
+
+            props.setStateUser({
+              userId: response.data.data.id,
+              isAbonned: response.data.data.is_abon,
+              dateAbonned: response.data.data.date_abon,
+            });
+          }
+          // navigation.replace("Home");
+        })
+        .catch((error) => {
+          // toat error
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     } else {
       if (inputData.userName == "") {
         setIsDataEmpty((prev) => {
@@ -58,15 +103,15 @@ const SignUp = () => {
           return { ...prev, userName: false };
         });
       }
-      // if (inputData.password.length < 8) {
-      //   setIsDataEmpty((prev) => {
-      //     return { ...prev, password: true };
-      //   });
-      // } else {
-      //   setIsDataEmpty((prev) => {
-      //     return { ...prev, password: false };
-      //   });
-      // }
+      if (inputData.password.length < 8) {
+        setIsDataEmpty((prev) => {
+          return { ...prev, password: true };
+        });
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, password: false };
+        });
+      }
       if (inputData.lastName == "") {
         setIsDataEmpty((prev) => {
           return { ...prev, lastName: true };
@@ -95,6 +140,7 @@ const SignUp = () => {
         });
       }
       if (!isCondition) {
+        console.log("condition not");
       }
     }
   };
@@ -257,6 +303,7 @@ const SignUp = () => {
             >
               S'inscrire
             </Button>
+
             <Text className="items-center justify-center w-full text-center">
               Vous avez deja un compte ?{"  "}
               <Text
