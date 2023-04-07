@@ -6,7 +6,17 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Checkbox from "expo-checkbox";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Text, Image, ScrollView, Pressable } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "react-native";
+
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Pressable,
+  ToastAndroid,
+} from "react-native";
 import {
   NativeBaseProvider,
   Button,
@@ -50,21 +60,16 @@ const SignUp = (props) => {
 
       axios({
         method: "POST",
-        url: "http://localhost/chantier237/API/AUTH/st_signup.php",
+        url: "https://chantier237.camencorp.com/API/AUTH/st_signup.php",
         responseType: "json",
         headers: { "Access-Control-Allow-Origin": "*" },
-        data: {
-          userName: inputData.userName,
-          password: inputData.password,
-          lastName: inputData.lastName,
-          job: inputData.job,
-          jobCategory: inputData.jobCategory,
-        },
+        data: inputData,
       })
         .then((response) => {
           console.log(response.data);
           if (response.data.status == "ERROR") {
             //TOAST THE ERROR
+            ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
             console.log(response.data.message);
           } else {
             // save the datauser in state and in local
@@ -84,10 +89,14 @@ const SignUp = (props) => {
               dateAbonned: response.data.data.date_abon,
             });
           }
-          // navigation.replace("Home");
+          navigation.replace("Home");
         })
         .catch((error) => {
           // toat error
+          ToastAndroid.show(
+            "Erreur lors de la connexion. Veuillez reessayer.",
+            ToastAndroid.SHORT
+          );
           console.log(error);
         })
         .finally(() => {
@@ -140,7 +149,10 @@ const SignUp = (props) => {
         });
       }
       if (!isCondition) {
-        console.log("condition not");
+        ToastAndroid.show(
+          "Veuliiez acceptez les termes et conditions d'utilisation pour l'inscription",
+          ToastAndroid.SHORT
+        );
       }
     }
   };
@@ -148,7 +160,18 @@ const SignUp = (props) => {
   return (
     <NativeBaseProvider>
       <ScrollView className="bg-white flex-1">
-        <View className="items-center justify-center pt-7 w-full pb-10">
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["rgba(29, 78, 216, 1)", "white"]}
+          locations={[0, 0.8]}
+          className="w-full h-40 top-0 left-0 absolute -z-10"
+        />
+        <StatusBar
+          backgroundColor="rgba(29, 78, 216, 1)"
+          barStyle="light-content"
+          className=""
+        />
+        <View className="items-center justify-center mt-10 w-full pb-10">
           <View className="w-32 h-32 mb-2">
             <Image source={LogoImage} className="w-full h-full object-cover" />
           </View>
@@ -299,6 +322,7 @@ const SignUp = (props) => {
               size="lg"
               colorScheme="black"
               isLoading={isLoading}
+              disabled={isLoading}
               isLoadingText="Inscription"
             >
               S'inscrire

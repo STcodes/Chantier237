@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, Pressable, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+  Image,
+  ToastAndroid,
+} from "react-native";
 import { NativeBaseProvider, Button, FormControl, Input } from "native-base";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -6,6 +13,8 @@ import { LogoImage, FacebookLogo } from "../assets/";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "react-native";
 
 const SignIn = (props) => {
   const navigation = useNavigation();
@@ -26,7 +35,7 @@ const SignIn = (props) => {
       setIsLoading(true);
       axios({
         method: "POST",
-        url: "http://localhost/chantier237/API/AUTH/st_signin.php",
+        url: "https://chantier237.camencorp.com/API/AUTH/st_signin.php",
         responseType: "json",
         headers: { "Access-Control-Allow-Origin": "*" },
         data: inputData,
@@ -34,6 +43,7 @@ const SignIn = (props) => {
         .then((response) => {
           if (response.data.status == "ERROR") {
             //TOAST THE ERROR
+            ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
             console.log(response.data.message);
           } else {
             //save the datauser in state and in local
@@ -58,7 +68,11 @@ const SignIn = (props) => {
           setIsLoading(false);
         })
         .catch((error) => {
-          //TOAST THE ERROR
+          // TOAST THE ERROR
+          ToastAndroid.show(
+            "Erreur de connexion. Veuillez reessayer",
+            ToastAndroid.SHORT
+          );
           console.log(error);
         })
         .finally(() => {
@@ -122,7 +136,18 @@ const SignIn = (props) => {
 
   return (
     <NativeBaseProvider>
-      <View className="bg-white flex-1 items-center justify-start pt-8 flex-col">
+      <View className="bg-white flex-1 items-center justify-start pt-12 flex-col">
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["rgba(29, 78, 216, 1)", "white"]}
+          locations={[0, 0.8]}
+          className="w-full h-40 top-0 left-0 absolute -z-10"
+        />
+        <StatusBar
+          backgroundColor="rgba(29, 78, 216, 1)"
+          barStyle="light-content"
+          className=""
+        />
         <View className="w-32 h-32 mb-2">
           <Image source={LogoImage} className="w-full h-full object-cover" />
         </View>
@@ -186,13 +211,16 @@ const SignIn = (props) => {
             size="lg"
             colorScheme="black"
             isLoading={isLoading}
+            disabled={isLoading}
             isLoadingText="Connexion"
           >
             Se connecter
           </Button>
-          <Text className="mt-3 mb-3">
-            --{"    "} ou connectez vous avec {"    "}--
-          </Text>
+          <View className="mt-3 mb-3 flex-row items-center justify-center gap-x-2">
+            <View className="h-[1px] w-[65px] bg-black"></View>
+            <Text className="-translate-y-[2px]">ou connectez vous avec</Text>
+            <View className="h-[1px] w-[65px] bg-black"></View>
+          </View>
           <TouchableOpacity className="flex-row items-center px-5 py-2 bg-white relative rounded-md w-full border-[1px] border-black mb-5 justify-center">
             <Image source={FacebookLogo} className="h-10 w-10" />
             <Text className="text-lg text-semibold ml-5 text-center">
