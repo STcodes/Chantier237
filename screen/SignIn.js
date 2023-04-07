@@ -44,7 +44,6 @@ const SignIn = (props) => {
           if (response.data.status == "ERROR") {
             //TOAST THE ERROR
             ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
-            console.log(response.data.message);
           } else {
             //save the datauser in state and in local
 
@@ -73,7 +72,6 @@ const SignIn = (props) => {
             "Erreur de connexion. Veuillez reessayer",
             ToastAndroid.SHORT
           );
-          console.log(error);
         })
         .finally(() => {
           setIsLoading(false);
@@ -120,15 +118,16 @@ const SignIn = (props) => {
   useEffect(() => {
     let a = getLocalUserData();
     a.then((result) => {
-      // console.log(result);
       if (result == null || result == undefined) {
         storeLocalUserData(props.stateUser);
-        console.log("set new");
       } else {
         if (result.userId != "") {
-          props.setStateUser(result.stateUser);
+          props.setStateUser({
+            userId: result.userId,
+            isAbonned: result.isAbonned,
+            dateAbonned: result.dateAbonned,
+          });
           navigation.navigate("Home");
-          console.log("already logged");
         }
       }
     });

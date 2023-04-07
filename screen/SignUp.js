@@ -66,11 +66,9 @@ const SignUp = (props) => {
         data: inputData,
       })
         .then((response) => {
-          console.log(response.data);
           if (response.data.status == "ERROR") {
             //TOAST THE ERROR
             ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
-            console.log(response.data.message);
           } else {
             // save the datauser in state and in local
 
@@ -97,7 +95,6 @@ const SignUp = (props) => {
             "Erreur lors de la connexion. Veuillez reessayer.",
             ToastAndroid.SHORT
           );
-          console.log(error);
         })
         .finally(() => {
           setIsLoading(false);
