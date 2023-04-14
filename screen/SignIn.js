@@ -5,6 +5,7 @@ import {
   Pressable,
   Image,
   ToastAndroid,
+  StatusBar,
 } from "react-native";
 import { NativeBaseProvider, Button, FormControl, Input } from "native-base";
 import React, { useEffect, useState } from "react";
@@ -14,7 +15,6 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
-import { StatusBar } from "react-native";
 
 const SignIn = (props) => {
   const navigation = useNavigation();
@@ -122,6 +122,7 @@ const SignIn = (props) => {
         storeLocalUserData(props.stateUser);
       } else {
         if (result.userId != "") {
+          setIsLoading(true);
           props.setStateUser({
             userId: result.userId,
             isAbonned: result.isAbonned,
@@ -145,7 +146,6 @@ const SignIn = (props) => {
         <StatusBar
           backgroundColor="rgba(29, 78, 216, 1)"
           barStyle="light-content"
-          className=""
         />
         <View className="w-32 h-32 mb-2">
           <Image source={LogoImage} className="w-full h-full object-cover" />
@@ -155,13 +155,13 @@ const SignIn = (props) => {
           <Text className="text-[30px] text-[black] mb-1 text-bold">
             Connexion
           </Text>
-          <Text>Acceder a votre compte</Text>
+          <Text>Accedez a votre compte</Text>
         </View>
 
         <View className="w-full px-8 items-center justify-center flex-col pt-5 gap-5">
           <FormControl isInvalid={isDataEmpty.userName}>
             <Input
-              placeholder="Nom d'utilisateur'"
+              placeholder="Nom d'utilisateur"
               type="text"
               className="text-sm"
               name="userName"

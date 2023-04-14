@@ -11,7 +11,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Home = (props) => {
   const Tab = createBottomTabNavigator();
-  const colorNavActive = "#13c58a";
+  const colorNavActive = "rgba(29, 78, 216, 1)";
   const colorNavInactive = "black";
   const size = 27;
 

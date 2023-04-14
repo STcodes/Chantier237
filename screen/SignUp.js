@@ -156,7 +156,10 @@ const SignUp = (props) => {
 
   return (
     <NativeBaseProvider>
-      <ScrollView className="bg-white flex-1">
+      <ScrollView
+        className="bg-white flex-1"
+        showsVerticalScrollIndicator={false}
+      >
         <LinearGradient
           // Background Linear Gradient
           colors={["rgba(29, 78, 216, 1)", "white"]}
@@ -176,7 +179,7 @@ const SignUp = (props) => {
             <Text className="text-[30px] text-[black] mb-1 text-bold">
               Inscription
             </Text>
-            <Text>creer votre compte</Text>
+            <Text>creez votre compte</Text>
           </View>
 
           <View className="w-full px-8 items-center justify-center flex-col pt-5 gap-5">
@@ -264,11 +267,18 @@ const SignUp = (props) => {
                   setInputData({ ...inputData, jobCategory: value })
                 }
               >
-                <Select.Item label="UX Research" value="ux" />
-                <Select.Item label="Web Development" value="web" />
-                <Select.Item label="Cross Platform Development" value="cross" />
-                <Select.Item label="UI Designing" value="ui" />
-                <Select.Item label="Backend Development" value="backend" />
+                <Select.Item label="Genie civil" value="Genie civil" />
+                <Select.Item
+                  label="Genie informatique"
+                  value="Genie informatique"
+                />
+                <Select.Item
+                  label="Genie electrique"
+                  value="Genie electrique"
+                />
+                <Select.Item label="Maconnerie" value="Maconnerie" />
+                <Select.Item label="Plomberie" value="Plomberie" />
+                <Select.Item label="Menuiserie" value="Menuiserie" />
               </Select>
               <FormControl.ErrorMessage>
                 Ce champ ne doit pas etre vide.
