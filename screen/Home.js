@@ -52,6 +52,7 @@ const Home = (props) => {
       <Tab.Screen
         name="Offre"
         component={Offre}
+        initialParams={{ stateUser: props.stateUser }}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (

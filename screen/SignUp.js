@@ -267,18 +267,27 @@ const SignUp = (props) => {
                   setInputData({ ...inputData, jobCategory: value })
                 }
               >
-                <Select.Item label="Genie civil" value="Genie civil" />
                 <Select.Item
-                  label="Genie informatique"
-                  value="Genie informatique"
+                  label="Ingenieur genie civil"
+                  value="ing_genie_civil"
                 />
+                <Select.Item label="Staffeur" value="staffeur" />
+                <Select.Item label="Macons" value="macon" />
+                <Select.Item label="Manoeuvre" value="manoeuvre" />
+                <Select.Item label="Crepisseur" value="crepisseur" />
+                <Select.Item label="Livreur d'eau" value="livreur_eau" />
                 <Select.Item
-                  label="Genie electrique"
-                  value="Genie electrique"
+                  label="Travailleurs d'etancheite"
+                  value="etancheite"
                 />
-                <Select.Item label="Maconnerie" value="Maconnerie" />
-                <Select.Item label="Plomberie" value="Plomberie" />
-                <Select.Item label="Menuiserie" value="Menuiserie" />
+                <Select.Item label="Plombiers" value="plombier" />
+                <Select.Item label="Electricien" value="electricien" />
+                <Select.Item label="Ferrailleur" value="ferrailleur" />
+                <Select.Item label="Travailleur de fouille" value="fouille" />
+                <Select.Item label="Carreleur" value="carreleur" />
+                <Select.Item label="Menuisier" value="menuisier" />
+                <Select.Item label="Charpentier" value="charpentier" />
+                <Select.Item label="Menagere" value="menagere" />
               </Select>
               <FormControl.ErrorMessage>
                 Ce champ ne doit pas etre vide.

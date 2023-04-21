@@ -3,227 +3,256 @@ import {
   Text,
   Image,
   ScrollView,
-  TouchableOpacity,
   StatusBar,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
-import UilConstructor from "@iconscout/react-native-unicons/icons/uil-constructor";
-import UilBolt from "@iconscout/react-native-unicons/icons/uil-bolt-alt";
-import UilLaptop from "@iconscout/react-native-unicons/icons/uil-laptop-cloud";
-import UilWheel from "@iconscout/react-native-unicons/icons/uil-wheel-barrow";
-import UilTear from "@iconscout/react-native-unicons/icons/uil-tear";
+import {
+  LogoImage,
+  NotFound,
+  genie_civil_category,
+  staffeur_category,
+  manoeuvre_category,
+  macon_category,
+  crepissage_category,
+  livraison_eau_category,
+  plombier_category,
+  electricien_category,
+  fouille_category,
+  ferrailleur_category,
+  carreaux_category,
+  menuisier_category,
+  charpentier_category,
+  etancheite_category,
+  menagere_category,
+} from "../../assets/";
+import { React, useEffect, useState } from "react";
+import axios from "axios";
+import OuvrierCategory from "../../components/OuvrierCategory";
 import OuvrierProfil from "../../components/OuvrierProfil";
-import { LogoImage } from "../../assets/";
-import { React, useState } from "react";
 
-const OuvrierHome = () => {
-  const [categorie, setCategory] = useState("genie civil");
-  const data = [
-    {
-      id: 0,
-      name: "Thierry SITIO",
-      imageUrl:
-        "https://img.freepik.com/premium-psd/african-descent-man-male-studio-concept_53876-22459.jpg?w=740",
-      description: "Je suis tres competent alors n'hesitez pas a me contactez",
-      evaluation: 5,
-    },
+const OuvrierHome = (props) => {
+  const [categorie, setCategory] = useState("ing_genie_civil");
+  const [dataState, setDataState] = useState({
+    isLoading: true,
+    data: [],
+    error: false,
+  });
+  const dataCategorie = [
     {
       id: 1,
-      name: "steve KAZOCK",
-      imageUrl:
-        "https://img.freepik.com/free-photo/portrait-african-american-model_23-2149072141.jpg?w=360&t=st=1681147874~exp=1681148474~hmac=ca169f0350782494d43219890b45a65bb3daf9953892226f355248c227785ad0",
-      description: "Je suis tres competent alors ",
-      evaluation: 4,
+      categoryCard: "ing_genie_civil",
+      categoryName: "Ingenieurs genie civil",
+      image: genie_civil_category,
     },
     {
       id: 2,
-      name: "Cynthia Mermont",
-      imageUrl:
-        "https://img.freepik.com/free-photo/beautiful-brunette-woman-portrait-smiling-face_53876-137688.jpg?size=626&ext=jpg",
-      description: "Je suis tres competent alors n'hesitez pas a me contactez",
-      evaluation: 3,
+      categoryCard: "staffeur",
+      categoryName: "Staffeurs",
+      image: staffeur_category,
     },
     {
       id: 3,
-      name: "Audrey Yves",
-      imageUrl:
-        "https://img.freepik.com/free-photo/medium-shot-smiley-woman-posing_23-2149439882.jpg?size=626&ext=jpg",
-      description: "Je suis tres competent alors n'hesitez pas a me contactez",
-      evaluation: 3,
+      categoryCard: "macon",
+      categoryName: "Macons",
+      image: macon_category,
     },
     {
       id: 4,
-      name: "Chris Alexandre",
-      imageUrl:
-        "https://img.freepik.com/free-photo/dremy-blue-eyed-male-with-positive-expression-broad-smile-shows-white-teeth-looks-into-distance-thinks-about-something-wears-elegant-shirt-isolated-white-wall-with-blank-space_176532-6511.jpg?size=626&ext=jpg",
-      description: "Je suis tres competent alors n'hesitez pas a me contactez",
-      evaluation: 2,
+      categoryCard: "manoeuvre",
+      categoryName: "Manoeuvres",
+      image: manoeuvre_category,
     },
     {
       id: 5,
-      name: "Selena Gomez",
-      imageUrl:
-        "https://img.freepik.com/free-photo/alluring-woman-posing-alone_23-2148708975.jpg?size=626&ext=jpg",
-      description: "Je suis tres competent alors n'hesitez pas",
-      evaluation: 1,
+      categoryCard: "crepisseur",
+      categoryName: "Crepisseur",
+      image: crepissage_category,
+    },
+    {
+      id: 6,
+      categoryCard: "livreur_eau",
+      categoryName: "Livreurs d'eau",
+      image: livraison_eau_category,
+    },
+    {
+      id: 7,
+      categoryCard: "etancheite",
+      categoryName: "Travailleurs d'etancheite",
+      image: etancheite_category,
+    },
+    {
+      id: 8,
+      categoryCard: "plombier",
+      categoryName: "Plombiers",
+      image: plombier_category,
+    },
+    {
+      id: 9,
+      categoryCard: "electricien",
+      categoryName: "Electriciens",
+      image: electricien_category,
+    },
+    {
+      id: 10,
+      categoryCard: "ferrailleur",
+      categoryName: "Ferrailleurs",
+      image: ferrailleur_category,
+    },
+    {
+      id: 11,
+      categoryCard: "fouille",
+      categoryName: "Travailleurs de fouille",
+      image: fouille_category,
+    },
+    {
+      id: 12,
+      categoryCard: "carreleur",
+      categoryName: "Carreleurs",
+      image: carreaux_category,
+    },
+    {
+      id: 13,
+      categoryCard: "menuisier",
+      categoryName: "Menuisiers",
+      image: menuisier_category,
+    },
+    {
+      id: 14,
+      categoryCard: "charpentier",
+      categoryName: "Charpentiers",
+      image: charpentier_category,
+    },
+    {
+      id: 15,
+      categoryCard: "menagere",
+      categoryName: "Menagere",
+      image: menagere_category,
     },
   ];
+
+  useEffect(() => {
+    setDataState((prev) => {
+      return { ...prev, isLoading: true, error: false };
+    });
+    axios({
+      method: "GET",
+      url: "https://chantier237.camencorp.com/API/WORKERS/st_workers.php",
+      responseType: "json",
+      headers: { "Access-Control-Allow-Origin": "*" },
+      params: {
+        category: categorie,
+      },
+    })
+      .then((response) => {
+        if (response.data.status == "ERROR") {
+          setDataState((prev) => {
+            return { ...prev, error: true };
+          });
+        } else {
+          setDataState((prev) => {
+            return { ...prev, data: response.data.data };
+          });
+        }
+      })
+      .catch((error) => {
+        setDataState((prev) => {
+          return { ...prev, error: true };
+        });
+      })
+      .finally(() => {
+        setDataState((prev) => {
+          return { ...prev, isLoading: false };
+        });
+      });
+  }, [categorie]);
 
   return (
     <SafeAreaView>
       <StatusBar backgroundColor="blue" barStyle="light-content" />
+      <View
+        className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
+        style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
+      >
+        <View className="flex-row gap-1 items-center">
+          <Image source={LogoImage} className="w-10 h-10" />
+          <Text className="text-bold text-[20px] tracking-wider">
+            Chantier 237
+          </Text>
+        </View>
+      </View>
       <ScrollView
-        className="bg-white flex-1 px-2 pt-2"
+        className="bg-white flex-1 px-2 h-full"
         showsVerticalScrollIndicator={false}
       >
-        <View className="w-full flex-row items-center justify-start gap-2 pl-2">
-          <Image source={LogoImage} className="w-16 h-16" />
-          <Text className="text-bold text-[23px]">Chantier 237</Text>
-        </View>
-
-        <View className="flex-col items-start justify-center mb-5 mt-6 px-3 w-full ">
+        <View className="flex-col items-start justify-center mb-5 mt-4 px-3 w-full ">
           <Text className="text-bold text-[25px] text-blue-900 mb-1">
             Categories
           </Text>
           <Text className="mb-3">Choisir la categorie des travailleurs</Text>
           <ScrollView
             horizontal
-            className="gap-3 py-2"
+            className="gap-3 pt-3 pl-2"
             showsHorizontalScrollIndicator={false}
           >
-            <TouchableOpacity
-              className={
-                categorie == "genie civil"
-                  ? "rounded-xl p-3 items-center justify-center bg-blue-600 w-28 gap-2"
-                  : "rounded-xl p-3 items-center justify-center bg-orange-100 w-28 gap-2 "
-              }
-              onPress={() => {
-                setCategory("genie civil");
-              }}
-            >
-              <UilConstructor
-                size="50"
-                color={categorie == "genie civil" ? "white" : "black"}
-              />
-
-              <Text
-                className={
-                  categorie == "genie civil"
-                    ? "text-white text-center text-bold"
-                    : "text-black text-center text-bold"
-                }
-              >
-                Genie civil
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className={
-                categorie == "genie informatique"
-                  ? "rounded-xl p-3 items-center justify-center bg-blue-600 w-28 gap-2"
-                  : "rounded-xl p-3 items-center justify-cente bg-orange-100 w-28 gap-2"
-              }
-              onPress={() => {
-                setCategory("genie informatique");
-              }}
-            >
-              <UilLaptop
-                size="50"
-                color={categorie == "genie informatique" ? "white" : "black"}
-              />
-              <Text
-                className={
-                  categorie == "genie informatique"
-                    ? "text-white text-center text-bold"
-                    : "text-black text-center text-bold"
-                }
-              >
-                Genie Informatique
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className={
-                categorie == "genie electrique"
-                  ? "rounded-xl p-3 items-center justify-center bg-blue-600 w-28 gap-2"
-                  : "rounded-xl p-3 items-center justify-center bg-orange-100 w-28 gap-2"
-              }
-              onPress={() => {
-                setCategory("genie electrique");
-              }}
-            >
-              <UilBolt
-                size="50"
-                color={categorie == "genie electrique" ? "white" : "black"}
-              />
-              <Text
-                className={
-                  categorie == "genie electrique"
-                    ? "text-white text-center text-bold"
-                    : "text-black text-center text-bold"
-                }
-              >
-                Genie electrique
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className={
-                categorie == "plomberie"
-                  ? "rounded-xl p-3 items-center justify-center bg-blue-600 w-28 gap-2"
-                  : "rounded-xl p-3 items-center justify-center bg-orange-100 w-28 gap-2"
-              }
-              onPress={() => {
-                setCategory("plomberie");
-              }}
-            >
-              <UilTear
-                size="50"
-                color={categorie == "plomberie" ? "white" : "black"}
-              />
-              <Text
-                className={
-                  categorie == "plomberie"
-                    ? "text-white text-center text-bold"
-                    : "text-black text-center text-bold"
-                }
-              >
-                Plomberie
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className={
-                categorie == "maconnerie"
-                  ? "rounded-xl p-3 items-center justify-center bg-blue-600 w-28 gap-2"
-                  : "rounded-xl p-3 items-center justify-center bg-orange-100 w-28 gap-2"
-              }
-              onPress={() => {
-                setCategory("maconnerie");
-              }}
-            >
-              <UilWheel
-                size="50"
-                color={categorie == "maconnerie" ? "white" : "black"}
-              />
-              <Text
-                className={
-                  categorie == "maconnerie"
-                    ? "text-white text-center text-bold"
-                    : "text-black text-center text-bold"
-                }
-              >
-                Maconnerie
-              </Text>
-            </TouchableOpacity>
+            {dataCategorie.map((item) => {
+              return (
+                <OuvrierCategory
+                  {...item}
+                  key={item.id}
+                  categorie={categorie}
+                  setCategory={setCategory}
+                />
+              );
+            })}
           </ScrollView>
         </View>
 
-        <View className="flex-col px-1 w-full mb-4">
+        <View className="flex-col px-1 w-full mb-4 ">
           <Text className="text-semibold text-[15px] mb-5">
             {"  "}Travailleurs de la categorie
           </Text>
-          <View className="w-full gap-2 items-center justify-center">
-            {data.map((item) => {
-              return <OuvrierProfil {...item} key={item.id} />;
-            })}
-          </View>
+
+          {/* AFFICHAGE DES PROFILS */}
+
+          {!dataState.isLoading && !dataState.error ? (
+            <View className="w-full gap-2 items-center justify-start pt-1">
+              {dataState.data.map((item) => {
+                return (
+                  <OuvrierProfil
+                    {...item}
+                    key={item.rowid}
+                    userId={props.userId}
+                  />
+                );
+              })}
+            </View>
+          ) : (
+            <></>
+          )}
+
+          {/* CHARGEMENT EN COURS */}
+
+          {dataState.isLoading ? (
+            <View className="w-full mt-20 items-center justify-center">
+              <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+          ) : (
+            <></>
+          )}
+
+          {/* AUCUNE DONNEE TROUVE OU ERREUR */}
+
+          {dataState.error ? (
+            <View className="w-full pt-10 items-center justify-center gap-3">
+              <Image source={NotFound} className="w-20 h-20" />
+              <Text className="text-center">
+                Aucun profil trouve. Verifier votre connexion et reessayer.
+              </Text>
+            </View>
+          ) : (
+            <></>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

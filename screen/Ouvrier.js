@@ -6,8 +6,6 @@ import SingleOuvrier from "./Ouvrier/SingleOuvrier";
 const Stack = createNativeStackNavigator();
 
 const Ouvrier = ({ route }) => {
-  // <Text>Ouvrier{route.params.stateUser.userId}</Text>
-
   return (
     <Stack.Navigator initialRouteName="OuvrierHome">
       <Stack.Screen
@@ -15,8 +13,11 @@ const Ouvrier = ({ route }) => {
         options={{
           headerShown: false,
         }}
-        component={OuvrierHome}
-      />
+      >
+        {(props) => (
+          <OuvrierHome {...props} userId={route.params.stateUser.userId} />
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="SingleOuvrier"
         options={{

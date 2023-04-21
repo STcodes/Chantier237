@@ -122,7 +122,6 @@ const SignIn = (props) => {
         storeLocalUserData(props.stateUser);
       } else {
         if (result.userId != "") {
-          setIsLoading(true);
           props.setStateUser({
             userId: result.userId,
             isAbonned: result.isAbonned,

@@ -11,20 +11,20 @@ const AlertImage = (props) => {
       <View
         className={
           isShow
-            ? "absolute z-30 w-[100%] h-[200px] rounded-lg m-auto overflow-hidden left-3 top-2"
+            ? "absolute z-30 w-[100%] h-[200px] rounded-lg m-auto overflow-hidden top-2 "
             : "hidden"
         }
         style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
       >
         <View
-          className="h-8 w-3 items-center justify-center absolute z-40 right-4 top-1"
+          className="h-8 w-3 items-center justify-center absolute z-40 right-1 top-1 bg-gray-500 p-4 rounded-full"
           onPress={() => {
             setIsShow(true);
           }}
         >
           <UilCross
-            size={25}
-            color="black"
+            size={20}
+            color="white"
             onPress={() => {
               setIsShow(false);
             }}
