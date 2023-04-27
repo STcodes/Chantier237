@@ -105,7 +105,7 @@ const SingleOuvrier = ({ route }) => {
               className="rounded-full w-4 h-4 absolute z-10 left-3 top-3 items-center justify-center p-4"
               style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
               onPress={() => {
-                navigation.navigate("OuvrierHome");
+                navigation.goBack();
               }}
             >
               <UilArrow size={30} color="white" />
@@ -146,7 +146,10 @@ const SingleOuvrier = ({ route }) => {
             <View className="flex-row w-full gap-2 items-center justify-star mb-2 mt-2">
               <UilMedal size={27} color="orange" />
               <Text style={{ fontWeight: 500 }}>
-                {dataState.data.anciennete} an(s) d'experience {"  "}-{" "}
+                {dataState.data.anciennete}
+                {dataState.data.anciennete > 1
+                  ? " ans"
+                  : " an"} d'experience {"  "}-{" "}
               </Text>
               <StarContainer evaluation={dataState.data.evaluation} />
             </View>

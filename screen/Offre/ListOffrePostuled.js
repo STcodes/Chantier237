@@ -10,16 +10,14 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from "react-native";
-import { LogoImage } from "../../assets";
-import { Input, Menu, NativeBaseProvider, FormControl } from "native-base";
+import { Menu, NativeBaseProvider } from "native-base";
+import { LogoImage, NotFound } from "../../assets";
 import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
-import UilSearch from "@iconscout/react-native-unicons/icons/uil-search";
-import OffreProfil from "../../components/OffreProfil";
 import { useNavigation } from "@react-navigation/native";
-import { NotFound } from "../../assets";
+import OffrePostuledProfil from "../../components/OffrePostuledProfil";
 import axios from "axios";
 
-const OffreHome = (props) => {
+const ListOffrePostuled = (props) => {
   const [dataState, setDataState] = useState({
     isLoading: true,
     data: [],
@@ -32,7 +30,7 @@ const OffreHome = (props) => {
     });
     axios({
       method: "GET",
-      url: "https://chantier237.camencorp.com/API/OFFER/st_getAllOffer.php",
+      url: "https://chantier237.camencorp.com/API/OFFER/st_getPostuledOffer.php",
       responseType: "json",
       headers: { "Access-Control-Allow-Origin": "*" },
       params: {
@@ -66,53 +64,6 @@ const OffreHome = (props) => {
     api();
   }, []);
 
-  const data = [
-    {
-      rowid: 1,
-      job_category: "ing_genie_civil",
-      title: "Recherche d'un ingenieur genie civil",
-      description:
-        "J'aurai besoin d'un plombier pour reparer la chasse de mes toilettes. Je crois qu'elle est bouchee.",
-      date: "Aujourd'hui",
-      lieu: "Douala",
-      isPostuled: true,
-      isAccepted: false,
-    },
-    {
-      rowid: 2,
-      job_category: "ferrailleur",
-      title: "Recherche d'un ferrailleur experimente",
-      description:
-        "Besoin urgent d'e deux ferailleurs experimentes pour le tissage d'une dalle de 500M.",
-      date: "Il y'a 2 jours",
-      lieu: "Yaounde",
-      isPostuled: false,
-      isAccepted: true,
-    },
-    {
-      rowid: 33,
-      job_category: "other",
-      title: "Besoin iminant d'un creuseur",
-      description:
-        "Nous recherchons un creuseur muscle et assez resistant. Pour creuser la fondation d'une maison de 2000M2",
-      date: "Il y'a 1 semaine",
-      lieu: "Bangue",
-      isPostuled: false,
-      isAccepted: false,
-    },
-    {
-      rowid: 4,
-      job_category: "menagere",
-      title: "Demande d'une Nounou",
-      description:
-        "Besoin urgent d'une nounou qui prendra soin des enfants, la lessive, le menage, la vaisselle, et l'etude des enfants.",
-      date: "Il y'a 1 mois",
-      lieu: "Bonaberi",
-      isPostuled: false,
-      isAccepted: true,
-    },
-  ];
-
   const navigation = useNavigation();
 
   return (
@@ -145,18 +96,19 @@ const OffreHome = (props) => {
             >
               <Menu.Item
                 onPress={() => {
+                  navigation.navigate("OffreHome");
+                }}
+              >
+                <Text className="text-lg">Toutes les offres</Text>
+              </Menu.Item>
+              <Menu.Item
+                onPress={() => {
                   navigation.navigate("ListOffrePosted");
                 }}
               >
                 <Text className="text-lg">Offres postées</Text>
               </Menu.Item>
-              <Menu.Item
-                onPress={() => {
-                  navigation.navigate("ListOffrePostuled");
-                }}
-              >
-                <Text className="text-lg">Offres postulées</Text>
-              </Menu.Item>
+
               <Menu.Item
                 onPress={() => {
                   navigation.navigate("CreateOffre");
@@ -176,23 +128,11 @@ const OffreHome = (props) => {
         >
           <View className="w-full px-4 py-4 gap-y-3">
             <Text className="text-[24px] tracking-wider pl-1 text-gray-800">
-              Trouvez l'offre d'emploi 😊{"\n"}de votre choix
+              Les offres auxquelles vous avez postulé
             </Text>
-
-            <FormControl>
-              <Input
-                placeholder="Rechercher"
-                type="text"
-                className="text-base"
-                name="userName"
-                variant="rounded"
-                InputRightElement={
-                  <TouchableOpacity className="-translate-x-3">
-                    <UilSearch size={30} color="blue" />
-                  </TouchableOpacity>
-                }
-              />
-            </FormControl>
+            <Text className="pl-1 text-[15px] text-gray-900">
+              Vous ne pouvez postuler qu'à 3 offres par jour
+            </Text>
             <Text className="pl-1 text-[15px] text-gray-500">
               Liste des emplois
             </Text>
@@ -201,7 +141,7 @@ const OffreHome = (props) => {
           {!dataState.isLoading && !dataState.error ? (
             <View className="w-full gap-2 items-center justify-start pt-1">
               {dataState.data.map((item) => {
-                return <OffreProfil {...item} key={item.rowid} />;
+                return <OffrePostuledProfil {...item} key={item.rowid} />;
               })}
             </View>
           ) : (
@@ -224,7 +164,7 @@ const OffreHome = (props) => {
             <View className="w-full pt-10 pl-2 items-center justify-center gap-3">
               <Image source={NotFound} className="w-20 h-20" />
               <Text className="text-center">
-                Aucune offre trouve. Verifier votre connexion et reessayer.
+                Aucune offre trouvé. Verifier votre connexion et reessayer.
               </Text>
             </View>
           ) : (
@@ -238,4 +178,4 @@ const OffreHome = (props) => {
   );
 };
 
-export default OffreHome;
+export default ListOffrePostuled;

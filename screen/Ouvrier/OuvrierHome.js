@@ -6,6 +6,7 @@ import {
   StatusBar,
   SafeAreaView,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import {
   LogoImage,
@@ -131,7 +132,7 @@ const OuvrierHome = (props) => {
     },
   ];
 
-  useEffect(() => {
+  const api = () => {
     setDataState((prev) => {
       return { ...prev, isLoading: true, error: false };
     });
@@ -165,6 +166,10 @@ const OuvrierHome = (props) => {
           return { ...prev, isLoading: false };
         });
       });
+  };
+
+  useEffect(() => {
+    api();
   }, [categorie]);
 
   return (
@@ -182,8 +187,11 @@ const OuvrierHome = (props) => {
         </View>
       </View>
       <ScrollView
-        className="bg-white flex-1 px-2 h-full"
+        className="bg-white flex-1 px-2 h-full pt"
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={dataState.isLoading} onRefresh={api} />
+        }
       >
         <View className="flex-col items-start justify-center mb-5 mt-4 px-3 w-full ">
           <Text className="text-bold text-[25px] text-blue-900 mb-1">
@@ -254,6 +262,7 @@ const OuvrierHome = (props) => {
             <></>
           )}
         </View>
+        <View className="h-10"></View>
       </ScrollView>
     </SafeAreaView>
   );

@@ -23,7 +23,7 @@ import React from "react";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 
-const OffreProfil = (props) => {
+const OffrePostuledProfil = (props) => {
   const navigation = useNavigation();
 
   function TestImage(image) {
@@ -140,4 +140,4 @@ const OffreProfil = (props) => {
   );
 };
 
-export default OffreProfil;
+export default OffrePostuledProfil;

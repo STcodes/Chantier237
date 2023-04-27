@@ -6,8 +6,11 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  ActivityIndicator,
+  ToastAndroid,
 } from "react-native";
-import React from "react";
+import { React, useState, useEffect } from "react";
+import * as Animatable from "react-native-animatable";
 import UilArrow from "@iconscout/react-native-unicons/icons/uil-angle-left";
 import UilMoney from "@iconscout/react-native-unicons/icons/uil-money-stack";
 import UilClock from "@iconscout/react-native-unicons/icons/uil-clock";
@@ -15,153 +18,502 @@ import UilCalendar from "@iconscout/react-native-unicons/icons/uil-calender";
 import UilMap from "@iconscout/react-native-unicons/icons/uil-map-marker";
 import UilUser from "@iconscout/react-native-unicons/icons/uil-users-alt";
 import UilPhone from "@iconscout/react-native-unicons/icons/uil-phone";
-import { genie_civil_category } from "../../assets";
-import { Button, NativeBaseProvider } from "native-base";
+import UilShablier from "@iconscout/react-native-unicons/icons/uil-hourglass";
+import { Button, NativeBaseProvider, AlertDialog } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { A } from "@expo/html-elements";
+import axios from "axios";
+import {
+  plombier_category,
+  menagere_category,
+  carreaux_category,
+  ferrailleur_category,
+  genie_civil_category,
+  staffeur_category,
+  macon_category,
+  manoeuvre_category,
+  crepissage_category,
+  livraison_eau_category,
+  etancheite_category,
+  electricien_category,
+  fouille_category,
+  menuisier_category,
+  charpentier_category,
+  find_job,
+  NotFound,
+} from "../../assets";
 
-const SingleOffre = () => {
+const SingleOffre = ({ route, idUser }) => {
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPostuled, setIsPotuled] = useState(false);
+  const [dataState, setDataState] = useState({
+    isLoading: true,
+    data: [],
+    error: false,
+  });
+  const Rotate = {
+    from: {
+      rotate: "0deg",
+    },
+    to: {
+      rotate: "180deg",
+    },
+  };
+
+  function TestImage(image) {
+    if (image == "ing_genie_civil") {
+      image = genie_civil_category;
+    }
+    if (image == "staffeur") {
+      image = staffeur_category;
+    }
+    if (image == "macon") {
+      image = macon_category;
+    }
+    if (image == "manoeuvre") {
+      image = manoeuvre_category;
+    }
+    if (image == "crepisseur") {
+      image = crepissage_category;
+    }
+    if (image == "livreur_eau") {
+      image = livraison_eau_category;
+    }
+    if (image == "etancheite") {
+      image = etancheite_category;
+    }
+    if (image == "plombier") {
+      image = plombier_category;
+    }
+    if (image == "electricien") {
+      image = electricien_category;
+    }
+    if (image == "ferrailleur") {
+      image = ferrailleur_category;
+    }
+    if (image == "fouille") {
+      image = fouille_category;
+    }
+    if (image == "carreleur") {
+      image = carreaux_category;
+    }
+    if (image == "menuisier") {
+      image = menuisier_category;
+    }
+    if (image == "charpentier") {
+      image = charpentier_category;
+    }
+    if (image == "menagere") {
+      image = menagere_category;
+    }
+    if (image == "other") {
+      image = find_job;
+    }
+    return image;
+  }
+
+  useEffect(() => {
+    setDataState((prev) => {
+      return { ...prev, isLoading: true, error: false };
+    });
+    axios({
+      method: "GET",
+      url: "https://chantier237.camencorp.com/API/OFFER/st_getAllSingleOffer.php",
+      responseType: "json",
+      headers: { "Access-Control-Allow-Origin": "*" },
+      params: {
+        id: route.params.id,
+        idUser: idUser,
+      },
+    })
+      .then((response) => {
+        if (response.data.status == "ERROR") {
+          setDataState((prev) => {
+            return { ...prev, error: true };
+          });
+        } else {
+          setDataState((prev) => {
+            return {
+              ...prev,
+              data: response.data.data,
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        setDataState((prev) => {
+          return { ...prev, error: true };
+        });
+      })
+      .finally(() => {
+        setDataState((prev) => {
+          return { ...prev, isLoading: false };
+        });
+      });
+  }, []);
+
+  const api = () => {
+    setIsLoading(true);
+    axios({
+      method: "POST",
+      url: "https://chantier237.camencorp.com/API/OFFER/st_suscribOffer.php",
+      responseType: "json",
+      headers: { "Access-Control-Allow-Origin": "*" },
+      data: {
+        id: idUser,
+        offer: route.params.id,
+      },
+    })
+      .then((response) => {
+        if (response.data.status == "ERROR") {
+          //toast
+          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+        }
+        if (response.data.status == "OK") {
+          //toast
+          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+          setIsPotuled(true);
+          setDataState((prev) => {
+            return {
+              ...prev,
+              data: {
+                ...prev.data,
+                isPostuled: true,
+              },
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        //toast
+        console.log(error);
+        ToastAndroid.show(
+          "Erreur lors de la postulation. Veuillez reessayer.l",
+          ToastAndroid.SHORT
+        );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const api2 = () => {
+    setIsOpen(false);
+    setIsLoading2(true);
+    axios({
+      method: "POST",
+      url: "https://chantier237.camencorp.com/API/OFFER/st_unsuscribOffer.php",
+      responseType: "json",
+      headers: { "Access-Control-Allow-Origin": "*" },
+      data: {
+        id: idUser,
+        offer: route.params.id,
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.status == "ERROR") {
+          //toast
+          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+        }
+        if (response.data.status == "OK") {
+          //toast
+          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+          setIsPotuled(false);
+          setDataState((prev) => {
+            return {
+              ...prev,
+              data: {
+                ...prev.data,
+                isPostuled: false,
+              },
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        //toast
+        ToastAndroid.show(
+          "Erreur de l'annulation. Veuillez reessayer.",
+          ToastAndroid.SHORT
+        );
+      })
+      .finally(() => {
+        setIsLoading2(false);
+      });
+  };
 
   return (
     <NativeBaseProvider>
       <SafeAreaView className="bg-white min-h-full">
         <StatusBar backgroundColor="blue" barStyle="light-content" />
-
-        <ScrollView
-          className="flex-1 bg-white h-full w-full"
-          showsVerticalScrollIndicator={false}
+        <AlertDialog
+          isOpen={isOpen}
+          onClose={() => {
+            setIsOpen(false);
+          }}
         >
-          <View className="w-full h-[300px] relative">
-            <TouchableOpacity
-              className="rounded-full w-4 h-4 absolute z-20 left-3 top-3 items-center justify-center p-4"
-              style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-              onPress={() => {
-                navigation.navigate("OffreHome");
-              }}
-            >
-              <UilArrow size={30} color="white" />
-            </TouchableOpacity>
-            <View className="w-full items-center justify-center pt-3 pb-7 absolute z-10 bottom-4">
-              <Text
-                className="rounded-2xl text-center text-white text-sm w-min px-5 py-2"
-                style={{ backgroundColor: "rgba(0,0,0,0.6)", fontWeight: 600 }}
-              >
-                Recherche d'un ingénieur génie civil
-              </Text>
-            </View>
-            <View className="flex-row gap-x-2 w-full items-center justify-center absolute z-10 top-3">
-              <View
+          <AlertDialog.Content>
+            <AlertDialog.CloseButton />
+            <AlertDialog.Header>Annuler la postulation</AlertDialog.Header>
+            <AlertDialog.Body>
+              Etes vous sur de vouloir annuler la postulation a cette offre ?
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <Button.Group space={2}>
+                <Button colorScheme="blue" onPress={api2} width="1/3">
+                  Oui
+                </Button>
+                <Button
+                  colorScheme="danger"
+                  width="1/3"
+                  onPress={() => {
+                    setIsOpen(false);
+                  }}
+                >
+                  Non
+                </Button>
+              </Button.Group>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog>
+
+        {/* CHARGEMENT EN COURS */}
+
+        {dataState.isLoading ? (
+          <View className="flex-1 h-full items-center justify-center">
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        ) : (
+          <></>
+        )}
+
+        {/* AUCUNE DONNEE TROUVE OU ERREUR */}
+
+        {dataState.error ? (
+          <View className="flex-1 h-full items-center justify-center gap-3">
+            <Image source={NotFound} className="w-20 h-20" />
+            <Text className="text-center">
+              Aie aie aie! Verifier votre connexion et reessayer.
+            </Text>
+          </View>
+        ) : (
+          <></>
+        )}
+
+        {/* AFFICHAGE DES PROFILS */}
+
+        {!dataState.isLoading && !dataState.error ? (
+          <ScrollView
+            className="flex-1 bg-white h-full w-full"
+            showsVerticalScrollIndicator={false}
+          >
+            <View className="w-full h-[300px] relative">
+              <TouchableOpacity
+                className="rounded-full w-4 h-4 absolute z-20 left-3 top-3 items-center justify-center p-4"
                 style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-                className="flex-row items-center justify-center gap-x-2 rounded-2xl px-2 py-1"
+                onPress={() => {
+                  navigation.goBack();
+                }}
               >
-                <UilClock size={25} color="white" />
+                <UilArrow size={30} color="white" />
+              </TouchableOpacity>
+              <View className="w-full items-center justify-center pt-3 pb-7 absolute z-10 bottom-4">
                 <Text
-                  className="text-sm text-white tracking-wider"
-                  style={{ fontWeight: 600, lineHeight: 18 }}
+                  className="rounded-2xl text-center text-white text-sm w-min px-5 py-2"
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.6)",
+                    fontWeight: 600,
+                  }}
                 >
-                  Temps plein
+                  {dataState.data.title}
                 </Text>
               </View>
-            </View>
-            <Image
-              source={genie_civil_category}
-              className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-100"
-            />
-          </View>
-          <View className="w-full bg-white rounded-2xl -translate-y-8 pt-5 px-5">
-            <View className="w-full">
-              <Text
-                className="text-lg mb-1 text-blue-700 tracking-wider"
-                style={{ fontWeight: 600 }}
-              >
-                Descriptif de l'offre
-              </Text>
-              <Text
-                style={{ fontWeight: 400, lineHeight: 18 }}
-                className="text-gray-600"
-              >
-                J'aurai besoin d'un plombier pour reparer la chasse de mes
-                toilettes. Je crois qu'elle est bouchee, J'aurai besoin d'un
-                plombier pour reparer la chasse de mes toilettes. Je crois
-                qu'elle est bouchee.
-              </Text>
-            </View>
-            <View className="flex-row items-center justify-start gap-x-3 mb-5 mt-5">
-              <UilMoney size={25} color="green" />
-              <Text className="text-sm tracking-wider">
-                25.000 Fcfa par semaine - Non négociable
-              </Text>
-            </View>
-            <View className="flex-row items-center justify-center gap-x-9 ">
-              <View className="flex-col items-center justify-start gap-y-2">
-                <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                  <UilCalendar size={30} color="blue" />
-                </View>
-                <Text>Il y'a 2 semaines</Text>
-              </View>
-              <View className="flex-col items-center justify-start gap-y-2">
-                <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                  <UilMap size={30} color="blue" />
-                </View>
-                <Text>Yaoundé</Text>
-              </View>
-              <View className="flex-col items-center justify-start gap-y-2">
-                <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                  <UilUser size={30} color="blue" />
-                </View>
-                <Text>2 personnes</Text>
-              </View>
-            </View>
-          </View>
-          <View className="w-full items-center gap-y-2">
-            <Button
-              style={{
-                backgroundColor: "rgba(0,255,0,0.25)",
-                width: "89%",
-                height: 47,
-                borderRadius: 25,
-                fontSize: 30,
-                fontWeight: 600,
-                justifyContent: "center",
-              }}
-              isLoading={false}
-              size="lg"
-              isLoadingText="Enregistrement..."
-            >
-              <Text
-                className="text-[19px] text-green-800 tracking-widest"
-                style={{ fontWeight: 500 }}
-              >
-                Postuler
-              </Text>
-            </Button>
-            <A
-              href="tel:671456789"
-              style={{
-                backgroundColor: "rgba(0,255,0,0.25)",
-                width: "89%",
-                borderRadius: 25,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-                paddingBottom: 10,
-                paddingTop: 10,
-              }}
-            >
-              <View className="w-full flex-row items-center justify-center gap-x-3">
-                <UilPhone size={27} color="green" />
-                <Text
-                  className="text-[19px] text-green-800"
-                  style={{ fontWeight: 500 }}
+              <View className="flex-row gap-x-2 w-full items-center justify-center absolute z-10 top-3">
+                <View
+                  style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+                  className="flex-row items-center justify-center gap-x-2 rounded-2xl px-2 py-1"
                 >
-                  Appeler
+                  <UilClock size={25} color="white" />
+                  <Text
+                    className="text-sm text-white tracking-wider"
+                    style={{ fontWeight: 600, lineHeight: 18 }}
+                  >
+                    {dataState.data.time}
+                  </Text>
+                </View>
+              </View>
+              <Image
+                source={TestImage(dataState.data.job_category)}
+                className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-100"
+              />
+            </View>
+            <View className="w-full bg-white rounded-2xl -translate-y-8 pt-5 px-5">
+              <View className="w-full">
+                <Text
+                  className="text-lg mb-1 text-blue-700 tracking-wider"
+                  style={{ fontWeight: 600 }}
+                >
+                  Descriptif de l'offre
+                </Text>
+                <Text
+                  style={{
+                    fontWeight: 400,
+                    lineHeight: 18,
+                    textAlign: "justify",
+                  }}
+                  className="text-gray-600"
+                >
+                  {dataState.data.description}
                 </Text>
               </View>
-            </A>
-          </View>
-          <View className="h-3"></View>
-        </ScrollView>
+              <View className="flex-row items-center justify-start gap-x-3 mb-5 mt-5">
+                <UilMoney size={25} color="green" />
+                <Text className="text-sm tracking-wider">
+                  {dataState.data.salaire} Fcfa{" "}
+                  {dataState.data.salaire_frequence} -{" "}
+                  {dataState.data.salaire_negoci}
+                </Text>
+              </View>
+              <View className="flex-row items-center justify-between">
+                <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
+                  <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
+                    <UilCalendar size={30} color="blue" />
+                  </View>
+                  <Text className="text-center">{dataState.data.date}</Text>
+                </View>
+                <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
+                  <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
+                    <UilMap size={30} color="blue" />
+                  </View>
+                  <Text className="text-center">{dataState.data.lieu}</Text>
+                </View>
+                <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
+                  <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
+                    <UilUser size={30} color="blue" />
+                  </View>
+                  <Text className="text-center">
+                    {dataState.data.nb_personne}
+                    {dataState.data.nb_personne > 1 ? " places" : " place"}
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View className="w-full items-center gap-y-2">
+              {/* Bouton postuler */}
+              {!dataState.data.isPostuled ? (
+                <Button
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.9)",
+                    width: "89%",
+                    height: 47,
+                    borderRadius: 25,
+                    fontSize: 30,
+                    fontWeight: 600,
+                    justifyContent: "center",
+                  }}
+                  isLoading={isLoading}
+                  isDisabled={isLoading}
+                  size="lg"
+                  isLoadingText="Enregistrement..."
+                  onPress={api}
+                >
+                  <Text
+                    className="text-[19px] text-white tracking-widest"
+                    style={{ fontWeight: 500 }}
+                  >
+                    Postuler
+                  </Text>
+                </Button>
+              ) : (
+                <></>
+              )}
+
+              {/* En attente */}
+              {(dataState.data.isPostuled && !dataState.data.isAccepted) ||
+              isPostuled ? (
+                <View className="w-full items-center justify-center gap-y-3">
+                  <View
+                    className="bg-black py-2 w-[90%] flex-row items-center justify-center gap-x-5"
+                    style={{ borderRadius: 20 }}
+                  >
+                    <Animatable.View
+                      animation={Rotate}
+                      iterationCount="infinite"
+                    >
+                      <UilShablier size={20} color="white" />
+                    </Animatable.View>
+                    <Text className="text-white text-center">
+                      En attente d'approbation
+                    </Text>
+                  </View>
+                  <Button
+                    style={{
+                      backgroundColor: "rgba(255,0,0,0.9)",
+                      width: "89%",
+                      height: 47,
+                      borderRadius: 25,
+                      fontSize: 30,
+                      fontWeight: 600,
+                      justifyContent: "center",
+                    }}
+                    isLoading={isLoading2}
+                    isDisabled={isLoading2}
+                    size="lg"
+                    isLoadingText="En cours..."
+                    onPress={() => {
+                      setIsOpen(true);
+                    }}
+                  >
+                    <Text
+                      className="text-[17px] text-white tracking-widest"
+                      style={{ fontWeight: 500 }}
+                    >
+                      Annuler la postulation
+                    </Text>
+                  </Button>
+                </View>
+              ) : (
+                <></>
+              )}
+
+              {/* Accepte */}
+              {dataState.data.isPostuled && dataState.data.isAccepted ? (
+                <A
+                  href={`tel:${dataState.data.telephone}`}
+                  style={{
+                    backgroundColor: "rgba(0,255,0,0.25)",
+                    width: "89%",
+                    borderRadius: 25,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    paddingBottom: 10,
+                    paddingTop: 10,
+                  }}
+                >
+                  <View className="w-full flex-row items-center justify-center gap-x-3">
+                    <UilPhone size={27} color="green" />
+                    <Text
+                      className="text-[19px] text-green-800"
+                      style={{ fontWeight: 500 }}
+                    >
+                      Appeler
+                    </Text>
+                  </View>
+                </A>
+              ) : (
+                <></>
+              )}
+            </View>
+            <View className="h-3"></View>
+          </ScrollView>
+        ) : (
+          <></>
+        )}
       </SafeAreaView>
     </NativeBaseProvider>
   );

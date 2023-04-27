@@ -23,7 +23,7 @@ const OuvrierProfil = (props) => {
       />
       <Animatable.View
         animation={"bounceIn"}
-        className="flex-row items-start justify-between w-[77%] border-b-[1px] border-gray-700 pb-3 "
+        className="flex-row items-start justify-between w-[77%] border-b-[1px] border-gray-400 pb-3 "
       >
         <View>
           <Text className="text-bases" style={{ fontWeight: "700" }}>
