@@ -118,14 +118,22 @@ const SingleOuvrier = ({ route }) => {
             />
             <View className="w-full h-full items-center justify-between pt-3 pb-7">
               <Text
-                className="rounded-lg text-center text-white text-sm w-min px-5 py-2"
-                style={{ backgroundColor: "rgba(0,0,0,0.6)", fontWeight: 500 }}
+                className="text-center text-white text-sm w-min px-5 py-2"
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.6)",
+                  fontWeight: 500,
+                  borderRadius: 20,
+                }}
               >
                 {dataState.data.job_name}
               </Text>
               <Text
-                className="text-center text-white text-bold text-[26px] rounded-lg px-5 py-2"
-                style={{ backgroundColor: "rgba(0,0,0,0.5)", fontWeight: 400 }}
+                className="text-center text-white text-bold text-[26px] px-5 py-2"
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  fontWeight: 400,
+                  borderRadius: 10,
+                }}
               >
                 {dataState.data.last_name}
               </Text>

@@ -6,7 +6,8 @@ import Profil from "./Profil";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import React, { useState } from "react";
+import React from "react";
+import { StatusBar } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Home = (props) => {
@@ -16,97 +17,103 @@ const Home = (props) => {
   const size = 27;
 
   return (
-    <Tab.Navigator
-      initialRouteName="Quincaillerie"
-      screenOptions={{
-        tabBarActiveTintColor: colorNavActive,
-        tabBarInactiveTintColor: colorNavInactive,
-        tabBarStyle: {
-          borderTopColor: "rgba(0,0,0,0)", //shadow
-          backgroundColor: "white",
-          paddingTop: 3,
-          paddingBottom: 5,
-          height: 57,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: 500,
-        },
-      }}
-    >
-      <Tab.Screen
-        name="Ouvrier"
-        component={Ouvrier}
-        initialParams={{ stateUser: props.stateUser }} //// Answer
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <FontAwesome5
-              name="users"
-              size={size}
-              color={focused ? colorNavActive : colorNavInactive}
-            />
-          ),
-        }}
+    <>
+      <StatusBar
+        backgroundColor="rgba(29, 78, 216, 1)"
+        barStyle="light-content"
       />
-      <Tab.Screen
-        name="Offre"
-        component={Offre}
-        initialParams={{ stateUser: props.stateUser }}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <FontAwesome5
-              name="hand-holding-usd"
-              size={size}
-              color={focused ? colorNavActive : colorNavInactive}
-            />
-          ),
+      <Tab.Navigator
+        initialRouteName="Quincaillerie"
+        screenOptions={{
+          tabBarActiveTintColor: colorNavActive,
+          tabBarInactiveTintColor: colorNavInactive,
+          tabBarStyle: {
+            borderTopColor: "rgba(0,0,0,0)", //shadow
+            backgroundColor: "white",
+            paddingTop: 3,
+            paddingBottom: 5,
+            height: 57,
+          },
+          tabBarLabelStyle: {
+            fontSize: 11,
+            fontWeight: 500,
+          },
         }}
-      />
-      <Tab.Screen
-        name="Quincaillerie"
-        component={MarketPlace}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <MaterialCommunityIcons
-              name="store"
-              size={size}
-              color={focused ? colorNavActive : colorNavInactive}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Abonnement"
-        component={Abonnement}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name="stopwatch"
-              size={size}
-              color={focused ? colorNavActive : colorNavInactive}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profil"
-        component={Profil}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name="person"
-              size={size}
-              color={focused ? colorNavActive : colorNavInactive}
-            />
-          ),
-        }}
-      />
-    </Tab.Navigator>
+      >
+        <Tab.Screen
+          name="Ouvrier"
+          component={Ouvrier}
+          initialParams={{ stateUser: props.stateUser }} //// Answer
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome5
+                name="users"
+                size={size}
+                color={focused ? colorNavActive : colorNavInactive}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Offre"
+          component={Offre}
+          initialParams={{ stateUser: props.stateUser }}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome5
+                name="hand-holding-usd"
+                size={size}
+                color={focused ? colorNavActive : colorNavInactive}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Quincaillerie"
+          component={MarketPlace}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name="store"
+                size={size}
+                color={focused ? colorNavActive : colorNavInactive}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Abonnement"
+          component={Abonnement}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="stopwatch"
+                size={size}
+                color={focused ? colorNavActive : colorNavInactive}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profil"
+          component={Profil}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="person"
+                size={size}
+                color={focused ? colorNavActive : colorNavInactive}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </>
   );
 };
 

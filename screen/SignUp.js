@@ -156,6 +156,11 @@ const SignUp = (props) => {
 
   return (
     <NativeBaseProvider>
+      <StatusBar
+        backgroundColor="rgba(29, 78, 216, 1)"
+        barStyle="light-content"
+        className=""
+      />
       <ScrollView
         className="bg-white flex-1"
         showsVerticalScrollIndicator={false}
@@ -165,11 +170,6 @@ const SignUp = (props) => {
           colors={["rgba(29, 78, 216, 1)", "white"]}
           locations={[0, 0.8]}
           className="w-full h-40 top-0 left-0 absolute -z-10"
-        />
-        <StatusBar
-          backgroundColor="rgba(29, 78, 216, 1)"
-          barStyle="light-content"
-          className=""
         />
         <View className="items-center justify-center mt-10 w-full pb-10">
           <View className="w-32 h-32 mb-2">

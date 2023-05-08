@@ -78,66 +78,131 @@ const OffreProfil = (props) => {
     return image;
   }
 
-  return (
-    <TouchableOpacity
-      className="flex-row items-start justify-center w-full pl-6 gap-x-1 mb-4"
-      onPress={() => {
-        navigation.navigate("SingleOffre", { id: props.rowid });
-      }}
-    >
-      <View className="w-[20%] pt-2">
-        <Image
-          source={TestImage(props.job_category)}
-          className="w-16 h-16 rounded-md"
-        />
-      </View>
-      <Animatable.View
-        animation={"bounceIn"}
-        className="w-[80%] pb-2 items-start justify-start pr-[20px]"
-        style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
+  if (props.search == "") {
+    return (
+      <TouchableOpacity
+        className="flex-row items-start justify-center w-full pl-6 gap-x-1 mb-4"
+        onPress={() => {
+          navigation.navigate("SingleOffre", { id: props.rowid });
+        }}
       >
-        <Text className="text-[17px]" style={{ fontWeight: 500 }}>
-          {props.title.length >= 30
-            ? `${props.title.substring(0, 30)}...`
-            : props.title}
-        </Text>
-        <Text className="text-gray-600 mb-2 mt-1">
-          {props.description.length >= 95
-            ? `${props.description.substring(0, 95)}...`
-            : props.description}
-        </Text>
-        <View className="flex-row gap-x-3">
-          <View className="flex-row gap-x-1">
-            <UilCalendar size={20} color="blue" />
-            <Text>{props.date}</Text>
-          </View>
-          <View className="flex-row gap-x-1">
-            <UilMap size={20} color="blue" />
-            <Text>
-              {props.lieu.length >= 13
-                ? `${props.lieu.substring(0, 13)}...`
-                : props.lieu}
-            </Text>
-          </View>
+        <View className="w-[20%] pt-2">
+          <Image
+            source={TestImage(props.job_category)}
+            className="w-16 h-16 rounded-md"
+          />
         </View>
+        <Animatable.View
+          animation={"bounceIn"}
+          className="w-[80%] pb-2 items-start justify-start pr-[20px]"
+          style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
+        >
+          <Text className="text-[17px]" style={{ fontWeight: 500 }}>
+            {props.title.length >= 30
+              ? `${props.title.substring(0, 30)}...`
+              : props.title}
+          </Text>
+          <Text className="text-gray-600 mb-2 mt-1">
+            {props.description.length >= 95
+              ? `${props.description.substring(0, 95)}...`
+              : props.description}
+          </Text>
+          <View className="flex-row gap-x-3">
+            <View className="flex-row gap-x-1">
+              <UilCalendar size={20} color="blue" />
+              <Text>{props.date}</Text>
+            </View>
+            <View className="flex-row gap-x-1">
+              <UilMap size={20} color="blue" />
+              <Text>
+                {props.lieu.length >= 13
+                  ? `${props.lieu.substring(0, 13)}...`
+                  : props.lieu}
+              </Text>
+            </View>
+          </View>
 
-        {props.isAccepted ? (
-          <Text className="text-green-900 bg-green-200 text-sm rounded-md px-3 py-1 mt-3">
-            Accepté
-          </Text>
-        ) : (
-          <></>
-        )}
-        {props.isPostuled && !props.isAccepted ? (
-          <Text className="text-blue-900 bg-blue-200 text-sm rounded-md px-3 py-1 mt-3">
-            Postulé
-          </Text>
-        ) : (
-          <></>
-        )}
-      </Animatable.View>
-    </TouchableOpacity>
-  );
+          {props.isAccepted ? (
+            <Text className="text-green-900 bg-green-200 text-sm rounded-md px-3 py-1 mt-3">
+              Accepté
+            </Text>
+          ) : (
+            <></>
+          )}
+          {props.isPostuled && !props.isAccepted ? (
+            <Text className="text-blue-900 bg-blue-200 text-sm rounded-md px-3 py-1 mt-3">
+              Postulé
+            </Text>
+          ) : (
+            <></>
+          )}
+        </Animatable.View>
+      </TouchableOpacity>
+    );
+  } else {
+    if (props.title.toLowerCase().indexOf(props.search.toLowerCase()) != -1) {
+      return (
+        <TouchableOpacity
+          className="flex-row items-start justify-center w-full pl-6 gap-x-1 mb-4"
+          onPress={() => {
+            navigation.navigate("SingleOffre", { id: props.rowid });
+          }}
+        >
+          <View className="w-[20%] pt-2">
+            <Image
+              source={TestImage(props.job_category)}
+              className="w-16 h-16 rounded-md"
+            />
+          </View>
+          <Animatable.View
+            animation={"bounceIn"}
+            className="w-[80%] pb-2 items-start justify-start pr-[20px]"
+            style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
+          >
+            <Text className="text-[17px]" style={{ fontWeight: 500 }}>
+              {props.title.length >= 30
+                ? `${props.title.substring(0, 30)}...`
+                : props.title}
+            </Text>
+            <Text className="text-gray-600 mb-2 mt-1">
+              {props.description.length >= 95
+                ? `${props.description.substring(0, 95)}...`
+                : props.description}
+            </Text>
+            <View className="flex-row gap-x-3">
+              <View className="flex-row gap-x-1">
+                <UilCalendar size={20} color="blue" />
+                <Text>{props.date}</Text>
+              </View>
+              <View className="flex-row gap-x-1">
+                <UilMap size={20} color="blue" />
+                <Text>
+                  {props.lieu.length >= 13
+                    ? `${props.lieu.substring(0, 13)}...`
+                    : props.lieu}
+                </Text>
+              </View>
+            </View>
+
+            {props.isAccepted ? (
+              <Text className="text-green-900 bg-green-200 text-sm rounded-md px-3 py-1 mt-3">
+                Accepté
+              </Text>
+            ) : (
+              <></>
+            )}
+            {props.isPostuled && !props.isAccepted ? (
+              <Text className="text-blue-900 bg-blue-200 text-sm rounded-md px-3 py-1 mt-3">
+                Postulé
+              </Text>
+            ) : (
+              <></>
+            )}
+          </Animatable.View>
+        </TouchableOpacity>
+      );
+    }
+  }
 };
 
 export default OffreProfil;

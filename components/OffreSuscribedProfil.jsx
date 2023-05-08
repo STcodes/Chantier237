@@ -1,4 +1,10 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ToastAndroid,
+} from "react-native";
 import StarContainer from "../components/StarContainer";
 import UilAngleRight from "@iconscout/react-native-unicons/icons/uil-angle-right";
 import UilAngleCheck from "@iconscout/react-native-unicons/icons/uil-check";
@@ -6,29 +12,101 @@ import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import { React, useState, useEffect } from "react";
 import { Button, Input } from "native-base";
+import axios from "axios";
 
 const OffreSuscribedProfil = (props) => {
   const navigation = useNavigation();
   const [isSelected, setisSelected] = useState(false);
   const [isNoted, setIsNoted] = useState(false);
+  const [isChoiceLoading, setIsChoiceLoading] = useState(false);
+  const [isNoteLoading, setIsNoteLoading] = useState(false);
+  const [note, setNote] = useState(0);
 
   useEffect(() => {
     setisSelected(props.isSelected);
     setIsNoted(props.isNoted);
   }, []);
 
+  const choiceApi = () => {
+    setIsChoiceLoading(true);
+    axios({
+      method: "POST",
+      url: "https://chantier237.camencorp.com/API/OFFER/st_choice&noteuser.php",
+      responseType: "json",
+      headers: { "Access-Control-Allow-Origin": "*" },
+      data: {
+        action: "choice",
+        id: props.rowid,
+        offer: props.offer,
+      },
+    })
+      .then((response) => {
+        if (response.data.status == "ERROR") {
+          ToastAndroid.show(
+            "Erreur de selection. Veuiller ressayer",
+            ToastAndroid.SHORT
+          );
+        }
+        if (response.data.status == "OK") {
+          setisSelected(true);
+        }
+      })
+      .catch((error) => {
+        ToastAndroid.show(
+          "Erreur de selection. Veuiller ressayer",
+          ToastAndroid.SHORT
+        );
+      })
+      .finally(() => {
+        setIsChoiceLoading(false);
+      });
+  };
+
+  const noteApi = () => {
+    if (note > 5) {
+      ToastAndroid.show("Veuiller entrer une note valide", ToastAndroid.SHORT);
+    } else {
+      setIsNoteLoading(true);
+      axios({
+        method: "POST",
+        url: "https://chantier237.camencorp.com/API/OFFER/st_choice&noteuser.php",
+        responseType: "json",
+        headers: { "Access-Control-Allow-Origin": "*" },
+        data: {
+          action: "note",
+          id: props.rowid,
+          offer: props.offer,
+          note: note,
+        },
+      })
+        .then((response) => {
+          if (response.data.status == "ERROR") {
+            ToastAndroid.show(
+              "Erreur de notation. Veuiller ressayer",
+              ToastAndroid.SHORT
+            );
+          }
+          if (response.data.status == "OK") {
+            setIsNoted(true);
+          }
+        })
+        .catch((error) => {
+          ToastAndroid.show(
+            "Erreur de notation. Veuiller ressayer",
+            ToastAndroid.SHORT
+          );
+        })
+        .finally(() => {
+          setIsNoteLoading(false);
+        });
+    }
+  };
+
   return (
-    <View
-      className="flex-row w-full gap-3 items-center justify-start mb-4 "
-      onPress={() => {
-        navigation.navigate("SingleOuvrier", { id: 57 });
-      }}
-    >
+    <View className="flex-row w-full gap-3 items-center justify-start mb-4 ">
       <View className="relative">
         <Image
-          source={{
-            uri: "https://img.freepik.com/free-photo/young-african-american-man-s-portrait-isolated-yellow-facial-expression_155003-44277.jpg?size=626&ext=jpg&uid=R88212060&semt=ais",
-          }}
+          source={{ uri: props.imageUrl }}
           className="w-14 h-14 rounded-full"
         />
         <View
@@ -47,9 +125,9 @@ const OffreSuscribedProfil = (props) => {
       >
         <View className="w-[90%]">
           <Text className="text-[18px] mb-1" style={{ fontWeight: "600" }}>
-            SITIO thierry
+            {props.name}
           </Text>
-          <StarContainer evaluation={4} />
+          <StarContainer evaluation={props.evaluation} />
           <View className="h-3"></View>
 
           {/* Button choisir */}
@@ -59,10 +137,12 @@ const OffreSuscribedProfil = (props) => {
               _text={{
                 color: "black",
               }}
-              isLoading={false}
+              isLoading={isChoiceLoading}
+              disabled={isChoiceLoading}
               size="sm"
               isLoadingText="selection..."
               style={{ borderRadius: 25 }}
+              onPress={choiceApi}
             >
               <Text className="text-black">Choisir</Text>
             </Button>
@@ -78,6 +158,9 @@ const OffreSuscribedProfil = (props) => {
               size="md"
               w="100%"
               py="0"
+              onChangeText={(value) => {
+                setNote(value);
+              }}
               InputRightElement={
                 <Button
                   size="md"
@@ -86,6 +169,11 @@ const OffreSuscribedProfil = (props) => {
                   h="full"
                   style={{
                     backgroundColor: "rgba(0,0,255,0.5)",
+                  }}
+                  isLoading={isNoteLoading}
+                  isDisabled={isNoteLoading}
+                  onPress={() => {
+                    noteApi();
                   }}
                 >
                   Noter
@@ -101,9 +189,8 @@ const OffreSuscribedProfil = (props) => {
       <TouchableOpacity
         className="items-center justify-center h-[100px]"
         onPress={() => {
-          navigation.navigate("Ouvrier", {
-            screen: "SingleOuvrier",
-            params: { id: 56 },
+          navigation.navigate("SingleOuvrier", {
+            id: props.rowid,
           });
         }}
       >
