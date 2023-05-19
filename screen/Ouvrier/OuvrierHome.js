@@ -173,8 +173,8 @@ const OuvrierHome = (props) => {
   }, [categorie]);
 
   return (
-    <SafeAreaView>
-      <StatusBar backgroundColor="blue" barStyle="light-content" />
+    <SafeAreaView className="bg-white min-h-full">
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <View
         className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
         style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}

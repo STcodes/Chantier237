@@ -9,8 +9,10 @@ import {
   ActivityIndicator,
   RefreshControl,
   ToastAndroid,
+  Platform,
 } from "react-native";
 import { React, useState, useEffect } from "react";
+import Toast from "react-native-root-toast";
 import UilArrow from "@iconscout/react-native-unicons/icons/uil-angle-left";
 import UilMoney from "@iconscout/react-native-unicons/icons/uil-money-stack";
 import UilClock from "@iconscout/react-native-unicons/icons/uil-clock";
@@ -52,6 +54,17 @@ const SingleOffrePosted = ({ route }) => {
     user: [],
     error: false,
   });
+
+  const stToast = (message) => {
+    if (Platform.OS == "android") {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+    } else {
+      Toast.show(message, {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.TOP,
+      });
+    }
+  };
 
   function TestImage(image) {
     if (image == "ing_genie_civil") {
@@ -164,21 +177,15 @@ const SingleOffrePosted = ({ route }) => {
     })
       .then((response) => {
         if (response.data.status == "ERROR") {
-          ToastAndroid.show(
-            "Erreur lors de la supprission. Veuillez reessayer",
-            ToastAndroid.SHORT
-          );
+          stToast("Erreur lors de la supprission. Veuillez reessayer");
         }
         if (response.data.status == "OK") {
-          ToastAndroid.show("Suppression effectuee", ToastAndroid.SHORT);
+          stToast("Suppression effectuée");
           navigation.navigate("OffreHome");
         }
       })
       .catch((error) => {
-        ToastAndroid.show(
-          "Erreur lors de la supprission. Veuillez reessayer",
-          ToastAndroid.SHORT
-        );
+        stToast("Erreur lors de la suppression. Veuillez reessayer");
       })
       .finally(() => {
         setDeleteLoading(false);
@@ -198,21 +205,15 @@ const SingleOffrePosted = ({ route }) => {
     })
       .then((response) => {
         if (response.data.status == "ERROR") {
-          ToastAndroid.show(
-            "Veuillez noter tous les candidats que vous avez choisi",
-            ToastAndroid.SHORT
-          );
+          stToast("Veuillez noter tous les candidats que vous avez choisi");
         }
         if (response.data.status == "OK") {
-          ToastAndroid.show("Enregistrement effectuee", ToastAndroid.SHORT);
+          stToast("Enregistrement effectué");
           navigation.navigate("OffreHome");
         }
       })
       .catch((error) => {
-        ToastAndroid.show(
-          "Erreur lors de l'enregistrement. Veuillez reessayer",
-          ToastAndroid.SHORT
-        );
+        stToast("Erreur lors de l'enregistrement. Veuillez reessayer");
       })
       .finally(() => {
         setOverLoading(false);
@@ -222,7 +223,7 @@ const SingleOffrePosted = ({ route }) => {
   return (
     <NativeBaseProvider>
       <SafeAreaView className="bg-white min-h-full">
-        <StatusBar backgroundColor="blue" barStyle="light-content" />
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <AlertDialog
           isOpen={isOpen}
           onClose={() => {
@@ -301,15 +302,19 @@ const SingleOffrePosted = ({ route }) => {
                 <UilArrow size={30} color="white" />
               </TouchableOpacity>
               <View className="w-full items-center justify-center pt-3 pb-7 absolute z-10 bottom-4">
-                <Text
-                  className="rounded-2xl text-center text-white text-sm w-min px-5 py-2"
-                  style={{
-                    backgroundColor: "rgba(0,0,0,0.6)",
-                    fontWeight: 600,
-                  }}
+                <View
+                  className="rounded-lg overflow-hidden px-5 py-2"
+                  style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
                 >
-                  {dataState.offer.title}
-                </Text>
+                  <Text
+                    className="rounded-2xl text-center text-white text-sm"
+                    style={{
+                      fontWeight: 600,
+                    }}
+                  >
+                    {dataState.offer.title}
+                  </Text>
+                </View>
               </View>
               <View className="flex-row gap-x-2 w-full items-center justify-center absolute z-10 top-3">
                 <View

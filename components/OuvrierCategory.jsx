@@ -7,7 +7,7 @@ const OuvrierCategory = (props) => {
       className={
         props.categorie == props.categoryCard
           ? "h-[130px] w-[115px] bg-blue-500 rounded-lg overflow-hidden mr-4 items-center justify-start"
-          : "h-[130px] w-[115px] bg-orange-100 rounded-lg overflow-hidden mr-4 items-center justify-start"
+          : "h-[130px] w-[115px] bg-blue-50 rounded-lg overflow-hidden mr-4 items-center justify-start"
       }
       onPress={() => {
         props.setCategory(props.categoryCard);

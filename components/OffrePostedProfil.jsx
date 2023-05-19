@@ -117,14 +117,18 @@ const OffrePostedProfil = (props) => {
         </View>
 
         {props.nb_candidats != 0 ? (
-          <Text className="text-blue-900 bg-blue-200 text-sm rounded-md px-3 py-1 mt-3">
-            {props.nb_candidats}
-            {props.nb_candidats > 1 ? " candidats" : " candidat"}
-          </Text>
+          <View className="rounded-md px-3 py-1 mt-3 bg-blue-200 overflow-hidden">
+            <Text className="text-blue-900 text-sm ">
+              {props.nb_candidats}
+              {props.nb_candidats > 1 ? " candidats" : " candidat"}
+            </Text>
+          </View>
         ) : (
-          <Text className="text-green-900 bg-green-200 text-sm rounded-md px-3 py-1 mt-3">
-            Aucun candidat pour le moment
-          </Text>
+          <View className="rounded-md px-3 py-1 mt-3 bg-green-200 overflow-hidden">
+            <Text className="text-green-900 text-sm ">
+              Aucun candidat pour le moment
+            </Text>
+          </View>
         )}
       </Animatable.View>
     </TouchableOpacity>

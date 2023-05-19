@@ -16,6 +16,7 @@ import {
   ScrollView,
   Pressable,
   ToastAndroid,
+  Platform,
 } from "react-native";
 import {
   NativeBaseProvider,
@@ -24,6 +25,7 @@ import {
   Input,
   Select,
 } from "native-base";
+import Toast from "react-native-root-toast";
 
 const SignUp = (props) => {
   const navigation = useNavigation();
@@ -45,6 +47,17 @@ const SignUp = (props) => {
     job: false,
     jobCategory: false,
   });
+
+  const stToast = (message) => {
+    if (Platform.OS == "android") {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+    } else {
+      Toast.show(message, {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.TOP,
+      });
+    }
+  };
 
   const submitData = () => {
     if (
@@ -68,7 +81,7 @@ const SignUp = (props) => {
         .then((response) => {
           if (response.data.status == "ERROR") {
             //TOAST THE ERROR
-            ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+            stToast(response.data.message);
           } else {
             // save the datauser in state and in local
 
@@ -91,10 +104,7 @@ const SignUp = (props) => {
         })
         .catch((error) => {
           // toat error
-          ToastAndroid.show(
-            "Erreur lors de la connexion. Veuillez reessayer.",
-            ToastAndroid.SHORT
-          );
+          stToast("Erreur lors de la connexion. Veuillez reessayer.");
         })
         .finally(() => {
           setIsLoading(false);
@@ -146,9 +156,8 @@ const SignUp = (props) => {
         });
       }
       if (!isCondition) {
-        ToastAndroid.show(
-          "Veuliiez acceptez les termes et conditions d'utilisation pour l'inscription",
-          ToastAndroid.SHORT
+        stToast(
+          "Veuliiez acceptez les termes et conditions d'utilisation pour l'inscription"
         );
       }
     }

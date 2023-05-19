@@ -8,7 +8,9 @@ import {
   StatusBar,
   ActivityIndicator,
   ToastAndroid,
+  Platform,
 } from "react-native";
+import Toast from "react-native-root-toast";
 import { React, useState, useEffect } from "react";
 import * as Animatable from "react-native-animatable";
 import UilArrow from "@iconscout/react-native-unicons/icons/uil-angle-left";
@@ -61,6 +63,17 @@ const SingleOffre = ({ route, idUser }) => {
     to: {
       rotate: "180deg",
     },
+  };
+
+  const stToast = (message) => {
+    if (Platform.OS == "android") {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+    } else {
+      Toast.show(message, {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.TOP,
+      });
+    }
   };
 
   function TestImage(image) {
@@ -169,12 +182,12 @@ const SingleOffre = ({ route, idUser }) => {
     })
       .then((response) => {
         if (response.data.status == "ERROR") {
-          //toast
-          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+          //
+          stToast(response.data.message);
         }
         if (response.data.status == "OK") {
           //toast
-          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+          stToast(response.data.message);
           setIsPotuled(true);
           setDataState((prev) => {
             return {
@@ -189,11 +202,7 @@ const SingleOffre = ({ route, idUser }) => {
       })
       .catch((error) => {
         //toast
-        console.log(error);
-        ToastAndroid.show(
-          "Erreur lors de la postulation. Veuillez reessayer.l",
-          ToastAndroid.SHORT
-        );
+        stToast("Erreur lors de la postulation. Veuillez reessayer.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -214,14 +223,13 @@ const SingleOffre = ({ route, idUser }) => {
       },
     })
       .then((response) => {
-        console.log(response.data);
         if (response.data.status == "ERROR") {
           //toast
-          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+          stToast(response.data.message);
         }
         if (response.data.status == "OK") {
           //toast
-          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+          stToast(response.data.message);
           setIsPotuled(false);
           setDataState((prev) => {
             return {
@@ -236,20 +244,66 @@ const SingleOffre = ({ route, idUser }) => {
       })
       .catch((error) => {
         //toast
-        ToastAndroid.show(
-          "Erreur de l'annulation. Veuillez reessayer.",
-          ToastAndroid.SHORT
-        );
+        stToast("Erreur de l'annulation. Veuillez reessayer.");
       })
       .finally(() => {
         setIsLoading2(false);
       });
   };
 
+  const Lien = () => {
+    if (Platform.OS == "android") {
+      return (
+        <A
+          href={`tel:${dataState.data.telephone}`}
+          style={{
+            backgroundColor: "black",
+            width: "89%",
+            borderRadius: 25,
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            paddingBottom: 10,
+            paddingTop: 10,
+          }}
+        >
+          <View className="w-full flex-row items-center justify-center gap-x-3">
+            <UilPhone size={27} color="white" />
+            <Text
+              className="text-[19px] text-white"
+              style={{ fontWeight: 500 }}
+            >
+              Appeler
+            </Text>
+          </View>
+        </A>
+      );
+    } else {
+      return (
+        <A
+          href={`tel:${dataState.data.telephone}`}
+          style={{
+            backgroundColor: "black",
+            width: "89%",
+            height: "25%",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            paddingBottom: 10,
+            paddingTop: 10,
+            color: "white",
+          }}
+        >
+          Appeler
+        </A>
+      );
+    }
+  };
+
   return (
     <NativeBaseProvider>
       <SafeAreaView className="bg-white min-h-full">
-        <StatusBar backgroundColor="blue" barStyle="light-content" />
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <AlertDialog
           isOpen={isOpen}
           onClose={() => {
@@ -304,7 +358,7 @@ const SingleOffre = ({ route, idUser }) => {
           <></>
         )}
 
-        {/* AFFICHAGE DES PROFILS */}
+        {/* AFFICHAGE DU PROFIL */}
 
         {!dataState.isLoading && !dataState.error ? (
           <ScrollView
@@ -321,16 +375,18 @@ const SingleOffre = ({ route, idUser }) => {
               >
                 <UilArrow size={30} color="white" />
               </TouchableOpacity>
-              <View className="w-full items-center justify-center pt-3 pb-7 absolute z-10 bottom-4">
-                <Text
-                  className="rounded-2xl text-center text-white text-sm w-min px-5 py-2"
-                  style={{
-                    backgroundColor: "rgba(0,0,0,0.6)",
-                    fontWeight: 600,
-                  }}
-                >
-                  {dataState.data.title}
-                </Text>
+              <View className="w-full items-center justify-center pt-3 pb-7 absolute z-10 bottom-4 ">
+                <View className="rounded-lg overflow-hidden">
+                  <Text
+                    className="text-center text-white text-sm w-min px-5 py-2"
+                    style={{
+                      backgroundColor: "rgba(0,0,0,0.6)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {dataState.data.title}
+                  </Text>
+                </View>
               </View>
               <View className="flex-row gap-x-2 w-full items-center justify-center absolute z-10 top-3">
                 <View
@@ -482,29 +538,7 @@ const SingleOffre = ({ route, idUser }) => {
 
               {/* Accepte */}
               {dataState.data.isPostuled && dataState.data.isAccepted ? (
-                <A
-                  href={`tel:${dataState.data.telephone}`}
-                  style={{
-                    backgroundColor: "rgba(0,255,0,0.25)",
-                    width: "89%",
-                    borderRadius: 25,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textAlign: "center",
-                    paddingBottom: 10,
-                    paddingTop: 10,
-                  }}
-                >
-                  <View className="w-full flex-row items-center justify-center gap-x-3">
-                    <UilPhone size={27} color="green" />
-                    <Text
-                      className="text-[19px] text-green-800"
-                      style={{ fontWeight: 500 }}
-                    >
-                      Appeler
-                    </Text>
-                  </View>
-                </A>
+                <Lien />
               ) : (
                 <></>
               )}

@@ -122,16 +122,16 @@ const OffrePostuledProfil = (props) => {
         </View>
 
         {props.isAccepted ? (
-          <Text className="text-green-900 bg-green-200 text-sm rounded-md px-3 py-1 mt-3">
-            Accepté
-          </Text>
+          <View className="rounded-md px-3 py-1 mt-3 overflow-hidden bg-green-200">
+            <Text className="text-green-900  text-sm ">Accepté</Text>
+          </View>
         ) : (
           <></>
         )}
         {props.isPostuled && !props.isAccepted ? (
-          <Text className="text-blue-900 bg-blue-200 text-sm rounded-md px-3 py-1 mt-3">
-            Postulé
-          </Text>
+          <View className="rounded-md px-3 py-1 mt-3 bg-blue-200">
+            <Text className="text-blue-900 text-sm ">Postulé</Text>
+          </View>
         ) : (
           <></>
         )}

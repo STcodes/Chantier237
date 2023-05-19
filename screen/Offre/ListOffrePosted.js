@@ -65,7 +65,7 @@ const ListOffrePosted = (props) => {
 
   return (
     <NativeBaseProvider>
-      <StatusBar backgroundColor="blue" barStyle="light-content" />
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <SafeAreaView className="bg-white w-full">
         <View
           className="w-full flex-row items-center justify-between px-2 py-2 bg-white"

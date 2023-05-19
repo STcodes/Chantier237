@@ -7,7 +7,9 @@ import {
   ScrollView,
   TouchableOpacity,
   ToastAndroid,
+  Platform,
 } from "react-native";
+import Toast from "react-native-root-toast";
 import { React, useState } from "react";
 import {
   Input,
@@ -50,6 +52,16 @@ const CreateOffre = ({ idUser }) => {
     description: false,
     temps: false,
   });
+  const stToast = (message) => {
+    if (Platform.OS == "android") {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+    } else {
+      Toast.show(message, {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.TOP,
+      });
+    }
+  };
 
   const api = () => {
     setIsLoading(true);
@@ -63,18 +75,15 @@ const CreateOffre = ({ idUser }) => {
       .then((response) => {
         if (response.data.status == "ERROR") {
           //TOAST THE ERROR
-          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+          stToast(response.data.message);
         }
         if (response.data.status == "OK") {
-          ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+          stToast(response.data.message);
         }
       })
       .catch((error) => {
         // toat error
-        ToastAndroid.show(
-          "Erreur lors de l'enregistrement. Veuillez reessayer.",
-          ToastAndroid.SHORT
-        );
+        stToast("Erreur lors de l'enregistrement. Veuillez reessayer.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -177,13 +186,12 @@ const CreateOffre = ({ idUser }) => {
         });
       }
     }
-    console.log(data);
   };
 
   return (
     <NativeBaseProvider>
-      <StatusBar backgroundColor="blue" barStyle="light-content" />
       <SafeAreaView className="bg-white w-full">
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <View
           className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
           style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}

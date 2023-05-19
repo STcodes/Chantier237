@@ -20,12 +20,12 @@
     "android": {
       "package" : "relatedtoanysample.sampleapp",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo2.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo2.png"
     }
   }
 }

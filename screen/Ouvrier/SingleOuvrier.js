@@ -68,7 +68,7 @@ const SingleOuvrier = ({ route }) => {
 
   return (
     <SafeAreaView className="bg-white min-h-full">
-      <StatusBar backgroundColor="blue" barStyle="light-content" />
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
 
       {/* CHARGEMENT EN COURS */}
 
@@ -117,26 +117,31 @@ const SingleOuvrier = ({ route }) => {
               className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-100"
             />
             <View className="w-full h-full items-center justify-between pt-3 pb-7">
-              <Text
-                className="text-center text-white text-sm w-min px-5 py-2"
+              <View
+                className="px-5 py-2 rounded-lg overflow-hidden"
                 style={{
-                  backgroundColor: "rgba(0,0,0,0.6)",
                   fontWeight: 500,
-                  borderRadius: 20,
-                }}
-              >
-                {dataState.data.job_name}
-              </Text>
-              <Text
-                className="text-center text-white text-bold text-[26px] px-5 py-2"
-                style={{
                   backgroundColor: "rgba(0,0,0,0.5)",
-                  fontWeight: 400,
-                  borderRadius: 10,
                 }}
               >
-                {dataState.data.last_name}
-              </Text>
+                <Text className="text-center text-white text-sm">
+                  {dataState.data.job_name}
+                </Text>
+              </View>
+
+              <View
+                className="px-5 py-2 rounded-lg overflow-hidden"
+                style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+              >
+                <Text
+                  className="text-center text-white text-[26px]"
+                  style={{
+                    fontWeight: 400,
+                  }}
+                >
+                  {dataState.data.last_name}
+                </Text>
+              </View>
             </View>
           </View>
           <View className="w-full bg-white rounded-2xl -translate-y-8 pt-5 px-5">

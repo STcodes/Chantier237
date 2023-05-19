@@ -7,8 +7,9 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import React from "react";
-import { StatusBar } from "react-native";
+import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 const Home = (props) => {
   const Tab = createBottomTabNavigator();
@@ -17,22 +18,18 @@ const Home = (props) => {
   const size = 27;
 
   return (
-    <>
-      <StatusBar
-        backgroundColor="rgba(29, 78, 216, 1)"
-        barStyle="light-content"
-      />
+    <RootSiblingParent>
       <Tab.Navigator
-        initialRouteName="Quincaillerie"
+        initialRouteName="MarketPlace"
         screenOptions={{
           tabBarActiveTintColor: colorNavActive,
           tabBarInactiveTintColor: colorNavInactive,
           tabBarStyle: {
-            borderTopColor: "rgba(0,0,0,0)", //shadow
+            borderTopColor: "rgba(0,0,0,0.5)",
             backgroundColor: "white",
             paddingTop: 3,
-            paddingBottom: 5,
-            height: 57,
+            paddingBottom: Platform.OS == "android" ? 5 : 25,
+            height: Platform.OS == "android" ? 57 : 80,
           },
           tabBarLabelStyle: {
             fontSize: 11,
@@ -71,7 +68,8 @@ const Home = (props) => {
           }}
         />
         <Tab.Screen
-          name="Quincaillerie"
+          initialParams={{ stateUser: props.stateUser }}
+          name="MarketPlace"
           component={MarketPlace}
           options={{
             headerShown: false,
@@ -113,7 +111,7 @@ const Home = (props) => {
           }}
         />
       </Tab.Navigator>
-    </>
+    </RootSiblingParent>
   );
 };
 

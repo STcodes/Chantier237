@@ -6,8 +6,10 @@ import {
   Image,
   ToastAndroid,
   StatusBar,
+  Platform,
 } from "react-native";
 import { NativeBaseProvider, Button, FormControl, Input } from "native-base";
+import Toast from "react-native-root-toast";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LogoImage, FacebookLogo } from "../assets/";
@@ -29,6 +31,17 @@ const SignIn = (props) => {
     password: false,
   });
 
+  const stToast = (message) => {
+    if (Platform.OS == "android") {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+    } else {
+      Toast.show(message, {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.TOP,
+      });
+    }
+  };
+
   const submitData = () => {
     if (inputData.userName != "" && inputData.password != "") {
       // api
@@ -43,7 +56,7 @@ const SignIn = (props) => {
         .then((response) => {
           if (response.data.status == "ERROR") {
             //TOAST THE ERROR
-            ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+            stToast(response.data.message);
           } else {
             //save the datauser in state and in local
 
@@ -68,10 +81,7 @@ const SignIn = (props) => {
         })
         .catch((error) => {
           // TOAST THE ERROR
-          ToastAndroid.show(
-            "Erreur de connexion. Veuillez reessayer",
-            ToastAndroid.SHORT
-          );
+          stToast("Erreur de connexion. Veuillez reessayer");
         })
         .finally(() => {
           setIsLoading(false);
@@ -135,16 +145,16 @@ const SignIn = (props) => {
 
   return (
     <NativeBaseProvider>
+      <StatusBar
+        backgroundColor="rgba(29, 78, 216, 1)"
+        barStyle="light-content"
+      />
       <View className="bg-white flex-1 items-center justify-start pt-12 flex-col">
         <LinearGradient
           // Background Linear Gradient
           colors={["rgba(29, 78, 216, 1)", "white"]}
           locations={[0, 0.8]}
           className="w-full h-40 top-0 left-0 absolute -z-10"
-        />
-        <StatusBar
-          backgroundColor="rgba(29, 78, 216, 1)"
-          barStyle="light-content"
         />
         <View className="w-32 h-32 mb-2">
           <Image source={LogoImage} className="w-full h-full object-cover" />
