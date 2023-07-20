@@ -36,6 +36,7 @@ const SignUp = (props) => {
     userName: "",
     password: "",
     lastName: "",
+    email: "",
     job: "",
     jobCategory: "",
   });
@@ -44,6 +45,7 @@ const SignUp = (props) => {
     userName: false,
     password: false,
     lastName: false,
+    email: false,
     job: false,
     jobCategory: false,
   });
@@ -64,6 +66,7 @@ const SignUp = (props) => {
       inputData.userName != "" &&
       inputData.password.length >= 8 &&
       inputData.lastName != "" &&
+      inputData.email != "" &&
       inputData.job != "" &&
       inputData.jobCategory != "" &&
       isCondition
@@ -135,6 +138,15 @@ const SignUp = (props) => {
       } else {
         setIsDataEmpty((prev) => {
           return { ...prev, lastName: false };
+        });
+      }
+      if (inputData.email == "") {
+        setIsDataEmpty((prev) => {
+          return { ...prev, email: true };
+        });
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, email: false };
         });
       }
       if (inputData.job == "") {
@@ -217,6 +229,20 @@ const SignUp = (props) => {
                 className="text-sm"
                 onChangeText={(value) =>
                   setInputData({ ...inputData, lastName: value })
+                }
+              />
+              <FormControl.ErrorMessage>
+                Ce champ ne doit pas etre vide.
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isDataEmpty.email}>
+              <Input
+                placeholder="Votre email"
+                type="text"
+                className="text-sm"
+                onChangeText={(value) =>
+                  setInputData({ ...inputData, email: value })
                 }
               />
               <FormControl.ErrorMessage>

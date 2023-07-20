@@ -149,7 +149,6 @@ const CreateProduct = (props) => {
 
   // component to take image
   const GetImageGallery = (props) => {
-    const [isSelected, setIsSelected] = useState(false);
     const pickImage = async () => {
       let galleryStatus =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -166,7 +165,6 @@ const CreateProduct = (props) => {
           props.setImageProduct((prev) =>
             prev.map((item, key) => (key === props.id - 1 ? imageUri : item))
           );
-          setIsSelected(true);
         }
       }
     };

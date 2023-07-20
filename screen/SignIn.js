@@ -231,7 +231,7 @@ const SignIn = (props) => {
           >
             Se connecter
           </Button>
-          <View className="mt-3 mb-3 flex-row items-center justify-center gap-x-2">
+          {/* <View className="mt-3 mb-3 flex-row items-center justify-center gap-x-2">
             <View className="h-[1px] w-[65px] bg-black"></View>
             <Text className="-translate-y-[2px]">ou connectez vous avec</Text>
             <View className="h-[1px] w-[65px] bg-black"></View>
@@ -241,7 +241,7 @@ const SignIn = (props) => {
             <Text className="text-lg text-semibold ml-5 text-center">
               Facebook
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Text className="items-center justify-center w-full text-center">
             Vous avez pas de compte ?{"  "}
             <Text
