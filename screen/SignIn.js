@@ -171,10 +171,14 @@ const SignIn = (props) => {
           <Text className="text-[30px] text-[black] mb-1 text-bold">
             Connexion
           </Text>
-          <Text>Accedez a votre compte</Text>
+          <Text>Accedez à votre compte</Text>
         </View>
 
-        <View className="w-full px-8 items-center justify-center flex-col pt-5 gap-5">
+        <View className="w-full px-8  justify-center flex-col pt-5">
+          {/* Nom d'ultisateur */}
+          <Text className="mb-2 mt-2 text-base text-left">
+            Votre nom d'utilisateur
+          </Text>
           <FormControl isInvalid={isDataEmpty.userName}>
             <Input
               placeholder="Nom d'utilisateur"
@@ -189,6 +193,11 @@ const SignIn = (props) => {
               Ce champ ne doit pas etre vide.
             </FormControl.ErrorMessage>
           </FormControl>
+
+          {/* mot de passe */}
+          <Text className="mb-2 mt-7 text-base text-left">
+            Votre mot de passe
+          </Text>
           <FormControl isInvalid={isDataEmpty.password}>
             <Input
               placeholder="Mot de passe"
@@ -214,6 +223,7 @@ const SignIn = (props) => {
               Ce champ ne doit pas etre vide.
             </FormControl.ErrorMessage>
           </FormControl>
+
           <Button
             style={{
               backgroundColor: "black",
@@ -221,6 +231,7 @@ const SignIn = (props) => {
               height: 60,
               borderRadius: 7,
               fontSize: 25,
+              marginTop: 35,
             }}
             onPress={submitData}
             size="lg"
@@ -231,6 +242,7 @@ const SignIn = (props) => {
           >
             Se connecter
           </Button>
+
           {/* <View className="mt-3 mb-3 flex-row items-center justify-center gap-x-2">
             <View className="h-[1px] w-[65px] bg-black"></View>
             <Text className="-translate-y-[2px]">ou connectez vous avec</Text>
@@ -242,7 +254,8 @@ const SignIn = (props) => {
               Facebook
             </Text>
           </TouchableOpacity> */}
-          <Text className="items-center justify-center w-full text-center">
+
+          <Text className="items-center justify-center w-full text-center mt-8">
             Vous avez pas de compte ?{"  "}
             <Text
               className="text-blue-500 text-[15px]"
@@ -250,7 +263,7 @@ const SignIn = (props) => {
                 navigation.navigate("Signup");
               }}
             >
-              S'inscrire
+              Inscrivez-vous
             </Text>
           </Text>
         </View>

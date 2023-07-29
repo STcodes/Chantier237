@@ -31,13 +31,13 @@ const CreateOffre = ({ idUser }) => {
   const [data, setData] = useState({
     jobCategory: "",
     location: "",
-    nbPers: 0,
-    salaire: 0,
+    nbPers: "",
+    temps: "",
+    salaire: "",
     salaireFrequence: "",
     saliereNegoci: "",
     libelle: "",
     description: "",
-    temps: "",
     idUser: idUser,
   });
 
@@ -90,101 +90,26 @@ const CreateOffre = ({ idUser }) => {
       });
   };
 
+  const isEmpty = () => {
+    for (const [cle, valeur] of Object.entries(data)) {
+      if (valeur === "") {
+        setIsDataEmpty((prev) => {
+          return { ...prev, [cle]: true };
+        });
+        stToast("Veuillez entrer tous les champs");
+        return false;
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, [cle]: false };
+        });
+      }
+    }
+    return true;
+  };
+
   const submitData = () => {
-    if (
-      data.jobCategory != "" &&
-      data.location != "" &&
-      data.nbPers != 0 &&
-      data.salaire != 0 &&
-      data.salaireFrequence != "" &&
-      data.saliereNegoci != "" &&
-      data.libelle != "" &&
-      data.description != "" &&
-      data.temps != ""
-    ) {
+    if (isEmpty()) {
       api();
-    } else {
-      if (data.jobCategory == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, jobCategory: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, jobCategory: false };
-        });
-      }
-      if (data.location == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, location: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, location: false };
-        });
-      }
-      if (data.nbPers == 0) {
-        setIsDataEmpty((prev) => {
-          return { ...prev, nbPers: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, nbPers: false };
-        });
-      }
-      if (data.salaire == 0) {
-        setIsDataEmpty((prev) => {
-          return { ...prev, salaire: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, salaire: false };
-        });
-      }
-      if (data.salaireFrequence == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, salaireFrequence: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, salaireFrequence: false };
-        });
-      }
-      if (data.saliereNegoci == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, saliereNegoci: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, saliereNegoci: false };
-        });
-      }
-      if (data.libelle == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, libelle: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, libelle: false };
-        });
-      }
-      if (data.description == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, description: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, description: false };
-        });
-      }
-      if (data.temps == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, temps: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, temps: false };
-        });
-      }
     }
   };
 

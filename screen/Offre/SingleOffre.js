@@ -19,7 +19,6 @@ import UilClock from "@iconscout/react-native-unicons/icons/uil-clock";
 import UilCalendar from "@iconscout/react-native-unicons/icons/uil-calender";
 import UilMap from "@iconscout/react-native-unicons/icons/uil-map-marker";
 import UilUser from "@iconscout/react-native-unicons/icons/uil-users-alt";
-import UilPhone from "@iconscout/react-native-unicons/icons/uil-phone";
 import UilShablier from "@iconscout/react-native-unicons/icons/uil-hourglass";
 import { Button, NativeBaseProvider, AlertDialog } from "native-base";
 import { useNavigation } from "@react-navigation/native";

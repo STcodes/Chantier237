@@ -1,14 +1,3 @@
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { A } from "@expo/html-elements";
-import { LogoImage } from "../assets/";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Checkbox from "expo-checkbox";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LinearGradient } from "expo-linear-gradient";
-import { StatusBar } from "react-native";
-
 import {
   View,
   Text,
@@ -25,7 +14,17 @@ import {
   Input,
   Select,
 } from "native-base";
+import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { LogoImage } from "../assets/";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Checkbox from "expo-checkbox";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "react-native";
 import Toast from "react-native-root-toast";
+import * as Linking from "expo-linking";
 
 const SignUp = (props) => {
   const navigation = useNavigation();
@@ -34,9 +33,9 @@ const SignUp = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [inputData, setInputData] = useState({
     userName: "",
-    password: "",
     lastName: "",
     email: "",
+    password: "",
     job: "",
     jobCategory: "",
   });
@@ -61,19 +60,42 @@ const SignUp = (props) => {
     }
   };
 
-  const submitData = () => {
-    if (
-      inputData.userName != "" &&
-      inputData.password.length >= 8 &&
-      inputData.lastName != "" &&
-      inputData.email != "" &&
-      inputData.job != "" &&
-      inputData.jobCategory != "" &&
-      isCondition
-    ) {
-      // api
-      setIsLoading(true);
+  const isInputDataEmpty = () => {
+    for (const [cle, valeur] of Object.entries(inputData)) {
+      if (valeur === "") {
+        stToast("Veulliez entrer tous les champs");
+        setIsDataEmpty((prev) => {
+          return { ...prev, [cle]: true };
+        });
+        return false;
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, [cle]: false };
+        });
+      }
+      if (cle == "password") {
+        if (valeur.length < 8) {
+          stToast("Veulliez entrer un mot de passe valide");
+          setIsDataEmpty((prev) => {
+            return { ...prev, password: false };
+          });
+          return false;
+        }
+      }
+    }
 
+    if (!isCondition) {
+      stToast(
+        "Veulliez acceptez les termes et conditions d'utilisation pour l'inscription"
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const submitData = () => {
+    if (isInputDataEmpty()) {
+      setIsLoading(true);
       axios({
         method: "POST",
         url: "https://chantier237.camencorp.com/API/AUTH/st_signup.php",
@@ -103,7 +125,11 @@ const SignUp = (props) => {
               dateAbonned: response.data.data.date_abon,
             });
           }
-          navigation.replace("Home");
+          // navigation.replace("Home");
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+          });
         })
         .catch((error) => {
           // toat error
@@ -112,66 +138,6 @@ const SignUp = (props) => {
         .finally(() => {
           setIsLoading(false);
         });
-    } else {
-      if (inputData.userName == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, userName: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, userName: false };
-        });
-      }
-      if (inputData.password.length < 8) {
-        setIsDataEmpty((prev) => {
-          return { ...prev, password: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, password: false };
-        });
-      }
-      if (inputData.lastName == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, lastName: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, lastName: false };
-        });
-      }
-      if (inputData.email == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, email: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, email: false };
-        });
-      }
-      if (inputData.job == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, job: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, job: false };
-        });
-      }
-      if (inputData.jobCategory == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, jobCategory: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, jobCategory: false };
-        });
-      }
-      if (!isCondition) {
-        stToast(
-          "Veuliiez acceptez les termes et conditions d'utilisation pour l'inscription"
-        );
-      }
     }
   };
 
@@ -203,7 +169,11 @@ const SignUp = (props) => {
             <Text>creez votre compte</Text>
           </View>
 
-          <View className="w-full px-8 items-center justify-center flex-col pt-5 gap-5">
+          <View className="w-full px-8  justify-center flex-col pt-5">
+            {/* Nom d'ultisateur */}
+            <Text className="mb-2 mt-2 text-base text-left">
+              Votre nom d'utilisateur
+            </Text>
             <FormControl isInvalid={isDataEmpty.userName}>
               <Input
                 placeholder="Nom d'utilisateur"
@@ -222,6 +192,8 @@ const SignUp = (props) => {
               </FormControl.ErrorMessage>
             </FormControl>
 
+            {/* Nom */}
+            <Text className="mb-2 mt-4 text-base text-left">Votre nom</Text>
             <FormControl isInvalid={isDataEmpty.lastName}>
               <Input
                 placeholder="Votre nom"
@@ -236,6 +208,10 @@ const SignUp = (props) => {
               </FormControl.ErrorMessage>
             </FormControl>
 
+            {/* email */}
+            <Text className="mb-2 mt-4 text-base text-left">
+              Votre adresse email
+            </Text>
             <FormControl isInvalid={isDataEmpty.email}>
               <Input
                 placeholder="Votre email"
@@ -250,6 +226,10 @@ const SignUp = (props) => {
               </FormControl.ErrorMessage>
             </FormControl>
 
+            {/* mot de passe */}
+            <Text className="mb-2 mt-4 text-base text-left">
+              Votre mot de passe
+            </Text>
             <FormControl isInvalid={isDataEmpty.password}>
               <Input
                 placeholder="Mot de passe"
@@ -275,6 +255,8 @@ const SignUp = (props) => {
               </FormControl.ErrorMessage>
             </FormControl>
 
+            {/* metier */}
+            <Text className="mb-2 mt-4 text-base text-left">Votre metier</Text>
             <FormControl isInvalid={isDataEmpty.job}>
               <Input
                 placeholder="Nom de votre metier"
@@ -289,6 +271,10 @@ const SignUp = (props) => {
               </FormControl.ErrorMessage>
             </FormControl>
 
+            {/* Categorie */}
+            <Text className="mb-2 mt-4 text-base text-left">
+              Votre categorie
+            </Text>
             <FormControl isInvalid={isDataEmpty.jobCategory}>
               <Select
                 accessibilityLabel="Selectionner votre categorie"
@@ -329,34 +315,34 @@ const SignUp = (props) => {
               </FormControl.ErrorMessage>
             </FormControl>
 
-            <FormControl className="w-full px-7">
-              <View className="flex-row text-center items-center justify-start">
+            <FormControl className="w-full px-7 my-10">
+              <View className="flex-row justify-start">
                 <Checkbox
                   value={isCondition}
-                  onValueChange={SetIsCondition}
+                  onValueChange={() => {
+                    SetIsCondition((prev) => !prev);
+                  }}
                   color="blue"
                 />
                 <Text className="text-center text-sm">
                   J'accepte les{" "}
-                  <A
-                    href="https://stcode-portfolio.netlify.app"
-                    style={{
-                      color: "blue",
-                      textDecorationLine: "underline",
+                  <Text
+                    className="text-blue-700 underline"
+                    onPress={() => {
+                      Linking.openURL(`https://chantier237.netlify.app/terms/`);
                     }}
                   >
-                    termes et conditions d'utilisation{" "}
-                  </A>
+                    termes et conditions d'utilisation
+                  </Text>{" "}
                   et la{" "}
-                  <A
-                    href="https://stcode-portfolio.netlify.app"
-                    style={{
-                      color: "blue",
-                      textDecorationLine: "underline",
+                  <Text
+                    className="text-blue-700 underline"
+                    onPress={() => {
+                      Linking.openURL(`https://chantier237.netlify.app/policy`);
                     }}
                   >
-                    politique de confidentialite
-                  </A>
+                    politique de confidentialité
+                  </Text>
                 </Text>
               </View>
             </FormControl>
@@ -379,7 +365,7 @@ const SignUp = (props) => {
               S'inscrire
             </Button>
 
-            <Text className="items-center justify-center w-full text-center">
+            <Text className="items-center justify-center w-full text-center mt-7">
               Vous avez deja un compte ?{"  "}
               <Text
                 className="text-[15px] text-blue-700"
@@ -390,6 +376,8 @@ const SignUp = (props) => {
                 Connectez-vous
               </Text>
             </Text>
+
+            <View className="h-10"></View>
           </View>
         </View>
       </ScrollView>

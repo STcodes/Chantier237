@@ -18,3 +18,4 @@ export { default as charpentier_category } from "./charpentier_category.jpg";
 export { default as etancheite_category } from "./etancheite_category.jpg";
 export { default as menagere_category } from "./menagere_category.jpg";
 export { default as find_job } from "./find_job.jpg";
+export { default as imageEmpty } from "./image_picker.png";

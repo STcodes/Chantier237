@@ -97,6 +97,9 @@ const Home = (props) => {
           }}
         /> */}
         <Tab.Screen
+          initialParams={{
+            stateUser: props.stateUser,
+          }}
           name="Profil"
           component={Profil}
           options={{

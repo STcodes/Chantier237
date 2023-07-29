@@ -60,17 +60,32 @@ const CreateProduct = (props) => {
     }
   };
 
+  const isAllEmpty = () => {
+    for (const [cle, valeur] of Object.entries(inputData)) {
+      if (valeur === "") {
+        stToast("Veuillez entrer tous les champs");
+        setIsDataEmpty((prev) => {
+          return { ...prev, [cle]: true };
+        });
+        return false;
+      } else {
+        setIsDataEmpty((prev) => {
+          return { ...prev, [cle]: false };
+        });
+      }
+    }
+
+    for (let index = 0; index < imageProduct.length; index++) {
+      if (imageProduct[index] == "") {
+        stToast("Veuillez inserer les images");
+        return false;
+      }
+    }
+    return true;
+  };
+
   const submitData = () => {
-    if (
-      inputData.name != "" &&
-      inputData.location != "" &&
-      inputData.price != 0 &&
-      inputData.category != 0 &&
-      inputData.description != "" &&
-      imageProduct[0] != "" &&
-      imageProduct[1] != "" &&
-      imageProduct[2] != ""
-    ) {
+    if (isAllEmpty()) {
       for (let i = 0; i < imageProduct.length; i++) {
         formData.append(`file${i + 1}`, {
           uri:
@@ -87,96 +102,41 @@ const CreateProduct = (props) => {
       formData.append("location", inputData.location);
       formData.append("price", inputData.price);
       formData.append("user", inputData.user);
-      console.log(
-        "**********************************************************************"
-      );
       api();
-    } else {
-      if (inputData.name == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, name: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, name: false };
-        });
-      }
-      if (inputData.location == "") {
-        setIsDataEmpty((prev) => {
-          return { ...prev, location: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, location: false };
-        });
-      }
-      if (inputData.price == 0) {
-        setIsDataEmpty((prev) => {
-          return { ...prev, price: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, price: false };
-        });
-      }
-      if (inputData.category == 0) {
-        setIsDataEmpty((prev) => {
-          return { ...prev, category: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, category: false };
-        });
-      }
-      if (inputData.description == 0) {
-        setIsDataEmpty((prev) => {
-          return { ...prev, description: true };
-        });
-      } else {
-        setIsDataEmpty((prev) => {
-          return { ...prev, description: false };
-        });
-      }
-      if (
-        imageProduct[0] == "" ||
-        imageProduct[1] == "" ||
-        imageProduct[2] == ""
-      ) {
-        stToast("Veuillez enregistrer toutes les images");
+    }
+  };
+
+  const pickImage = async (id) => {
+    let galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (galleryStatus.status == "granted") {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setImageProduct((prev) =>
+          prev.map((item, key) =>
+            key === id - 1 ? result.assets[0].uri : item
+          )
+        );
       }
     }
   };
 
-  // component to take image
   const GetImageGallery = (props) => {
-    const pickImage = async () => {
-      let galleryStatus =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (galleryStatus.status == "granted") {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-        });
-
-        if (!result.canceled) {
-          let imageUri = result.assets[0].uri;
-          props.setImageProduct((prev) =>
-            prev.map((item, key) => (key === props.id - 1 ? imageUri : item))
-          );
-        }
-      }
-    };
-
     return (
       <TouchableOpacity
         className="w-[80px] h-[60px] items-center justify-center"
-        onPress={pickImage}
+        onPress={() => {
+          pickImage(props.id);
+        }}
       >
-        {props.imageProduct[props.id - 1] != "" ? (
+        {imageProduct[props.id - 1] != "" ? (
           <Image
-            source={{ uri: props.imageProduct[props.id - 1] }}
+            source={{ uri: imageProduct[props.id - 1] }}
             className="w-[75px] h-[55px] rounded-sm border-[1px] border-blue-500"
           />
         ) : (
@@ -196,6 +156,7 @@ const CreateProduct = (props) => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+          timeout: 60000,
         }
       )
       .then((response) => {
@@ -278,7 +239,7 @@ const CreateProduct = (props) => {
 
           <View className="w-full h-full gap-y-5 px-5 items-start justify-start">
             {/* name */}
-
+            <Text className="text-base">Nom du produit</Text>
             <FormControl isInvalid={isDataEmpty.name}>
               <Input
                 placeholder="Nom du produit"
@@ -295,7 +256,7 @@ const CreateProduct = (props) => {
             </FormControl>
 
             {/* Location */}
-
+            <Text className="text-base">Position actuelle</Text>
             <FormControl isInvalid={isDataEmpty.location}>
               <Input
                 placeholder="Lieu"
@@ -311,7 +272,7 @@ const CreateProduct = (props) => {
             </FormControl>
 
             {/* Price */}
-
+            <Text className="text-base">Prix (XAF)</Text>
             <FormControl isInvalid={isDataEmpty.price}>
               <Input
                 placeholder="Prix (XAF)"
@@ -328,7 +289,7 @@ const CreateProduct = (props) => {
             </FormControl>
 
             {/* Category */}
-
+            <Text className="text-base">Catégorie du produit</Text>
             <FormControl isInvalid={isDataEmpty.category}>
               <Select
                 style={{ height: 44, fontSize: 16 }}
@@ -377,21 +338,9 @@ const CreateProduct = (props) => {
               className="w-full items-start justify-start flex-row"
               style={{ gap: 30 }}
             >
-              <GetImageGallery
-                id={1}
-                imageProduct={imageProduct}
-                setImageProduct={setImageProduct}
-              />
-              <GetImageGallery
-                id={2}
-                imageProduct={imageProduct}
-                setImageProduct={setImageProduct}
-              />
-              <GetImageGallery
-                id={3}
-                imageProduct={imageProduct}
-                setImageProduct={setImageProduct}
-              />
+              <GetImageGallery id={1} />
+              <GetImageGallery id={2} />
+              <GetImageGallery id={3} />
             </View>
 
             <Button
