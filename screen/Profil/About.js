@@ -19,7 +19,7 @@ import UilPhone from "@iconscout/react-native-unicons/icons/uil-phone";
 import UilEmail from "@iconscout/react-native-unicons/icons/uil-envelope";
 import UilWhatsapp from "@iconscout/react-native-unicons/icons/uil-whatsapp";
 
-const About = () => {
+const About = (props) => {
   const navigation = useNavigation();
 
   return (

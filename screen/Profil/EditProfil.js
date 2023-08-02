@@ -28,6 +28,7 @@ import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
 import UilArrowRight from "@iconscout/react-native-unicons/icons/uil-angle-right";
 import UilArrowDown from "@iconscout/react-native-unicons/icons/uil-angle-down";
 import DatePicker from "../../components/DatePicker";
+import axios from "axios";
 
 const EditProfil = (props) => {
   const navigation = useNavigation();
@@ -41,18 +42,21 @@ const EditProfil = (props) => {
   });
   const [dataInfo, setDataInfo] = useState({
     user: props.userId,
-    userName: "Koz_Daily",
-    lastName: "STEVE kazock",
-    email: "kozdaily@gmail.com",
-    jobCategory: "",
-    job: "developpeur web",
-    phone: "",
-    experience: "2",
-    sexe: "homme",
-    dateNaiss: "2023-5-7",
-    description: "",
+    action: "data",
+    userName: props.dataUser.userName,
+    lastName: props.dataUser.lastName,
+    email: props.dataUser.email,
+    jobCategory: props.dataUser.jobCategory,
+    job: props.dataUser.job,
+    phone: props.dataUser.phone,
+    experience: props.dataUser.experience,
+    sexe: props.dataUser.sexe,
+    dateNaiss: props.dataUser.dateNaiss,
+    description: props.dataUser.description,
   });
   const [passwordInfo, setPasswordInfo] = useState({
+    user: props.userId,
+    action: "password",
     oldPassword: "",
     password: "",
     confirmPassword: "",
@@ -127,13 +131,60 @@ const EditProfil = (props) => {
   const submitData = () => {
     if (isDataEmpty()) {
       // Api pour informations personnelles
+      setIsLoading(true);
+      axios({
+        method: "POST",
+        url: "https://chantier237.camencorp.com/API/PROFIL/st_editProfil.php",
+        responseType: "json",
+        headers: { "Access-Control-Allow-Origin": "*" },
+        data: dataInfo,
+      })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.status == "ERROR") {
+            stToast("Erreur lors de la modification. Veuillez reessayer.");
+          } else if (response.data.status == "OK") {
+            stToast("Modification effectué");
+            navigation.navigate("ProfilHome");
+          }
+        })
+        .catch((error) => {
+          stToast("Erreur lors de la modification. Veuillez reessayer.");
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
 
   const submitPassword = () => {
     if (isPasswordEmpty()) {
       // Api pour le mot de passe
-      console.log("OK");
+      setIsLoadingPassword(true);
+      axios({
+        method: "POST",
+        url: "https://chantier237.camencorp.com/API/PROFIL/st_editProfil.php",
+        responseType: "json",
+        headers: { "Access-Control-Allow-Origin": "*" },
+        data: passwordInfo,
+      })
+        .then((response) => {
+          if (response.data.status == "ERROR") {
+            stToast("Erreur lors de la modification. Veuillez reessayer.");
+          } else if (response.data.status == "PASSWORD_INCORRECT") {
+            stToast("Mot de passe incorrect !");
+          } else if (response.data.status == "OK") {
+            stToast("Mot de passe modifié");
+            navigation.navigate("ProfilHome");
+          }
+        })
+        .catch((error) => {
+          stToast("Erreur lors de la modification. Veuillez reessayer.");
+        })
+        .finally(() => {
+          setIsLoadingPassword(false);
+        });
     }
   };
 
@@ -493,7 +544,7 @@ const EditProfil = (props) => {
             <FormControl isInvalid={isDataInfoEmpty.phone} mb="5">
               <Input
                 placeholder="Numero de téléphone"
-                value={dataInfo.phone}
+                value={`${dataInfo.phone}`}
                 type="text"
                 keyboardType="numeric"
                 className="text-sm"
@@ -511,7 +562,7 @@ const EditProfil = (props) => {
             <FormControl isInvalid={isDataInfoEmpty.experience} mb="5">
               <Input
                 placeholder="Années d'expérience"
-                value={dataInfo.experience}
+                value={`${dataInfo.experience}`}
                 type="text"
                 keyboardType="numeric"
                 className="text-sm"

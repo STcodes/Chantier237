@@ -25,6 +25,7 @@ import mime from "mime";
 import DatePicker from "../../components/DatePicker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { imageEmpty } from "../../assets";
+import axios from "axios";
 
 const CompleteProfil = (props) => {
   const navigation = useNavigation();
@@ -141,7 +142,41 @@ const CompleteProfil = (props) => {
       formData.append("dateNaiss", dataInfo.dateNaiss);
       formData.append("description", dataInfo.description);
       // ********API
+      api();
     }
+  };
+
+  const api = () => {
+    setIsLoading(true);
+    axios
+      .post(
+        "https://chantier237.camencorp.com/API/PROFIL/st_completeProfil.php",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          timeout: 60000,
+        }
+      )
+      .then((response) => {
+        if (response.data.status == "ERROR") {
+          stToast("Erreur lors de l'enregistrement. Veuillez reessayer.");
+        }
+        if (response.data.status == "OK") {
+          stToast("Enregistrement reussi");
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "ProfilHome" }],
+          });
+        }
+      })
+      .catch((error) => {
+        stToast("Erreur lors de l'enregistrement. Veuillez reessayer.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -309,7 +344,6 @@ const CompleteProfil = (props) => {
           )}
 
           {/* Images */}
-
           <Text className="text-lg text-black tracking-wide mt-7">
             Photos de vos réalsations
           </Text>

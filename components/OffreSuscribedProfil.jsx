@@ -131,7 +131,7 @@ const OffreSuscribedProfil = (props) => {
           <View className="h-3"></View>
 
           {/* Button choisir */}
-          {!isSelected ? (
+          {!isSelected && (
             <Button
               variant={"outline"}
               _text={{
@@ -146,12 +146,10 @@ const OffreSuscribedProfil = (props) => {
             >
               <Text className="text-black">Choisir</Text>
             </Button>
-          ) : (
-            <></>
           )}
 
           {/* Input noter */}
-          {isSelected && !isNoted ? (
+          {isSelected && !isNoted && (
             <Input
               type="text"
               keyboardType="numeric"
@@ -181,8 +179,6 @@ const OffreSuscribedProfil = (props) => {
               }
               placeholder="Note sur 5"
             />
-          ) : (
-            <></>
           )}
         </View>
       </Animatable.View>

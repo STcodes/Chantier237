@@ -1,8 +1,6 @@
-import React from "react";
+import { React, useState } from "react";
 import { Share, Platform } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import About from "./Profil/About";
 import ProfilHome from "./Profil/ProfilHome";
 import EditProfil from "./Profil/EditProfil";
@@ -10,34 +8,10 @@ import CompleteProfil from "./Profil/CompleteProfil";
 
 const Stack = createNativeStackNavigator();
 
-const Profil = ({ route }) => {
-  const navigation = useNavigation();
-
+const Profil = (props) => {
+  const [dataUser, setDataUser] = useState({});
   const logOut = async () => {
-    console.log("LogOut");
-
-    // try {
-    //   await AsyncStorage.setItem(
-    //     "st_chantier237_user",
-    //     JSON.stringify({
-    //       userId: "",
-    //       isAbonned: false,
-    //       dateAbonned: "",
-    //     })
-    //   );
-    // } catch (e) {}
-
-    // navigation.reset({
-    //   index: 1,
-    //   routes: [
-    //     { name: "Home" },
-    //     {
-    //       name: "SignIn",
-    //     },
-    //   ],
-    // });
-
-    navigation.navigate("SignIn");
+    props.logOut();
   };
 
   const shareApp = async () => {
@@ -61,10 +35,12 @@ const Profil = ({ route }) => {
           headerShown: false,
         }}
       >
-        {(props) => (
+        {(prop) => (
           <ProfilHome
-            {...props}
-            userId={route.params.stateUser.userId}
+            {...prop}
+            userId={props.stateUser.userId}
+            dataUser={dataUser}
+            setDataUser={setDataUser}
             logOut={logOut}
             shareApp={shareApp}
           />
@@ -76,10 +52,12 @@ const Profil = ({ route }) => {
           headerShown: false,
         }}
       >
-        {(props) => (
+        {(prop) => (
           <EditProfil
-            {...props}
-            userId={route.params.stateUser.userId}
+            {...prop}
+            userId={props.stateUser.userId}
+            dataUser={dataUser}
+            setDataUser={setDataUser}
             logOut={logOut}
             shareApp={shareApp}
           />
@@ -91,9 +69,7 @@ const Profil = ({ route }) => {
           headerShown: false,
         }}
       >
-        {(props) => (
-          <CompleteProfil {...props} userId={route.params.stateUser.userId} />
-        )}
+        {(prop) => <CompleteProfil {...prop} userId={props.stateUser.userId} />}
       </Stack.Screen>
       <Stack.Screen
         name="About"
@@ -101,7 +77,7 @@ const Profil = ({ route }) => {
           headerShown: false,
         }}
       >
-        {(props) => <About {...props} logOut={logOut} shareApp={shareApp} />}
+        {(prop) => <About {...prop} logOut={logOut} shareApp={shareApp} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

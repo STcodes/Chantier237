@@ -40,7 +40,6 @@ const CreateOffre = ({ idUser }) => {
     description: "",
     idUser: idUser,
   });
-
   const [isDataEmpty, setIsDataEmpty] = useState({
     jobCategory: false,
     location: false,
@@ -52,6 +51,7 @@ const CreateOffre = ({ idUser }) => {
     description: false,
     temps: false,
   });
+
   const stToast = (message) => {
     if (Platform.OS == "android") {
       ToastAndroid.show(message, ToastAndroid.SHORT);
@@ -75,10 +75,10 @@ const CreateOffre = ({ idUser }) => {
       .then((response) => {
         if (response.data.status == "ERROR") {
           //TOAST THE ERROR
-          stToast(response.data.message);
+          stToast("Erreur lors de l'enregistrement. Veuillez reessayer.");
         }
         if (response.data.status == "OK") {
-          stToast(response.data.message);
+          stToast("Offre publié dans Chantier237");
         }
       })
       .catch((error) => {

@@ -138,37 +138,31 @@ const ListOffrePostuled = (props) => {
             </Text>
           </View>
 
-          {!dataState.isLoading && !dataState.error ? (
+          {!dataState.isLoading && !dataState.error && (
             <View className="w-full gap-2 items-center justify-start pt-1">
               {dataState.data.map((item) => {
                 return <OffrePostuledProfil {...item} key={item.rowid} />;
               })}
             </View>
-          ) : (
-            <></>
           )}
 
           {/* CHARGEMENT EN COURS */}
 
-          {dataState.isLoading ? (
+          {dataState.isLoading && (
             <View className="w-full mt-20 items-center justify-center">
               <ActivityIndicator size="large" color="#0000ff" />
             </View>
-          ) : (
-            <></>
           )}
 
           {/* AUCUNE DONNEE TROUVE OU ERREUR */}
 
-          {dataState.error ? (
+          {dataState.error && (
             <View className="w-full pt-10 pl-2 items-center justify-center gap-3">
               <Image source={NotFound} className="w-20 h-20" />
               <Text className="text-center">
                 Aucune offre trouvé. Verifier votre connexion et reessayer.
               </Text>
             </View>
-          ) : (
-            <></>
           )}
 
           <View className="h-14"></View>

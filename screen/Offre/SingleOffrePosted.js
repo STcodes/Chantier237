@@ -257,30 +257,26 @@ const SingleOffrePosted = ({ route }) => {
 
         {/* CHARGEMENT EN COURS */}
 
-        {dataState.isLoading ? (
+        {dataState.isLoading && (
           <View className="flex-1 h-full items-center justify-center">
             <ActivityIndicator size="large" color="#0000ff" />
           </View>
-        ) : (
-          <></>
         )}
 
         {/* AUCUNE DONNEE TROUVE OU ERREUR */}
 
-        {dataState.error ? (
+        {dataState.error && (
           <View className="flex-1 h-full items-center justify-center gap-3">
             <Image source={NotFound} className="w-20 h-20" />
             <Text className="text-center">
               Aie aie aie! Verifier votre connexion et reessayer.
             </Text>
           </View>
-        ) : (
-          <></>
         )}
 
         {/* AFFICHAGE DES PROFILS */}
 
-        {!dataState.isLoading && !dataState.error ? (
+        {!dataState.isLoading && !dataState.error && (
           <ScrollView
             className="flex-1 bg-white h-full w-full"
             showsVerticalScrollIndicator={false}
@@ -463,8 +459,6 @@ const SingleOffrePosted = ({ route }) => {
             </View>
             <View className="h-3"></View>
           </ScrollView>
-        ) : (
-          <></>
         )}
       </SafeAreaView>
     </NativeBaseProvider>

@@ -10,12 +10,33 @@ import React from "react";
 import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { RootSiblingParent } from "react-native-root-siblings";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const Home = (props) => {
+  const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
   const colorNavActive = "rgba(29, 78, 216, 1)";
   const colorNavInactive = "black";
   const size = 30;
+
+  const logOut = async () => {
+    try {
+      await AsyncStorage.setItem(
+        "st_chantier237_user",
+        JSON.stringify({
+          userId: "",
+          isAbonned: false,
+          dateAbonned: "",
+        })
+      );
+    } catch (e) {}
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Signin" }],
+    });
+  };
 
   return (
     <RootSiblingParent>
@@ -97,11 +118,7 @@ const Home = (props) => {
           }}
         /> */}
         <Tab.Screen
-          initialParams={{
-            stateUser: props.stateUser,
-          }}
           name="Profil"
-          component={Profil}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (
@@ -112,7 +129,9 @@ const Home = (props) => {
               />
             ),
           }}
-        />
+        >
+          {() => <Profil stateUser={props.stateUser} logOut={logOut} />}
+        </Tab.Screen>
       </Tab.Navigator>
     </RootSiblingParent>
   );
