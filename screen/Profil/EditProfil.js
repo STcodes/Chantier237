@@ -10,7 +10,7 @@ import {
   Platform,
   Pressable,
 } from "react-native";
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import {
   Menu,
   NativeBaseProvider,
@@ -24,9 +24,8 @@ import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-root-toast";
 import { LogoImage } from "../../assets";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
-import UilArrowRight from "@iconscout/react-native-unicons/icons/uil-angle-right";
-import UilArrowDown from "@iconscout/react-native-unicons/icons/uil-angle-down";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import DatePicker from "../../components/DatePicker";
 import axios from "axios";
 
@@ -193,7 +192,7 @@ const EditProfil = (props) => {
       <SafeAreaView className="bg-white w-full">
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <View
-          className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
+          className="w-full flex-row items-center justify-between px-2 py-2 bg-white pr-4"
           style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
         >
           <View className="flex-row gap-1 items-center">
@@ -211,7 +210,7 @@ const EditProfil = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-                    <UilTreePoint color="black" size={24} />
+                    <FontAwesome5 name="ellipsis-v" size="22" color="black" />
                   </TouchableOpacity>
                 );
               }}
@@ -263,14 +262,14 @@ const EditProfil = (props) => {
                 <Text className="text-[30px] text-blue-700">I</Text>nformations
                 personnelles
               </Text>
-              <UilArrowRight color="black" size={30} />
+              <FontAwesome name="angle-right" size="30" color="black" />
             </TouchableOpacity>
             <View className="items-center justify-between flex-row w-full">
               <Text className="text-[24px] tracking-wider pl-1 text-gray-800 text-left my-5">
                 <Text className="text-[30px] text-blue-700">M</Text>odifier le
                 mot de passe
               </Text>
-              <UilArrowDown color="black" size={30} />
+              <FontAwesome name="angle-down" size="30" color="black" />
             </View>
 
             {/* Ancien mot de passe */}
@@ -414,14 +413,14 @@ const EditProfil = (props) => {
                 <Text className="text-[30px] text-blue-700">M</Text>odifier le
                 mot de passe
               </Text>
-              <UilArrowRight color="black" size={30} />
+              <FontAwesome name="angle-right" size="30" color="black" />
             </TouchableOpacity>
             <View className="items-center justify-between flex-row w-full">
               <Text className="text-[24px] tracking-wider pl-1 text-gray-800 text-left my-5">
                 <Text className="text-[30px] text-blue-700">I</Text>nformations
                 personnelles
               </Text>
-              <UilArrowDown color="black" size={30} />
+              <FontAwesome name="angle-down" size="30" color="black" />
             </View>
 
             {/* Nom d'utilisateur */}

@@ -17,10 +17,8 @@ import {
   charpentier_category,
   find_job,
 } from "../assets";
-import UilCalendar from "@iconscout/react-native-unicons/icons/uil-calender";
-import UilMap from "@iconscout/react-native-unicons/icons/uil-map-marker";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import React from "react";
-import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 
 const OffrePostuledProfil = (props) => {
@@ -88,11 +86,10 @@ const OffrePostuledProfil = (props) => {
       <View className="w-[20%] pt-2">
         <Image
           source={TestImage(props.job_category)}
-          className="w-16 h-16 rounded-md"
+          className="w-16 h-16 rounded-md bg-blue-200"
         />
       </View>
-      <Animatable.View
-        animation={"bounceIn"}
+      <View
         className="w-[80%] pb-2 items-start justify-start pr-[20px]"
         style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
       >
@@ -107,12 +104,12 @@ const OffrePostuledProfil = (props) => {
             : props.description}
         </Text>
         <View className="flex-row gap-x-3">
-          <View className="flex-row gap-x-1">
-            <UilCalendar size={20} color="blue" />
+          <View className="flex-row gap-x-2 items-center">
+            <FontAwesome name="calendar" size="20" color="blue" />
             <Text>{props.date}</Text>
           </View>
-          <View className="flex-row gap-x-1">
-            <UilMap size={20} color="blue" />
+          <View className="flex-row gap-x-2 items-center">
+            <FontAwesome name="map-marker" size="20" color="blue" />
             <Text>
               {props.lieu.length >= 13
                 ? `${props.lieu.substring(0, 13)}...`
@@ -121,17 +118,18 @@ const OffrePostuledProfil = (props) => {
           </View>
         </View>
 
-        {props.isAccepted && (
-          <View className="rounded-md px-3 py-1 mt-3 overflow-hidden bg-green-200">
-            <Text className="text-green-900  text-sm ">Accepté</Text>
+        {props.isAccepted != 0 && (
+          <View className="rounded-md px-3 py-1 mt-3 bg-green-200">
+            <Text className="text-green-900  text-sm">Accepté</Text>
           </View>
         )}
+
         {props.isPostuled && !props.isAccepted && (
           <View className="rounded-md px-3 py-1 mt-3 bg-blue-200">
-            <Text className="text-blue-900 text-sm ">Postulé</Text>
+            <Text className="text-blue-900 text-sm">Postulé</Text>
           </View>
         )}
-      </Animatable.View>
+      </View>
     </TouchableOpacity>
   );
 };

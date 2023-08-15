@@ -10,7 +10,7 @@ import {
   ToastAndroid,
   ActivityIndicator,
 } from "react-native";
-import UilArrow from "@iconscout/react-native-unicons/icons/uil-angle-left";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { NativeBaseProvider, Button, AlertDialog } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -267,13 +267,13 @@ const SingleProduct = (props) => {
           >
             <View className="w-full h-[340px] relative">
               <TouchableOpacity
-                className="rounded-full w-4 h-4 absolute z-10 left-3 top-3 items-center justify-center p-4"
+                className="rounded-full w-9 h-9 absolute z-10 left-3 top-3 items-center justify-center"
                 style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
                 onPress={() => {
                   navigation.goBack();
                 }}
               >
-                <UilArrow size={30} color="white" />
+                <FontAwesome name="angle-left" size="30" color="white" />
               </TouchableOpacity>
               <Image
                 source={{

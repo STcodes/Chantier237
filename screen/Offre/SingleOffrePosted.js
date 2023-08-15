@@ -13,12 +13,8 @@ import {
 } from "react-native";
 import { React, useState, useEffect } from "react";
 import Toast from "react-native-root-toast";
-import UilArrow from "@iconscout/react-native-unicons/icons/uil-angle-left";
-import UilMoney from "@iconscout/react-native-unicons/icons/uil-money-stack";
-import UilClock from "@iconscout/react-native-unicons/icons/uil-clock";
-import UilCalendar from "@iconscout/react-native-unicons/icons/uil-calender";
-import UilMap from "@iconscout/react-native-unicons/icons/uil-map-marker";
-import UilUser from "@iconscout/react-native-unicons/icons/uil-users-alt";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Button, NativeBaseProvider, AlertDialog } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import OffreSuscribedProfil from "../../components/OffreSuscribedProfil";
@@ -289,13 +285,13 @@ const SingleOffrePosted = ({ route }) => {
           >
             <View className="w-full h-[280px] relative">
               <TouchableOpacity
-                className="rounded-full w-4 h-4 absolute z-20 left-3 top-3 items-center justify-center p-4"
+                className="rounded-full w-9 h-9 absolute z-20 left-3 top-3 items-center justify-center"
                 style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
                 onPress={() => {
                   navigation.goBack();
                 }}
               >
-                <UilArrow size={30} color="white" />
+                <FontAwesome name="angle-left" size="30" color="white" />
               </TouchableOpacity>
               <View className="w-full items-center justify-center pt-3 pb-7 absolute z-10 bottom-4">
                 <View
@@ -317,7 +313,7 @@ const SingleOffrePosted = ({ route }) => {
                   style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
                   className="flex-row items-center justify-center gap-x-2 rounded-2xl px-2 py-1"
                 >
-                  <UilClock size={25} color="white" />
+                  <FontAwesome5 name="clock" size="25" color="white" />
                   <Text
                     className="text-sm text-white tracking-wider"
                     style={{ fontWeight: 600, lineHeight: 18 }}
@@ -347,7 +343,7 @@ const SingleOffrePosted = ({ route }) => {
                 </Text>
               </View>
               <View className="w-full flex-row items-center justify-start mb-5 mt-5">
-                <UilMoney size={25} color="green" />
+                <FontAwesome5 name="money-bill" size="25" color="green" />
                 <Text className="text-sm tracking-wider ml-3">
                   {dataState.offer.salaire} Fcfa{" "}
                   {dataState.offer.salaire_frequence} -{" "}
@@ -356,20 +352,20 @@ const SingleOffrePosted = ({ route }) => {
               </View>
               <View className="flex-row items-center justify-between">
                 <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
-                  <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                    <UilCalendar size={30} color="blue" />
+                  <View className="bg-blue-100 items-center justify-center w-[70px] h-[70px] p-3 rounded-full">
+                    <FontAwesome name="calendar" size="28" color="blue" />
                   </View>
                   <Text className="text-center">{dataState.offer.date}</Text>
                 </View>
                 <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
-                  <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                    <UilMap size={30} color="blue" />
+                  <View className="bg-blue-100 items-center justify-center w-[70px] h-[70px] p-3 rounded-full">
+                    <FontAwesome name="map-marker" size="30" color="blue" />
                   </View>
                   <Text className="text-center">{dataState.offer.lieu}</Text>
                 </View>
                 <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
-                  <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                    <UilUser size={30} color="blue" />
+                  <View className="bg-blue-100 items-center justify-center w-[70px] h-[70px] p-3 rounded-full">
+                    <FontAwesome5 name="user-friends" size="28" color="blue" />
                   </View>
                   <Text className="text-center">
                     {dataState.offer.nb_personne}

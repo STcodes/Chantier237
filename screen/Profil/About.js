@@ -9,15 +9,11 @@ import {
 } from "react-native";
 import React from "react";
 import { Menu, NativeBaseProvider } from "native-base";
-import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
-import UilArrowRight from "@iconscout/react-native-unicons/icons/uil-angle-right";
-import UilArrowDown from "@iconscout/react-native-unicons/icons/uil-angle-down";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { LogoImage } from "../../assets";
 import * as Linking from "expo-linking";
-import UilPhone from "@iconscout/react-native-unicons/icons/uil-phone";
-import UilEmail from "@iconscout/react-native-unicons/icons/uil-envelope";
-import UilWhatsapp from "@iconscout/react-native-unicons/icons/uil-whatsapp";
 
 const About = (props) => {
   const navigation = useNavigation();
@@ -27,7 +23,7 @@ const About = (props) => {
       <SafeAreaView className="bg-white w-full">
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <View
-          className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
+          className="w-full flex-row items-center justify-between px-2 py-2 bg-white pr-4"
           style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
         >
           <View className="flex-row gap-1 items-center">
@@ -45,7 +41,7 @@ const About = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-                    <UilTreePoint color="black" size={24} />
+                    <FontAwesome5 name="ellipsis-v" size="22" color="black" />
                   </TouchableOpacity>
                 );
               }}
@@ -98,7 +94,7 @@ const About = (props) => {
             <Text className="text-left text-lg">
               Termes et conditions d'utilisation
             </Text>
-            <UilArrowRight color="black" size={30} />
+            <FontAwesome name="angle-right" size="28" color="black" />
           </TouchableOpacity>
           <TouchableOpacity
             className="items-center justify-between flex-row w-full mt-4"
@@ -109,7 +105,7 @@ const About = (props) => {
             <Text className="text-left text-lg">
               Politique de confidentialité
             </Text>
-            <UilArrowRight color="black" size={30} />
+            <FontAwesome name="angle-right" size="28" color="black" />
           </TouchableOpacity>
           <TouchableOpacity
             className="items-center justify-between flex-row w-full mt-4"
@@ -118,32 +114,32 @@ const About = (props) => {
             }}
           >
             <Text className="text-left text-lg">Manuel d'utilisation</Text>
-            <UilArrowRight color="black" size={30} />
+            <FontAwesome name="angle-right" size="28" color="black" />
           </TouchableOpacity>
 
           <View className="items-center justify-between flex-row w-full mt-4">
             <Text className="text-2xl mt-5 mb-5 text-left">Contacts</Text>
-            <UilArrowDown color="black" size={30} />
+            <FontAwesome name="angle-down" size="28" color="black" />
           </View>
 
           <View className="w-full flex-col gap-y-4">
             <View className="items-center justify-start gap-x-5 flex-row">
-              <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                <UilPhone size={20} color="blue" />
+              <View className="bg-blue-100 w-11 h-11 items-center justify-center rounded-full">
+                <FontAwesome name="phone" size="20" color="blue" />
               </View>
               <Text className="text-sm text-left">
                 +237 699854512 / +237 671889664
               </Text>
             </View>
             <View className="items-center justify-start gap-x-5 flex-row">
-              <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                <UilWhatsapp size={20} color="blue" />
+              <View className="bg-blue-100 w-11 h-11 items-center justify-center p-3 rounded-full">
+                <FontAwesome name="whatsapp" size="20" color="blue" />
               </View>
               <Text className="text-sm text-left">+237 699854512</Text>
             </View>
             <View className="items-center justify-start gap-x-5 flex-row">
-              <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                <UilEmail size={20} color="blue" />
+              <View className="bg-blue-100 w-11 h-11 items-center justify-center p-3 rounded-full">
+                <FontAwesome name="envelope" size="20" color="blue" />
               </View>
               <Text className="text-sm text-left">chantier237@gmail.com</Text>
             </View>
@@ -153,19 +149,19 @@ const About = (props) => {
             <Text className="text-2xl mt-5 mb-5 text-left">
               Contacts du développeur
             </Text>
-            <UilArrowDown color="black" size={30} />
+            <FontAwesome name="angle-down" size="28" color="black" />
           </View>
 
           <View className="w-full flex-col gap-y-4">
             <View className="items-center justify-start gap-x-5 flex-row">
-              <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                <UilPhone size={20} color="blue" />
+              <View className="bg-blue-100 w-11 h-11 items-center justify-center p-3 rounded-full">
+                <FontAwesome name="phone" size="20" color="blue" />
               </View>
               <Text className="text-sm text-left">+237 671880871</Text>
             </View>
             <View className="items-center justify-start gap-x-5 flex-row">
-              <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                <UilEmail size={20} color="blue" />
+              <View className="bg-blue-100 w-11 h-11 items-center justify-center p-3 rounded-full">
+                <FontAwesome name="envelope" size="20" color="blue" />
               </View>
               <Text className="text-sm text-left">ordit2000@gmail.com</Text>
             </View>

@@ -55,11 +55,8 @@ const SignIn = (props) => {
       })
         .then((response) => {
           if (response.data.status == "ERROR") {
-            //TOAST THE ERROR
             stToast("Nom d'utilisateur ou mot de passe incorrect.");
           } else {
-            //save the datauser in state and in local
-
             props.setStateUser({
               userId: response.data.data.id,
               isAbonned: response.data.data.is_abon,
@@ -74,7 +71,6 @@ const SignIn = (props) => {
                 dateAbonned: response.data.data.date_abon,
               })
             );
-            // navigation.navigate("Home");
             navigation.reset({
               index: 0,
               routes: [{ name: "Home" }],
@@ -83,7 +79,6 @@ const SignIn = (props) => {
           setIsLoading(false);
         })
         .catch((error) => {
-          // TOAST THE ERROR
           stToast("Erreur de connexion. Veuillez reessayer");
         })
         .finally(() => {
@@ -140,7 +135,6 @@ const SignIn = (props) => {
             isAbonned: result.isAbonned,
             dateAbonned: result.dateAbonned,
           });
-          // navigation.navigate("Home");
           navigation.reset({
             index: 0,
             routes: [{ name: "Home" }],

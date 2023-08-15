@@ -21,7 +21,7 @@ import {
   TextArea,
 } from "native-base";
 import { LogoImage } from "../../assets";
-import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -79,6 +79,7 @@ const CreateOffre = ({ idUser }) => {
         }
         if (response.data.status == "OK") {
           stToast("Offre publié dans Chantier237");
+          navigation.navigate("OffreHome");
         }
       })
       .catch((error) => {
@@ -118,7 +119,7 @@ const CreateOffre = ({ idUser }) => {
       <SafeAreaView className="bg-white w-full">
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <View
-          className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
+          className="w-full flex-row items-center justify-between px-2 py-2 bg-white pr-3"
           style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
         >
           <View className="flex-row gap-1 items-center">
@@ -136,7 +137,7 @@ const CreateOffre = ({ idUser }) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-                    <UilTreePoint color="black" size={24} />
+                    <FontAwesome5 name="ellipsis-v" size="22" color="black" />
                   </TouchableOpacity>
                 );
               }}

@@ -20,7 +20,7 @@ import {
   Button,
 } from "native-base";
 import Toast from "react-native-root-toast";
-import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { LogoImage } from "../../assets";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -181,7 +181,7 @@ const CreateProduct = (props) => {
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <SafeAreaView className="bg-white w-full">
         <View
-          className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
+          className="w-full flex-row items-center justify-between px-2 py-2 bg-white pr-3"
           style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
         >
           <View className="flex-row gap-1 items-center">
@@ -199,7 +199,7 @@ const CreateProduct = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-                    <UilTreePoint color="black" size={24} />
+                    <FontAwesome5 name="ellipsis-v" size="22" color="black" />
                   </TouchableOpacity>
                 );
               }}

@@ -1,7 +1,6 @@
 import MarketPlace from "./MarketPlace";
 import Ouvrier from "./Ouvrier";
 import Offre from "./Offre";
-// import Abonnement from "./Abonnement";
 import Profil from "./Profil";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -103,20 +102,6 @@ const Home = (props) => {
             ),
           }}
         />
-        {/* <Tab.Screen
-          name="Abonnement"
-          component={Abonnement}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name="stopwatch"
-                size={size}
-                color={focused ? colorNavActive : colorNavInactive}
-              />
-            ),
-          }}
-        /> */}
         <Tab.Screen
           name="Profil"
           options={{
@@ -138,5 +123,3 @@ const Home = (props) => {
 };
 
 export default Home;
-
-// les initialParams sont geres dans les tabScreen, les params de initialData et navigate sont recuperer avec route.
