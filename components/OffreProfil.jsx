@@ -106,11 +106,19 @@ const OffreProfil = (props) => {
           </Text>
           <View className="flex-row gap-x-3">
             <View className="flex-row gap-x-2">
+<<<<<<< HEAD
               <FontAwesome name="calendar-o" size={20} color="blue" />
               <Text>{props.date}</Text>
             </View>
             <View className="flex-row gap-x-2 items-center">
               <FontAwesome name="map-marker" size={20} color="blue" />
+=======
+              <FontAwesome name="calendar-o" size="20" color="blue" />
+              <Text>{props.date}</Text>
+            </View>
+            <View className="flex-row gap-x-2 items-center">
+              <FontAwesome name="map-marker" size="20" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               <Text>
                 {props.lieu.length >= 13
                   ? `${props.lieu.substring(0, 13)}...`
@@ -163,11 +171,19 @@ const OffreProfil = (props) => {
             </Text>
             <View className="flex-row gap-x-3">
               <View className="flex-row gap-x-2">
+<<<<<<< HEAD
                 <FontAwesome name="calendar-o" size={20} color="blue" />
                 <Text>{props.date}</Text>
               </View>
               <View className="flex-row gap-x-2 items-center">
                 <FontAwesome name="map-marker" size={20} color="blue" />
+=======
+                <FontAwesome name="calendar-o" size="20" color="blue" />
+                <Text>{props.date}</Text>
+              </View>
+              <View className="flex-row gap-x-2 items-center">
+                <FontAwesome name="map-marker" size="20" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                 <Text>
                   {props.lieu.length >= 13
                     ? `${props.lieu.substring(0, 13)}...`

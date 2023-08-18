@@ -24,7 +24,11 @@ const AlertImage = (props) => {
         >
           <FontAwesome
             name="remove"
+<<<<<<< HEAD
             size={27}
+=======
+            size="27"
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
             color="white"
             onPress={() => {
               setIsShow(false);

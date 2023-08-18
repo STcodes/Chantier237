@@ -104,7 +104,11 @@ const SingleOuvrier = ({ route }) => {
                 navigation.goBack();
               }}
             >
+<<<<<<< HEAD
               <FontAwesome name="angle-left" size={30} color="white" />
+=======
+              <FontAwesome name="angle-left" size="30" color="white" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
             </TouchableOpacity>
             <Image
               source={{
@@ -153,7 +157,11 @@ const SingleOuvrier = ({ route }) => {
               </Text>
             </View>
             <View className="flex-row w-full gap-2 items-center justify-star mb-2 mt-2">
+<<<<<<< HEAD
               <FontAwesome5 name="medal" size={27} color="orange" />
+=======
+              <FontAwesome5 name="medal" size="27" color="orange" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               <Text style={{ fontWeight: 500 }}>
                 {dataState.data.anciennete}
                 {dataState.data.anciennete > 1

@@ -34,7 +34,11 @@ const OuvrierProfil = (props) => {
           </Text>
           <StarContainer evaluation={props.evaluation} />
         </View>
+<<<<<<< HEAD
         <FontAwesome name="angle-right" size={30} color="blue" />
+=======
+        <FontAwesome name="angle-right" size="30" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
       </View>
     </TouchableOpacity>
   );

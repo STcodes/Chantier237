@@ -41,7 +41,11 @@ const About = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
+<<<<<<< HEAD
                     <FontAwesome5 name="ellipsis-v" size={22} color="black" />
+=======
+                    <FontAwesome5 name="ellipsis-v" size="22" color="black" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   </TouchableOpacity>
                 );
               }}
@@ -94,7 +98,11 @@ const About = (props) => {
             <Text className="text-left text-lg">
               Termes et conditions d'utilisation
             </Text>
+<<<<<<< HEAD
             <FontAwesome name="angle-right" size={28} color="black" />
+=======
+            <FontAwesome name="angle-right" size="28" color="black" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
           </TouchableOpacity>
           <TouchableOpacity
             className="items-center justify-between flex-row w-full mt-4"
@@ -105,7 +113,11 @@ const About = (props) => {
             <Text className="text-left text-lg">
               Politique de confidentialité
             </Text>
+<<<<<<< HEAD
             <FontAwesome name="angle-right" size={28} color="black" />
+=======
+            <FontAwesome name="angle-right" size="28" color="black" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
           </TouchableOpacity>
           <TouchableOpacity
             className="items-center justify-between flex-row w-full mt-4"
@@ -114,18 +126,30 @@ const About = (props) => {
             }}
           >
             <Text className="text-left text-lg">Manuel d'utilisation</Text>
+<<<<<<< HEAD
             <FontAwesome name="angle-right" size={28} color="black" />
+=======
+            <FontAwesome name="angle-right" size="28" color="black" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
           </TouchableOpacity>
 
           <View className="items-center justify-between flex-row w-full mt-4">
             <Text className="text-2xl mt-5 mb-5 text-left">Contacts</Text>
+<<<<<<< HEAD
             <FontAwesome name="angle-down" size={28} color="black" />
+=======
+            <FontAwesome name="angle-down" size="28" color="black" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
           </View>
 
           <View className="w-full flex-col gap-y-4">
             <View className="items-center justify-start gap-x-5 flex-row">
               <View className="bg-blue-100 w-11 h-11 items-center justify-center rounded-full">
+<<<<<<< HEAD
                 <FontAwesome name="phone" size={20} color="blue" />
+=======
+                <FontAwesome name="phone" size="20" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               </View>
               <Text className="text-sm text-left">
                 +237 699854512 / +237 671889664
@@ -133,13 +157,21 @@ const About = (props) => {
             </View>
             <View className="items-center justify-start gap-x-5 flex-row">
               <View className="bg-blue-100 w-11 h-11 items-center justify-center p-3 rounded-full">
+<<<<<<< HEAD
                 <FontAwesome name="whatsapp" size={20} color="blue" />
+=======
+                <FontAwesome name="whatsapp" size="20" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               </View>
               <Text className="text-sm text-left">+237 699854512</Text>
             </View>
             <View className="items-center justify-start gap-x-5 flex-row">
               <View className="bg-blue-100 w-11 h-11 items-center justify-center p-3 rounded-full">
+<<<<<<< HEAD
                 <FontAwesome name="envelope" size={20} color="blue" />
+=======
+                <FontAwesome name="envelope" size="20" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               </View>
               <Text className="text-sm text-left">chantier237@gmail.com</Text>
             </View>
@@ -149,19 +181,31 @@ const About = (props) => {
             <Text className="text-2xl mt-5 mb-5 text-left">
               Contacts du développeur
             </Text>
+<<<<<<< HEAD
             <FontAwesome name="angle-down" size={28} color="black" />
+=======
+            <FontAwesome name="angle-down" size="28" color="black" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
           </View>
 
           <View className="w-full flex-col gap-y-4">
             <View className="items-center justify-start gap-x-5 flex-row">
               <View className="bg-blue-100 w-11 h-11 items-center justify-center p-3 rounded-full">
+<<<<<<< HEAD
                 <FontAwesome name="phone" size={20} color="blue" />
+=======
+                <FontAwesome name="phone" size="20" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               </View>
               <Text className="text-sm text-left">+237 671880871</Text>
             </View>
             <View className="items-center justify-start gap-x-5 flex-row">
               <View className="bg-blue-100 w-11 h-11 items-center justify-center p-3 rounded-full">
+<<<<<<< HEAD
                 <FontAwesome name="envelope" size={20} color="blue" />
+=======
+                <FontAwesome name="envelope" size="20" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               </View>
               <Text className="text-sm text-left">ordit2000@gmail.com</Text>
             </View>

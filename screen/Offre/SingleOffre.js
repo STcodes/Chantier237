@@ -314,7 +314,11 @@ const SingleOffre = ({ route, idUser }) => {
                   navigation.goBack();
                 }}
               >
+<<<<<<< HEAD
                 <FontAwesome name="angle-left" size={30} color="white" />
+=======
+                <FontAwesome name="angle-left" size="30" color="white" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               </TouchableOpacity>
               <View className="w-full items-center justify-center pt-3 pb-7 absolute z-10 bottom-4 ">
                 <View className="rounded-lg overflow-hidden">
@@ -334,7 +338,11 @@ const SingleOffre = ({ route, idUser }) => {
                   style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
                   className="flex-row items-center justify-center gap-x-2 rounded-2xl px-2 py-1"
                 >
+<<<<<<< HEAD
                   <FontAwesome5 name="clock" size={25} color="white" />
+=======
+                  <FontAwesome5 name="clock" size="25" color="white" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   <Text
                     className="text-sm text-white tracking-wider"
                     style={{ fontWeight: 600, lineHeight: 18 }}
@@ -368,7 +376,11 @@ const SingleOffre = ({ route, idUser }) => {
                 </Text>
               </View>
               <View className="flex-row items-center justify-start gap-x-3 mb-5 mt-5">
+<<<<<<< HEAD
                 <FontAwesome5 name="money-bill" size={25} color="green" />
+=======
+                <FontAwesome5 name="money-bill" size="25" color="green" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                 <Text className="text-sm tracking-wider">
                   {dataState.data.salaire} Fcfa{" "}
                   {dataState.data.salaire_frequence} -{" "}
@@ -378,19 +390,31 @@ const SingleOffre = ({ route, idUser }) => {
               <View className="flex-row items-center justify-between">
                 <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
                   <View className="bg-blue-100 items-center justify-center w-[70px] h-[70px] p-3 rounded-full">
+<<<<<<< HEAD
                     <FontAwesome name="calendar" size={28} color="blue" />
+=======
+                    <FontAwesome name="calendar" size="28" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   </View>
                   <Text className="text-center">{dataState.data.date}</Text>
                 </View>
                 <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
                   <View className="bg-blue-100 items-center justify-center w-[70px] h-[70px] p-3 rounded-full">
+<<<<<<< HEAD
                     <FontAwesome name="map-marker" size={30} color="blue" />
+=======
+                    <FontAwesome name="map-marker" size="30" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   </View>
                   <Text className="text-center">{dataState.data.lieu}</Text>
                 </View>
                 <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
                   <View className="bg-blue-100 items-center justify-center w-[70px] h-[70px] p-3 rounded-full">
+<<<<<<< HEAD
                     <FontAwesome5 name="user-friends" size={28} color="blue" />
+=======
+                    <FontAwesome5 name="user-friends" size="28" color="blue" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   </View>
                   <Text className="text-center">
                     {dataState.data.nb_personne}
@@ -441,7 +465,11 @@ const SingleOffre = ({ route, idUser }) => {
                       animation={Rotate}
                       iterationCount="infinite"
                     >
+<<<<<<< HEAD
                       <FontAwesome name="hourglass-2" size={20} color="white" />
+=======
+                      <FontAwesome name="hourglass-2" size="20" color="white" />
+>>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                     </Animatable.View>
                     <Text className="text-white text-center">
                       En attente d'approbation
