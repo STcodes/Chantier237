@@ -1,4 +1,4 @@
-import { React, useState, useEffect, Children } from "react";
+import { React, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,8 @@ import {
 } from "react-native";
 import { LogoImage } from "../../assets";
 import { Input, Menu, NativeBaseProvider, FormControl } from "native-base";
-import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
-import UilSearch from "@iconscout/react-native-unicons/icons/uil-search";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import OffreProfil from "../../components/OffreProfil";
 import { useNavigation } from "@react-navigation/native";
 import { NotFound } from "../../assets";
@@ -73,7 +73,7 @@ const OffreHome = (props) => {
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <SafeAreaView className="bg-white w-full">
         <View
-          className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
+          className="w-full flex-row items-center justify-between px-2 py-2 bg-white pr-3"
           style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
         >
           <View className="flex-row gap-1 items-center">
@@ -91,7 +91,7 @@ const OffreHome = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-                    <UilTreePoint color="black" size={24} />
+                    <FontAwesome5 name="ellipsis-v" size={22} color="black" />
                   </TouchableOpacity>
                 );
               }}
@@ -144,7 +144,7 @@ const OffreHome = (props) => {
                 }}
                 InputRightElement={
                   <TouchableOpacity className="-translate-x-3">
-                    <UilSearch size={30} color="blue" />
+                    <FontAwesome name="search" size={25} color="blue" />
                   </TouchableOpacity>
                 }
               />
@@ -180,7 +180,7 @@ const OffreHome = (props) => {
             <View className="w-full pt-10 pl-2 items-center justify-center gap-3">
               <Image source={NotFound} className="w-20 h-20" />
               <Text className="text-center">
-                Aucune offre trouve. Verifier votre connexion et reessayer.
+                Aucune offre trouvé. Verifier votre connexion et reessayer.
               </Text>
             </View>
           )}

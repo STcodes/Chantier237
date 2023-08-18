@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { React, useState, useEffect } from "react";
 import { Menu, NativeBaseProvider } from "native-base";
-import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import ProductItem from "../../components/ProductItem";
 import { LogoImage, NotFound } from "../../assets";
@@ -90,7 +90,7 @@ const ListOwnProduct = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-                    <UilTreePoint color="black" size={24} />
+                    <FontAwesome5 name="ellipsis-v" size={22} color="black" />
                   </TouchableOpacity>
                 );
               }}

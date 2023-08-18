@@ -193,7 +193,7 @@ const OuvrierHome = (props) => {
           <RefreshControl refreshing={dataState.isLoading} onRefresh={api} />
         }
       >
-        <View className="flex-col items-start justify-center mb-5 mt-4 px-3 w-full ">
+        <View className="flex-col items-start justify-center mb-7 mt-4 px-3 w-full">
           <Text className="text-bold text-[25px] text-blue-900 mb-1">
             Categories
           </Text>
@@ -216,7 +216,7 @@ const OuvrierHome = (props) => {
           </ScrollView>
         </View>
 
-        <View className="flex-col px-1 w-full mb-4 ">
+        <View className="flex-col px-1 w-full mb-6">
           <Text className="text-semibold text-[15px] mb-5">
             {"  "}Travailleurs de la categorie
           </Text>

@@ -77,7 +77,17 @@ const SignUp = (props) => {
         if (valeur.length < 8) {
           stToast("Veulliez entrer un mot de passe valide");
           setIsDataEmpty((prev) => {
-            return { ...prev, password: false };
+            return { ...prev, [cle]: true };
+          });
+          return false;
+        }
+      }
+      if (cle == "email") {
+        const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
+        if (!pattern.test(valeur)) {
+          stToast("Veulliez entrer une adresse mail valide");
+          setIsDataEmpty((prev) => {
+            return { ...prev, [cle]: true };
           });
           return false;
         }
@@ -153,7 +163,6 @@ const SignUp = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <LinearGradient
-          // Background Linear Gradient
           colors={["rgba(29, 78, 216, 1)", "white"]}
           locations={[0, 0.8]}
           className="w-full h-40 top-0 left-0 absolute -z-10"

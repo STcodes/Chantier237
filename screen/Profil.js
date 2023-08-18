@@ -21,8 +21,8 @@ const Profil = (props) => {
           "Telecharger Chantier237 et trouver un emploi selon vos competences en un clic",
         url:
           Platform.OS == "android"
-            ? "https://stcode.camencorp.com"
-            : "https://stcode.camencorp.com",
+            ? "https://play.google.com/store/apps/details?id="
+            : "https://apps.apple.com/cm/app/",
       });
     } catch (error) {}
   };

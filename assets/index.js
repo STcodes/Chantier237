@@ -1,6 +1,5 @@
 export { default as LogoImage } from "./logo3.png";
 export { default as LogoImage2 } from "./logo2.png";
-export { default as FacebookLogo } from "./faceboock.png";
 export { default as NotFound } from "./NotFound.png";
 export { default as genie_civil_category } from "./genie_civil_category.jpg";
 export { default as staffeur_category } from "./staffeur_category.jpg";

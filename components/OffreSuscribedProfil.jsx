@@ -6,10 +6,8 @@ import {
   ToastAndroid,
 } from "react-native";
 import StarContainer from "../components/StarContainer";
-import UilAngleRight from "@iconscout/react-native-unicons/icons/uil-angle-right";
-import UilAngleCheck from "@iconscout/react-native-unicons/icons/uil-check";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
-import * as Animatable from "react-native-animatable";
 import { React, useState, useEffect } from "react";
 import { Button, Input } from "native-base";
 import axios from "axios";
@@ -107,22 +105,19 @@ const OffreSuscribedProfil = (props) => {
       <View className="relative">
         <Image
           source={{ uri: props.imageUrl }}
-          className="w-14 h-14 rounded-full"
+          className="w-14 h-14 rounded-full bg-blue-200"
         />
         <View
           className={
             isSelected
-              ? "absolute top-0 right-0 bg-blue-800 rounded-full"
+              ? "absolute top-0 right-0 bg-blue-800 rounded-full p-1"
               : "hidden"
           }
         >
-          <UilAngleCheck size={16} color="white" />
+          <FontAwesome name="check" size={10} color="white" />
         </View>
       </View>
-      <Animatable.View
-        animation={"bounceIn"}
-        className="flex-row items-start justify-between w-[65%] border-b-[1px] pb-3 border-gray-400"
-      >
+      <View className="flex-row items-start justify-between w-[65%] border-b-[1px] pb-3 border-gray-400">
         <View className="w-[90%]">
           <Text className="text-[18px] mb-1" style={{ fontWeight: "600" }}>
             {props.name}
@@ -131,7 +126,7 @@ const OffreSuscribedProfil = (props) => {
           <View className="h-3"></View>
 
           {/* Button choisir */}
-          {!isSelected && (
+          {isSelected == 0 && (
             <Button
               variant={"outline"}
               _text={{
@@ -149,7 +144,7 @@ const OffreSuscribedProfil = (props) => {
           )}
 
           {/* Input noter */}
-          {isSelected && !isNoted && (
+          {isSelected != 0 && isNoted == 0 && (
             <Input
               type="text"
               keyboardType="numeric"
@@ -181,7 +176,7 @@ const OffreSuscribedProfil = (props) => {
             />
           )}
         </View>
-      </Animatable.View>
+      </View>
       <TouchableOpacity
         className="items-center justify-center h-[100px]"
         onPress={() => {
@@ -190,7 +185,7 @@ const OffreSuscribedProfil = (props) => {
           });
         }}
       >
-        <UilAngleRight size="33" color="blue" />
+        <FontAwesome name="angle-right" size={33} color="blue" />
       </TouchableOpacity>
     </View>
   );

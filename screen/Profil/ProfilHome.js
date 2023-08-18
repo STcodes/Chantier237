@@ -6,15 +6,14 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   RefreshControl,
+  Platform,
 } from "react-native";
 import { React, useState, useEffect } from "react";
 import { Menu, NativeBaseProvider } from "native-base";
-import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import StarContainer from "../../components/StarContainer";
-import UilCalendar from "@iconscout/react-native-unicons/icons/uil-calender";
-import UilPhone from "@iconscout/react-native-unicons/icons/uil-phone";
-import UilEmail from "@iconscout/react-native-unicons/icons/uil-envelope";
 import { NotFound } from "../../assets";
 import axios from "axios";
 
@@ -25,6 +24,93 @@ const ProfilHome = (props) => {
     data: [],
     error: false,
   });
+
+  const dataCategorie = [
+    {
+      id: 1,
+      categoryCard: "ing_genie_civil",
+      categoryName: "Ingenieur genie civil",
+    },
+    {
+      id: 2,
+      categoryCard: "staffeur",
+      categoryName: "Staffeurs",
+    },
+    {
+      id: 3,
+      categoryCard: "macon",
+      categoryName: "Macons",
+    },
+    {
+      id: 4,
+      categoryCard: "manoeuvre",
+      categoryName: "Manoeuvres",
+    },
+    {
+      id: 5,
+      categoryCard: "crepisseur",
+      categoryName: "Crepisseur",
+    },
+    {
+      id: 6,
+      categoryCard: "livreur_eau",
+      categoryName: "Livreurs d'eau",
+    },
+    {
+      id: 7,
+      categoryCard: "etancheite",
+      categoryName: "Travailleurs d'etancheite",
+    },
+    {
+      id: 8,
+      categoryCard: "plombier",
+      categoryName: "Plombiers",
+    },
+    {
+      id: 9,
+      categoryCard: "electricien",
+      categoryName: "Electriciens",
+    },
+    {
+      id: 10,
+      categoryCard: "ferrailleur",
+      categoryName: "Ferrailleurs",
+    },
+    {
+      id: 11,
+      categoryCard: "fouille",
+      categoryName: "Travailleurs de fouille",
+    },
+    {
+      id: 12,
+      categoryCard: "carreleur",
+      categoryName: "Carreleurs",
+    },
+    {
+      id: 13,
+      categoryCard: "menuisier",
+      categoryName: "Menuisiers",
+    },
+    {
+      id: 14,
+      categoryCard: "charpentier",
+      categoryName: "Charpentiers",
+    },
+    {
+      id: 15,
+      categoryCard: "menagere",
+      categoryName: "Menagere",
+    },
+  ];
+
+  const getJobName = (job) => {
+    for (let i = 0; i < dataCategorie.length; i++) {
+      if (job == dataCategorie[i].categoryCard) {
+        return dataCategorie[i].categoryName;
+      }
+    }
+    return job;
+  };
 
   useEffect(() => {
     api();
@@ -121,7 +207,13 @@ const ProfilHome = (props) => {
               }}
               className="w-full h-full object-cover opacity-90"
             />
-            <View className="absolute right-2 top-[50px] pt-1 pb-1 pl-1 pr-1 bg-white rounded-full">
+            <View
+              className={
+                Platform.OS == "ios"
+                  ? "absolute right-2 top-[50px] w-9 h-9 items-center justify-center bg-white rounded-full"
+                  : "absolute right-2 top-3 w-9 h-9 items-center justify-center bg-white rounded-full"
+              }
+            >
               <Menu
                 w="220"
                 trigger={(triggerProps) => {
@@ -130,7 +222,7 @@ const ProfilHome = (props) => {
                       accessibilityLabel="More options menu"
                       {...triggerProps}
                     >
-                      <UilTreePoint color="black" size={30} />
+                      <FontAwesome5 name="ellipsis-v" size={22} color="black" />
                     </TouchableOpacity>
                   );
                 }}
@@ -184,7 +276,7 @@ const ProfilHome = (props) => {
             <Text className="text-sm text-center mb-2">
               {dataState.data.job_name}{" "}
               <Text className="text-blue-600">
-                @{dataState.data.job_category}
+                @{getJobName(dataState.data.job_category)}
               </Text>
             </Text>
             <Text className="text-sm text-center mb-2">
@@ -193,24 +285,24 @@ const ProfilHome = (props) => {
             <StarContainer evaluation={dataState.data.evaluation} />
             <View className="flex-row items-start justify-center mt-5 mb-6 w-full px-4">
               <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
-                <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                  <UilEmail size={30} color="blue" />
+                <View className="bg-blue-100 w-16 h-16 items-center justify-center rounded-full">
+                  <FontAwesome name="envelope" size={30} color="blue" />
                 </View>
                 <Text className="text-center text-xs">
                   {dataState.data.email}
                 </Text>
               </View>
               <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
-                <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                  <UilPhone size={30} color="blue" />
+                <View className="bg-blue-100 w-16 h-16 items-center justify-center rounded-full">
+                  <FontAwesome name="phone" size={30} color="blue" />
                 </View>
                 <Text className="text-center text-xs">
                   +237 {dataState.data.phone}
                 </Text>
               </View>
               <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
-                <View className="bg-blue-100 items-center justify-center p-3 rounded-full">
-                  <UilCalendar size={30} color="blue" />
+                <View className="bg-blue-100 w-16 h-16 items-center justify-center rounded-full">
+                  <FontAwesome name="calendar" size={30} color="blue" />
                 </View>
                 <Text className="text-center text-xs">
                   {dataState.data.date_naiss_decode}

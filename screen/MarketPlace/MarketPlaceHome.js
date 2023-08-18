@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { React, useState, useEffect } from "react";
 import { Input, Menu, NativeBaseProvider, FormControl } from "native-base";
-import UilSearch from "@iconscout/react-native-unicons/icons/uil-search";
-import UilTreePoint from "@iconscout/react-native-unicons/icons/uil-ellipsis-v";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import ProductItem from "../../components/ProductItem";
 import { LogoImage, NotFound } from "../../assets";
@@ -94,7 +94,6 @@ const MarketPlaceHome = (props) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         setDataState((prev) => {
           return { ...prev, error: true };
         });
@@ -115,7 +114,7 @@ const MarketPlaceHome = (props) => {
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <SafeAreaView className="bg-white w-full">
         <View
-          className="w-full flex-row items-center justify-between px-2 py-2 bg-white"
+          className="w-full flex-row items-center justify-between px-2 py-2 bg-white pr-3"
           style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
         >
           <View className="flex-row gap-1 items-center">
@@ -133,7 +132,7 @@ const MarketPlaceHome = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-                    <UilTreePoint color="black" size={24} />
+                    <FontAwesome5 name="ellipsis-v" size={22} color="black" />
                   </TouchableOpacity>
                 );
               }}
@@ -185,7 +184,7 @@ const MarketPlaceHome = (props) => {
                 }}
                 InputRightElement={
                   <TouchableOpacity className="-translate-x-3">
-                    <UilSearch size={30} color="blue" />
+                    <FontAwesome name="search" size={25} color="blue" />
                   </TouchableOpacity>
                 }
               />

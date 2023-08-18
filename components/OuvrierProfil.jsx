@@ -1,8 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import StarContainer from "../components/StarContainer";
-import UilAngleRight from "@iconscout/react-native-unicons/icons/uil-angle-right";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
-import * as Animatable from "react-native-animatable";
 import React from "react";
 
 const OuvrierProfil = (props) => {
@@ -19,12 +18,9 @@ const OuvrierProfil = (props) => {
         source={{
           uri: props.image_url,
         }}
-        className="w-14 h-14 rounded-full"
+        className="w-14 h-14 rounded-full bg-blue-200"
       />
-      <Animatable.View
-        animation={"bounceIn"}
-        className="flex-row items-start justify-between w-[77%] border-b-[1px] border-gray-400 pb-3 "
-      >
+      <View className="flex-row items-start justify-between w-[77%] border-b-[1px] border-gray-400 pb-3">
         <View>
           <Text className="text-bases" style={{ fontWeight: "700" }}>
             {props.rowid == props.userId
@@ -38,8 +34,8 @@ const OuvrierProfil = (props) => {
           </Text>
           <StarContainer evaluation={props.evaluation} />
         </View>
-        <UilAngleRight size="30" color="blue" />
-      </Animatable.View>
+        <FontAwesome name="angle-right" size={30} color="blue" />
+      </View>
     </TouchableOpacity>
   );
 };

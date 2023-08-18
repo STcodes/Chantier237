@@ -1,75 +1,70 @@
 import { View } from "react-native";
 import React from "react";
-import UilStar from "@iconscout/react-native-unicons/icons/uil-star";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const StarContainer = ({ evaluation }) => {
   let size = 20;
   let colorActive = "orange";
-  let colorNoActive = "gray";
+  let colorNoActive = "black";
 
   if (evaluation == 5) {
     return (
       <View className="flex-row gap-[4px]">
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
       </View>
     );
-  }
-  if (4 <= evaluation && evaluation < 5) {
+  } else if (4 <= evaluation && evaluation < 5) {
     return (
       <View className="flex-row gap-[4px] ">
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
       </View>
     );
-  }
-  if (3 <= evaluation && evaluation < 4) {
+  } else if (3 <= evaluation && evaluation < 4) {
     return (
       <View className="flex-row gap-[4px]">
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
       </View>
     );
-  }
-  if (2 <= evaluation && evaluation < 3) {
+  } else if (2 <= evaluation && evaluation < 3) {
     return (
       <View className="flex-row gap-[4px]">
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
       </View>
     );
-  }
-  if (0 < evaluation && evaluation < 2) {
+  } else if (0 < evaluation && evaluation < 2) {
     return (
       <View className="flex-row gap-[4px]">
-        <UilStar size={size} color={colorActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
       </View>
     );
-  }
-  if (evaluation == 0) {
+  } else if (evaluation == 0) {
     return (
       <View className="flex-row gap-[4px]">
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
-        <UilStar size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
+        <FontAwesome name="star" size={size} color={colorNoActive} />
       </View>
     );
   }

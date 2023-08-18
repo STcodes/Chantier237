@@ -8,11 +8,11 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import UilMedal from "@iconscout/react-native-unicons/icons/uil-medal";
 import StarContainer from "../../components/StarContainer";
 import { React, useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import UilArrow from "@iconscout/react-native-unicons/icons/uil-angle-left";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AlertImage from "../../components/AlertImage";
 import axios from "axios";
 import { NotFound } from "../../assets/";
@@ -98,13 +98,13 @@ const SingleOuvrier = ({ route }) => {
         >
           <View className="w-full h-[370px] relative">
             <TouchableOpacity
-              className="rounded-full w-4 h-4 absolute z-10 left-3 top-3 items-center justify-center p-4"
+              className="rounded-full w-9 h-9 absolute z-10 left-3 top-3 items-center justify-center"
               style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
               onPress={() => {
                 navigation.goBack();
               }}
             >
-              <UilArrow size={30} color="white" />
+              <FontAwesome name="angle-left" size={30} color="white" />
             </TouchableOpacity>
             <Image
               source={{
@@ -153,7 +153,7 @@ const SingleOuvrier = ({ route }) => {
               </Text>
             </View>
             <View className="flex-row w-full gap-2 items-center justify-star mb-2 mt-2">
-              <UilMedal size={27} color="orange" />
+              <FontAwesome5 name="medal" size={27} color="orange" />
               <Text style={{ fontWeight: 500 }}>
                 {dataState.data.anciennete}
                 {dataState.data.anciennete > 1
@@ -167,18 +167,18 @@ const SingleOuvrier = ({ route }) => {
                 className="text-lg  text-blue-700 text-left w-full"
                 style={{ fontWeight: 600 }}
               >
-                Quelques realisations
+                Quelques réalisations
               </Text>
               <Text
                 className="text-left text-sm mb-5 w-full"
                 style={{ fontWeight: 300 }}
               >
-                (cliquez pour agrandir)
+                cliquez pour agrandir
               </Text>
 
               <View className="w-full items-start flex-row flex-wrap  pt-3 h-[200px] pb-5">
                 {dataState.realisation.length == 0 ? (
-                  <Text>Aucune realisation enregistre pour ce profil.</Text>
+                  <Text>Aucune réalisation enregistre pour ce profil.</Text>
                 ) : (
                   dataState.realisation.map((item) => {
                     return (

@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  TouchableOpacity,
   Pressable,
   Image,
   ToastAndroid,
@@ -12,7 +11,7 @@ import { NativeBaseProvider, Button, FormControl, Input } from "native-base";
 import Toast from "react-native-root-toast";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { LogoImage, FacebookLogo } from "../assets/";
+import { LogoImage } from "../assets/";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -55,11 +54,8 @@ const SignIn = (props) => {
       })
         .then((response) => {
           if (response.data.status == "ERROR") {
-            //TOAST THE ERROR
             stToast("Nom d'utilisateur ou mot de passe incorrect.");
           } else {
-            //save the datauser in state and in local
-
             props.setStateUser({
               userId: response.data.data.id,
               isAbonned: response.data.data.is_abon,
@@ -74,7 +70,6 @@ const SignIn = (props) => {
                 dateAbonned: response.data.data.date_abon,
               })
             );
-            // navigation.navigate("Home");
             navigation.reset({
               index: 0,
               routes: [{ name: "Home" }],
@@ -83,7 +78,6 @@ const SignIn = (props) => {
           setIsLoading(false);
         })
         .catch((error) => {
-          // TOAST THE ERROR
           stToast("Erreur de connexion. Veuillez reessayer");
         })
         .finally(() => {
@@ -140,7 +134,6 @@ const SignIn = (props) => {
             isAbonned: result.isAbonned,
             dateAbonned: result.dateAbonned,
           });
-          // navigation.navigate("Home");
           navigation.reset({
             index: 0,
             routes: [{ name: "Home" }],
@@ -242,18 +235,6 @@ const SignIn = (props) => {
           >
             Se connecter
           </Button>
-
-          {/* <View className="mt-3 mb-3 flex-row items-center justify-center gap-x-2">
-            <View className="h-[1px] w-[65px] bg-black"></View>
-            <Text className="-translate-y-[2px]">ou connectez vous avec</Text>
-            <View className="h-[1px] w-[65px] bg-black"></View>
-          </View>
-          <TouchableOpacity className="flex-row items-center px-5 py-2 bg-white relative rounded-md w-full border-[1px] border-black mb-5 justify-center">
-            <Image source={FacebookLogo} className="h-10 w-10" />
-            <Text className="text-lg text-semibold ml-5 text-center">
-              Facebook
-            </Text>
-          </TouchableOpacity> */}
 
           <Text className="items-center justify-center w-full text-center mt-8">
             Vous avez pas de compte ?{"  "}

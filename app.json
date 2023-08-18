@@ -4,10 +4,10 @@
     "slug": "Chantier237",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo2.png",
+    "icon": "./assets/logo1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo5.png",
+      "image": "./assets/logo4.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,24 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo2.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/logo1.png",
+        "backgroundColor": "#000000"
+      },
+      "package": "com.st.code.Chantier237"
     },
     "web": {
-      "favicon": "./assets/logo2.png"
+      "favicon": "./assets/logo1.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "971067c4-f0d6-4741-bace-691621ec9d6e"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/971067c4-f0d6-4741-bace-691621ec9d6e"
     }
   }
 }

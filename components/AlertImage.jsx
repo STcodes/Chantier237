@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { React, useState } from "react";
 import { Image } from "react-native";
-import UilCross from "@iconscout/react-native-unicons/icons/uil-multiply";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const AlertImage = (props) => {
   const [isShow, setIsShow] = useState(false);
@@ -17,13 +17,14 @@ const AlertImage = (props) => {
         style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
       >
         <View
-          className="h-8 w-3 items-center justify-center absolute z-40 right-1 top-1 bg-gray-500 p-4 rounded-full"
+          className="h-10 w-10 items-center justify-center absolute z-40 right-1 top-1 bg-gray-500 rounded-full"
           onPress={() => {
             setIsShow(true);
           }}
         >
-          <UilCross
-            size={20}
+          <FontAwesome
+            name="remove"
+            size={27}
             color="white"
             onPress={() => {
               setIsShow(false);

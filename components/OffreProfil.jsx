@@ -17,10 +17,8 @@ import {
   charpentier_category,
   find_job,
 } from "../assets";
-import UilCalendar from "@iconscout/react-native-unicons/icons/uil-calender";
-import UilMap from "@iconscout/react-native-unicons/icons/uil-map-marker";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import React from "react";
-import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 
 const OffreProfil = (props) => {
@@ -89,11 +87,10 @@ const OffreProfil = (props) => {
         <View className="w-[20%] pt-2">
           <Image
             source={TestImage(props.job_category)}
-            className="w-16 h-16 rounded-md"
+            className="w-16 h-16 rounded-md bg-blue-200"
           />
         </View>
-        <Animatable.View
-          animation={"bounceIn"}
+        <View
           className="w-[80%] pb-2 items-start justify-start pr-[20px]"
           style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
         >
@@ -108,12 +105,12 @@ const OffreProfil = (props) => {
               : props.description}
           </Text>
           <View className="flex-row gap-x-3">
-            <View className="flex-row gap-x-1">
-              <UilCalendar size={20} color="blue" />
+            <View className="flex-row gap-x-2">
+              <FontAwesome name="calendar-o" size={20} color="blue" />
               <Text>{props.date}</Text>
             </View>
-            <View className="flex-row gap-x-1">
-              <UilMap size={20} color="blue" />
+            <View className="flex-row gap-x-2 items-center">
+              <FontAwesome name="map-marker" size={20} color="blue" />
               <Text>
                 {props.lieu.length >= 13
                   ? `${props.lieu.substring(0, 13)}...`
@@ -132,7 +129,7 @@ const OffreProfil = (props) => {
               <Text className="text-blue-900 text-sm ">Postulé</Text>
             </View>
           )}
-        </Animatable.View>
+        </View>
       </TouchableOpacity>
     );
   } else {
@@ -147,11 +144,10 @@ const OffreProfil = (props) => {
           <View className="w-[20%] pt-2">
             <Image
               source={TestImage(props.job_category)}
-              className="w-16 h-16 rounded-md"
+              className="w-16 h-16 rounded-md bg-blue-200"
             />
           </View>
-          <Animatable.View
-            animation={"bounceIn"}
+          <View
             className="w-[80%] pb-2 items-start justify-start pr-[20px]"
             style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
           >
@@ -166,12 +162,12 @@ const OffreProfil = (props) => {
                 : props.description}
             </Text>
             <View className="flex-row gap-x-3">
-              <View className="flex-row gap-x-1">
-                <UilCalendar size={20} color="blue" />
+              <View className="flex-row gap-x-2">
+                <FontAwesome name="calendar-o" size={20} color="blue" />
                 <Text>{props.date}</Text>
               </View>
-              <View className="flex-row gap-x-1">
-                <UilMap size={20} color="blue" />
+              <View className="flex-row gap-x-2 items-center">
+                <FontAwesome name="map-marker" size={20} color="blue" />
                 <Text>
                   {props.lieu.length >= 13
                     ? `${props.lieu.substring(0, 13)}...`
@@ -190,7 +186,7 @@ const OffreProfil = (props) => {
                 <Text className="text-blue-900 text-sm ">Postulé</Text>
               </View>
             )}
-          </Animatable.View>
+          </View>
         </TouchableOpacity>
       );
     }
