@@ -114,11 +114,7 @@ const OffreSuscribedProfil = (props) => {
               : "hidden"
           }
         >
-<<<<<<< HEAD
           <FontAwesome name="check" size={10} color="white" />
-=======
-          <FontAwesome name="check" size="10" color="white" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
         </View>
       </View>
       <View className="flex-row items-start justify-between w-[65%] border-b-[1px] pb-3 border-gray-400">
@@ -189,11 +185,7 @@ const OffreSuscribedProfil = (props) => {
           });
         }}
       >
-<<<<<<< HEAD
         <FontAwesome name="angle-right" size={33} color="blue" />
-=======
-        <FontAwesome name="angle-right" size="33" color="blue" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
       </TouchableOpacity>
     </View>
   );

@@ -218,11 +218,7 @@ const EditProfil = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-<<<<<<< HEAD
                     <FontAwesome5 name="ellipsis-v" size={22} color="black" />
-=======
-                    <FontAwesome5 name="ellipsis-v" size="22" color="black" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   </TouchableOpacity>
                 );
               }}
@@ -274,22 +270,14 @@ const EditProfil = (props) => {
                 <Text className="text-[30px] text-blue-700">I</Text>nformations
                 personnelles
               </Text>
-<<<<<<< HEAD
               <FontAwesome name="angle-right" size={30} color="black" />
-=======
-              <FontAwesome name="angle-right" size="30" color="black" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
             </TouchableOpacity>
             <View className="items-center justify-between flex-row w-full">
               <Text className="text-[24px] tracking-wider pl-1 text-gray-800 text-left my-5">
                 <Text className="text-[30px] text-blue-700">M</Text>odifier le
                 mot de passe
               </Text>
-<<<<<<< HEAD
               <FontAwesome name="angle-down" size={30} color="black" />
-=======
-              <FontAwesome name="angle-down" size="30" color="black" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
             </View>
 
             {/* Ancien mot de passe */}
@@ -433,22 +421,14 @@ const EditProfil = (props) => {
                 <Text className="text-[30px] text-blue-700">M</Text>odifier le
                 mot de passe
               </Text>
-<<<<<<< HEAD
               <FontAwesome name="angle-right" size={30} color="black" />
-=======
-              <FontAwesome name="angle-right" size="30" color="black" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
             </TouchableOpacity>
             <View className="items-center justify-between flex-row w-full">
               <Text className="text-[24px] tracking-wider pl-1 text-gray-800 text-left my-5">
                 <Text className="text-[30px] text-blue-700">I</Text>nformations
                 personnelles
               </Text>
-<<<<<<< HEAD
               <FontAwesome name="angle-down" size={30} color="black" />
-=======
-              <FontAwesome name="angle-down" size="30" color="black" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
             </View>
 
             {/* Nom d'utilisateur */}

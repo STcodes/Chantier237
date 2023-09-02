@@ -22,8 +22,10 @@ import {
 } from "native-base";
 import { LogoImage } from "../../assets";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import * as Linking from "expo-linking";
 
 const CreateOffre = ({ idUser }) => {
   const navigation = useNavigation();
@@ -137,11 +139,7 @@ const CreateOffre = ({ idUser }) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-<<<<<<< HEAD
                     <FontAwesome5 name="ellipsis-v" size={22} color="black" />
-=======
-                    <FontAwesome5 name="ellipsis-v" size="22" color="black" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   </TouchableOpacity>
                 );
               }}
@@ -379,6 +377,27 @@ const CreateOffre = ({ idUser }) => {
           >
             <Text className="text-white text-lg" style={{ fontWeight: 600 }}>
               Poster l'offre
+            </Text>
+          </Button>
+          <Text className="text-lg text-black text-center my-2">ou</Text>
+          <Button
+            style={{
+              backgroundColor: "rgb(62,228,92)",
+              width: "100%",
+              height: 60,
+              borderRadius: 7,
+              fontSize: 25,
+            }}
+            onPress={() => {
+              Linking.openURL(
+                "https://wa.me/237658271533?text=Salut%20j'aimerais%20poster%20une%20offre%20d'emploi"
+              );
+            }}
+            size="lg"
+          >
+            <Text className="text-white text-lg" style={{ fontWeight: 600 }}>
+              <FontAwesome name="whatsapp" size={27} color="white" />
+              {"    "}Ecrire sur Whatsapp
             </Text>
           </Button>
 

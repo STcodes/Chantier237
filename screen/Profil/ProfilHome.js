@@ -207,7 +207,6 @@ const ProfilHome = (props) => {
               }}
               className="w-full h-full object-cover opacity-90"
             />
-<<<<<<< HEAD
             <View
               className={
                 Platform.OS == "ios"
@@ -215,9 +214,6 @@ const ProfilHome = (props) => {
                   : "absolute right-2 top-3 w-9 h-9 items-center justify-center bg-white rounded-full"
               }
             >
-=======
-            <View className="absolute right-2 top-[50px] w-9 h-9 items-center justify-center bg-white rounded-full">
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               <Menu
                 w="220"
                 trigger={(triggerProps) => {
@@ -226,11 +222,7 @@ const ProfilHome = (props) => {
                       accessibilityLabel="More options menu"
                       {...triggerProps}
                     >
-<<<<<<< HEAD
                       <FontAwesome5 name="ellipsis-v" size={22} color="black" />
-=======
-                      <FontAwesome5 name="ellipsis-v" size="22" color="black" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                     </TouchableOpacity>
                   );
                 }}
@@ -294,11 +286,7 @@ const ProfilHome = (props) => {
             <View className="flex-row items-start justify-center mt-5 mb-6 w-full px-4">
               <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
                 <View className="bg-blue-100 w-16 h-16 items-center justify-center rounded-full">
-<<<<<<< HEAD
                   <FontAwesome name="envelope" size={30} color="blue" />
-=======
-                  <FontAwesome name="envelope" size="30" color="blue" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                 </View>
                 <Text className="text-center text-xs">
                   {dataState.data.email}
@@ -306,11 +294,7 @@ const ProfilHome = (props) => {
               </View>
               <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
                 <View className="bg-blue-100 w-16 h-16 items-center justify-center rounded-full">
-<<<<<<< HEAD
                   <FontAwesome name="phone" size={30} color="blue" />
-=======
-                  <FontAwesome name="phone" size="30" color="blue" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                 </View>
                 <Text className="text-center text-xs">
                   +237 {dataState.data.phone}
@@ -318,11 +302,7 @@ const ProfilHome = (props) => {
               </View>
               <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
                 <View className="bg-blue-100 w-16 h-16 items-center justify-center rounded-full">
-<<<<<<< HEAD
                   <FontAwesome name="calendar" size={30} color="blue" />
-=======
-                  <FontAwesome name="calendar" size="30" color="blue" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                 </View>
                 <Text className="text-center text-xs">
                   {dataState.data.date_naiss_decode}
@@ -340,9 +320,9 @@ const ProfilHome = (props) => {
           </View>
           <View className="w-full items-start px-4">
             <Text className="text-xl mb-4" style={{ fontWeight: 600 }}>
-              Vos réalisations
+              Mes réalisations
             </Text>
-            <View className="w-full item-center justify-around gap-5 flex-row flex-wrap">
+            <View className="w-full item-center justify-between gap-y-10 flex-row flex-wrap">
               {dataState.data.realisation.map((item, key) => {
                 return (
                   <Image

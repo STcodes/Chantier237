@@ -132,11 +132,7 @@ const MarketPlaceHome = (props) => {
                     accessibilityLabel="More options menu"
                     {...triggerProps}
                   >
-<<<<<<< HEAD
                     <FontAwesome5 name="ellipsis-v" size={22} color="black" />
-=======
-                    <FontAwesome5 name="ellipsis-v" size="22" color="black" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   </TouchableOpacity>
                 );
               }}
@@ -188,11 +184,7 @@ const MarketPlaceHome = (props) => {
                 }}
                 InputRightElement={
                   <TouchableOpacity className="-translate-x-3">
-<<<<<<< HEAD
                     <FontAwesome name="search" size={25} color="blue" />
-=======
-                    <FontAwesome name="search" size="25" color="blue" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
                   </TouchableOpacity>
                 }
               />

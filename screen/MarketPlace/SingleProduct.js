@@ -272,11 +272,7 @@ const SingleProduct = (props) => {
                   navigation.goBack();
                 }}
               >
-<<<<<<< HEAD
                 <FontAwesome name="angle-left" size={30} color="white" />
-=======
-                <FontAwesome name="angle-left" size="30" color="white" />
->>>>>>> 86988c9fa6a41f443ad36f46c33dd0fb8b8605e0
               </TouchableOpacity>
               <Image
                 source={{
