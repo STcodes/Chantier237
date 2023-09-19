@@ -244,13 +244,6 @@ const EditProfil = (props) => {
               >
                 <Text className="text-lg">Partager l'application</Text>
               </Menu.Item>
-              <Menu.Item
-                onPress={() => {
-                  props.logOut();
-                }}
-              >
-                <Text className="text-lg">Se deconnecter</Text>
-              </Menu.Item>
             </Menu>
           </View>
         </View>

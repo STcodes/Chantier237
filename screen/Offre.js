@@ -6,6 +6,7 @@ import ListOffrePostuled from "./Offre/ListOffrePostuled";
 import ListOffrePosted from "./Offre/ListOffrePosted";
 import SingleOffrePosted from "./Offre/SingleOffrePosted";
 import SingleOuvrier from "./Ouvrier/SingleOuvrier";
+import About from "./Profil/About";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
@@ -51,6 +52,9 @@ const Offre = ({ route }) => {
       </Stack.Screen>
       <Stack.Screen name="SingleOuvrier" options={{ headerShown: false }}>
         {(props) => <SingleOuvrier {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="About" options={{ headerShown: false }}>
+        {(prop) => <About />}
       </Stack.Screen>
     </Stack.Navigator>
   );

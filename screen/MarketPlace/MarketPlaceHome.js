@@ -151,6 +151,13 @@ const MarketPlaceHome = (props) => {
               >
                 <Text className="text-lg">Publier un article</Text>
               </Menu.Item>
+              <Menu.Item
+                onPress={() => {
+                  navigation.navigate("About");
+                }}
+              >
+                <Text className="text-lg">A propos</Text>
+              </Menu.Item>
             </Menu>
           </View>
         </View>

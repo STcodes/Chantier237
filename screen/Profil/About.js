@@ -8,16 +8,12 @@ import {
   Image,
 } from "react-native";
 import React from "react";
-import { Menu, NativeBaseProvider } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { useNavigation } from "@react-navigation/native";
 import { LogoImage } from "../../assets";
 import * as Linking from "expo-linking";
 
-const About = (props) => {
-  const navigation = useNavigation();
-
+const About = () => {
   return (
     <NativeBaseProvider>
       <SafeAreaView className="bg-white w-full">
@@ -31,50 +27,6 @@ const About = (props) => {
             <Text className="text-bold text-[20px] tracking-wider">
               Chantier237
             </Text>
-          </View>
-          <View>
-            <Menu
-              w="220"
-              trigger={(triggerProps) => {
-                return (
-                  <TouchableOpacity
-                    accessibilityLabel="More options menu"
-                    {...triggerProps}
-                  >
-                    <FontAwesome5 name="ellipsis-v" size={22} color="black" />
-                  </TouchableOpacity>
-                );
-              }}
-            >
-              <Menu.Item
-                onPress={() => {
-                  navigation.navigate("ProfilHome");
-                }}
-              >
-                <Text className="text-lg">Votre profil</Text>
-              </Menu.Item>
-              <Menu.Item
-                onPress={() => {
-                  navigation.navigate("EditProfil");
-                }}
-              >
-                <Text className="text-lg">Modifier votre profil</Text>
-              </Menu.Item>
-              <Menu.Item
-                onPress={() => {
-                  props.shareApp();
-                }}
-              >
-                <Text className="text-lg">Partager l'application</Text>
-              </Menu.Item>
-              <Menu.Item
-                onPress={() => {
-                  props.logOut();
-                }}
-              >
-                <Text className="text-lg">Se deconnecter</Text>
-              </Menu.Item>
-            </Menu>
           </View>
         </View>
         <ScrollView

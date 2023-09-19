@@ -505,7 +505,7 @@ const SingleProduct = (props) => {
             <AlertDialog.CloseButton />
             <AlertDialog.Header>Supprimer l'article</AlertDialog.Header>
             <AlertDialog.Body>
-              Etes vous sur de vouloir supprimer l'article ?
+              Etes-vous sûr de vouloir supprimer l'article?
             </AlertDialog.Body>
             <AlertDialog.Footer>
               <Button.Group space={2}>

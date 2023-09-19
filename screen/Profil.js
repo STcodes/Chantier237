@@ -74,7 +74,6 @@ const Profil = (props) => {
             userId={props.stateUser.userId}
             dataUser={dataUser}
             setDataUser={setDataUser}
-            logOut={logOut}
             shareApp={shareApp}
           />
         )}
@@ -87,13 +86,8 @@ const Profil = (props) => {
       >
         {(prop) => <CompleteProfil {...prop} userId={props.stateUser.userId} />}
       </Stack.Screen>
-      <Stack.Screen
-        name="About"
-        options={{
-          headerShown: false,
-        }}
-      >
-        {(prop) => <About {...prop} logOut={logOut} shareApp={shareApp} />}
+      <Stack.Screen name="About" options={{ headerShown: false }}>
+        {(prop) => <About />}
       </Stack.Screen>
     </Stack.Navigator>
   );

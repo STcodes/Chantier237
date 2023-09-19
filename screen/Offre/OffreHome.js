@@ -117,6 +117,13 @@ const OffreHome = (props) => {
               >
                 <Text className="text-lg">Poster une offre</Text>
               </Menu.Item>
+              <Menu.Item
+                onPress={() => {
+                  navigation.navigate("About");
+                }}
+              >
+                <Text className="text-lg">A propos</Text>
+              </Menu.Item>
             </Menu>
           </View>
         </View>

@@ -35,15 +35,17 @@ const CompleteProfil = (props) => {
   const [dataInfo, setDataInfo] = useState({
     user: props.userId,
     sexe: "",
+    job: "",
+    jobCategory: "",
     experience: "",
-    phone: "",
     dateNaiss: "2000-1-1",
     description: "",
   });
   const [isDataInfoEmpty, setDataInfoEmpty] = useState({
     sexe: false,
+    job: false,
+    jobCategory: false,
     experience: false,
-    phone: false,
     dateNaiss: false,
     description: false,
   });
@@ -137,8 +139,9 @@ const CompleteProfil = (props) => {
       }
       formData.append("user", dataInfo.user);
       formData.append("sexe", dataInfo.sexe);
+      formData.append("job", dataInfo.job);
+      formData.append("jobCategory", dataInfo.jobCategory);
       formData.append("experience", dataInfo.experience);
-      formData.append("phone", dataInfo.phone);
       formData.append("dateNaiss", dataInfo.dateNaiss);
       formData.append("description", dataInfo.description);
       // ********API
@@ -273,6 +276,62 @@ const CompleteProfil = (props) => {
             </FormControl.ErrorMessage>
           </FormControl>
 
+          {/* metier */}
+          <Text className="mb-2 text-base">Votre metier</Text>
+          <FormControl isInvalid={isDataInfoEmpty.job} mb="5">
+            <Input
+              placeholder="Nom de votre metier"
+              type="text"
+              className="text-sm"
+              onChangeText={(value) => setDataInfo({ ...dataInfo, job: value })}
+            />
+            <FormControl.ErrorMessage>
+              Ce champ ne doit pas etre vide.
+            </FormControl.ErrorMessage>
+          </FormControl>
+
+          {/* Categorie */}
+          <Text className="mb-2 text-base">Votre categorie</Text>
+          <FormControl isInvalid={isDataInfoEmpty.jobCategory} mb="5">
+            <Select
+              accessibilityLabel="Selectionner votre categorie"
+              placeholder="Selectionner votre categorie"
+              className="text-sm"
+              _selectedItem={{
+                bg: "teal.600",
+              }}
+              mt="1"
+              onValueChange={(value) =>
+                setDataInfo({ ...dataInfo, jobCategory: value })
+              }
+            >
+              <Select.Item
+                label="Ingenieur genie civil"
+                value="ing_genie_civil"
+              />
+              <Select.Item label="Staffeur" value="staffeur" />
+              <Select.Item label="Macons" value="macon" />
+              <Select.Item label="Manoeuvre" value="manoeuvre" />
+              <Select.Item label="Crepisseur" value="crepisseur" />
+              <Select.Item label="Livreur d'eau" value="livreur_eau" />
+              <Select.Item
+                label="Travailleurs d'etancheite"
+                value="etancheite"
+              />
+              <Select.Item label="Plombiers" value="plombier" />
+              <Select.Item label="Electricien" value="electricien" />
+              <Select.Item label="Ferrailleur" value="ferrailleur" />
+              <Select.Item label="Travailleur de fouille" value="fouille" />
+              <Select.Item label="Carreleur" value="carreleur" />
+              <Select.Item label="Menuisier" value="menuisier" />
+              <Select.Item label="Charpentier" value="charpentier" />
+              <Select.Item label="Menagere" value="menagere" />
+            </Select>
+            <FormControl.ErrorMessage>
+              Ce champ ne doit pas etre vide.
+            </FormControl.ErrorMessage>
+          </FormControl>
+
           {/* Anneés d'experience */}
           <Text className="mb-2 text-base">Anneés d'experience</Text>
           <FormControl isInvalid={isDataInfoEmpty.experience} mb="5">
@@ -283,23 +342,6 @@ const CompleteProfil = (props) => {
               className="text-sm"
               onChangeText={(value) =>
                 setDataInfo({ ...dataInfo, experience: value })
-              }
-            />
-            <FormControl.ErrorMessage>
-              Ce champ ne doit pas etre vide.
-            </FormControl.ErrorMessage>
-          </FormControl>
-
-          {/* Numero de telephone */}
-          <Text className="mb-2 text-base">Numero de téléphone</Text>
-          <FormControl isInvalid={isDataInfoEmpty.phone} mb="5">
-            <Input
-              placeholder="Numero de téléphone"
-              type="text"
-              keyboardType="numeric"
-              className="text-sm"
-              onChangeText={(value) =>
-                setDataInfo({ ...dataInfo, phone: value })
               }
             />
             <FormControl.ErrorMessage>

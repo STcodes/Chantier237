@@ -3,6 +3,7 @@ import CreateProduct from "./MarketPlace/CreateProduct";
 import ListOwnProduct from "./MarketPlace/ListOwnProduct";
 import MarketPlaceHome from "./MarketPlace/MarketPlaceHome";
 import SingleProduct from "./MarketPlace/SingleProduct";
+import About from "./Profil/About";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
@@ -27,7 +28,6 @@ const MarketPlace = ({ route }) => {
           <CreateProduct {...props} idUser={route.params.stateUser.userId} />
         )}
       </Stack.Screen>
-
       <Stack.Screen name="ListOwnProduct" options={{ headerShown: false }}>
         {(props) => (
           <ListOwnProduct
@@ -38,7 +38,6 @@ const MarketPlace = ({ route }) => {
           />
         )}
       </Stack.Screen>
-
       <Stack.Screen name="SingleProduct" options={{ headerShown: false }}>
         {(props) => (
           <SingleProduct
@@ -48,6 +47,9 @@ const MarketPlace = ({ route }) => {
             setOwnLike={setOwnLike}
           />
         )}
+      </Stack.Screen>
+      <Stack.Screen name="About" options={{ headerShown: false }}>
+        {(prop) => <About />}
       </Stack.Screen>
     </Stack.Navigator>
   );

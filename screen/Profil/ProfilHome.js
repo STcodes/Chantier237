@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { React, useState, useEffect } from "react";
-import { Menu, NativeBaseProvider } from "native-base";
+import { Menu, NativeBaseProvider, Button, AlertDialog } from "native-base";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
@@ -19,6 +19,7 @@ import axios from "axios";
 
 const ProfilHome = (props) => {
   const navigation = useNavigation();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dataState, setDataState] = useState({
     isLoading: true,
     data: [],
@@ -149,7 +150,6 @@ const ProfilHome = (props) => {
           props.setDataUser({
             userName: response.data.data.user_name,
             lastName: response.data.data.last_name,
-            email: response.data.data.email,
             jobCategory: response.data.data.job_category,
             job: response.data.data.job_name,
             phone: response.data.data.phone,
@@ -250,7 +250,7 @@ const ProfilHome = (props) => {
                 </Menu.Item>
                 <Menu.Item
                   onPress={() => {
-                    props.logOut();
+                    setIsDialogOpen(true);
                   }}
                 >
                   <Text className="text-lg">Se deconnecter</Text>
@@ -279,17 +279,14 @@ const ProfilHome = (props) => {
                 @{getJobName(dataState.data.job_category)}
               </Text>
             </Text>
-            <Text className="text-sm text-center mb-2">
-              {dataState.data.anciennete} an(s) d'experience
-            </Text>
             <StarContainer evaluation={dataState.data.evaluation} />
             <View className="flex-row items-start justify-center mt-5 mb-6 w-full px-4">
               <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
                 <View className="bg-blue-100 w-16 h-16 items-center justify-center rounded-full">
-                  <FontAwesome name="envelope" size={30} color="blue" />
+                  <FontAwesome5 name="medal" size={30} color="blue" />
                 </View>
                 <Text className="text-center text-xs">
-                  {dataState.data.email}
+                  {dataState.data.anciennete} an(s) d'experience
                 </Text>
               </View>
               <View className="flex-col items-center justify-start gap-y-2 w-[33%]">
@@ -339,6 +336,43 @@ const ProfilHome = (props) => {
           <View className="h-5"></View>
         </ScrollView>
       )}
+
+      <AlertDialog
+        isOpen={isDialogOpen}
+        onClose={() => {
+          setIsDialogOpen(false);
+        }}
+      >
+        <AlertDialog.Content>
+          <AlertDialog.CloseButton />
+          <AlertDialog.Header>Déconnexion</AlertDialog.Header>
+          <AlertDialog.Body>
+            Etes-vous sûr de vouloir vous deconnecter?
+          </AlertDialog.Body>
+          <AlertDialog.Footer>
+            <Button.Group space={2}>
+              <Button
+                colorScheme="blue"
+                onPress={() => {
+                  props.logOut();
+                }}
+                width="1/3"
+              >
+                Oui
+              </Button>
+              <Button
+                colorScheme="danger"
+                width="1/3"
+                onPress={() => {
+                  setIsDialogOpen(false);
+                }}
+              >
+                Non
+              </Button>
+            </Button.Group>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog>
     </NativeBaseProvider>
   );
 };

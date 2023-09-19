@@ -34,19 +34,15 @@ const SignUp = (props) => {
   const [inputData, setInputData] = useState({
     userName: "",
     lastName: "",
-    email: "",
     password: "",
-    job: "",
-    jobCategory: "",
+    phone: "",
   });
 
   const [isDataEmpty, setIsDataEmpty] = useState({
     userName: false,
     password: false,
     lastName: false,
-    email: false,
-    job: false,
-    jobCategory: false,
+    phone: false,
   });
 
   const stToast = (message) => {
@@ -76,16 +72,6 @@ const SignUp = (props) => {
       if (cle == "password") {
         if (valeur.length < 8) {
           stToast("Veulliez entrer un mot de passe valide");
-          setIsDataEmpty((prev) => {
-            return { ...prev, [cle]: true };
-          });
-          return false;
-        }
-      }
-      if (cle == "email") {
-        const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
-        if (!pattern.test(valeur)) {
-          stToast("Veulliez entrer une adresse mail valide");
           setIsDataEmpty((prev) => {
             return { ...prev, [cle]: true };
           });
@@ -202,7 +188,9 @@ const SignUp = (props) => {
             </FormControl>
 
             {/* Nom */}
-            <Text className="mb-2 mt-4 text-base text-left">Votre nom</Text>
+            <Text className="mb-2 mt-4 text-base text-left">
+              Votre nom complet
+            </Text>
             <FormControl isInvalid={isDataEmpty.lastName}>
               <Input
                 placeholder="Votre nom"
@@ -210,24 +198,6 @@ const SignUp = (props) => {
                 className="text-sm"
                 onChangeText={(value) =>
                   setInputData({ ...inputData, lastName: value })
-                }
-              />
-              <FormControl.ErrorMessage>
-                Ce champ ne doit pas etre vide.
-              </FormControl.ErrorMessage>
-            </FormControl>
-
-            {/* email */}
-            <Text className="mb-2 mt-4 text-base text-left">
-              Votre adresse email
-            </Text>
-            <FormControl isInvalid={isDataEmpty.email}>
-              <Input
-                placeholder="Votre email"
-                type="text"
-                className="text-sm"
-                onChangeText={(value) =>
-                  setInputData({ ...inputData, email: value })
                 }
               />
               <FormControl.ErrorMessage>
@@ -264,61 +234,20 @@ const SignUp = (props) => {
               </FormControl.ErrorMessage>
             </FormControl>
 
-            {/* metier */}
-            <Text className="mb-2 mt-4 text-base text-left">Votre metier</Text>
-            <FormControl isInvalid={isDataEmpty.job}>
+            {/* Numero de telephone */}
+            <Text className="mb-2 mt-4 text-base text-left">
+              Votre numero de téléphone
+            </Text>
+            <FormControl isInvalid={isDataEmpty.phone}>
               <Input
-                placeholder="Nom de votre metier"
+                placeholder="Numero de téléphone"
                 type="text"
+                keyboardType="numeric"
                 className="text-sm"
                 onChangeText={(value) =>
-                  setInputData({ ...inputData, job: value })
+                  setInputData({ ...inputData, phone: value })
                 }
               />
-              <FormControl.ErrorMessage>
-                Ce champ ne doit pas etre vide.
-              </FormControl.ErrorMessage>
-            </FormControl>
-
-            {/* Categorie */}
-            <Text className="mb-2 mt-4 text-base text-left">
-              Votre categorie
-            </Text>
-            <FormControl isInvalid={isDataEmpty.jobCategory}>
-              <Select
-                accessibilityLabel="Selectionner votre categorie"
-                placeholder="Selectionner votre categorie"
-                className="text-sm"
-                _selectedItem={{
-                  bg: "teal.600",
-                }}
-                mt="1"
-                onValueChange={(value) =>
-                  setInputData({ ...inputData, jobCategory: value })
-                }
-              >
-                <Select.Item
-                  label="Ingenieur genie civil"
-                  value="ing_genie_civil"
-                />
-                <Select.Item label="Staffeur" value="staffeur" />
-                <Select.Item label="Macons" value="macon" />
-                <Select.Item label="Manoeuvre" value="manoeuvre" />
-                <Select.Item label="Crepisseur" value="crepisseur" />
-                <Select.Item label="Livreur d'eau" value="livreur_eau" />
-                <Select.Item
-                  label="Travailleurs d'etancheite"
-                  value="etancheite"
-                />
-                <Select.Item label="Plombiers" value="plombier" />
-                <Select.Item label="Electricien" value="electricien" />
-                <Select.Item label="Ferrailleur" value="ferrailleur" />
-                <Select.Item label="Travailleur de fouille" value="fouille" />
-                <Select.Item label="Carreleur" value="carreleur" />
-                <Select.Item label="Menuisier" value="menuisier" />
-                <Select.Item label="Charpentier" value="charpentier" />
-                <Select.Item label="Menagere" value="menagere" />
-              </Select>
               <FormControl.ErrorMessage>
                 Ce champ ne doit pas etre vide.
               </FormControl.ErrorMessage>
@@ -375,7 +304,7 @@ const SignUp = (props) => {
             </Button>
 
             <Text className="items-center justify-center w-full text-center mt-7">
-              Vous avez deja un compte ?{"  "}
+              Vous avez déjà un compte ?{"  "}
               <Text
                 className="text-[15px] text-blue-700"
                 onPress={() => {
